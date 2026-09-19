@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>AICreator – 8 Modules, One System: Make Client-Ready AI Video on Free Tools | Sanjay Meher</title>
+  <meta name="description" content="AICreator: 8 recorded modules that teach one system — AI does the heavy lifting, you fix the last 10%. Images, avatars, animation, 3D, invites, film, editing & free API tools. ₹1,499 full package or ₹299 per module. Taught in Hindi by Sanjay Meher.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0B0D12;
+      --surface:#131722;
+      --surface-2:#181D2A;
+      --border:#252B3A;
+      --text:#F2F4F8;
+      --text-dim:#9AA3B5;
+      --text-faint:#5C6478;
+      --live:#FF4D4D;
+      --teal:#29E1C9;
+      --gold:#FFB443;
+      --purple:#A855F7;
+      --font-display:'Space Grotesk',sans-serif;
+      --font-body:'Inter',sans-serif;
+      --font-mono:'IBM Plex Mono',monospace;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:var(--font-body);
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+    }
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+    section{padding:88px 0}
+    h1,h2,h3{font-family:var(--font-display);font-weight:700;letter-spacing:-0.01em}
+    .eyebrow{
+      font-family:var(--font-mono);
+      font-size:12px;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      color:var(--teal);
+      display:flex;align-items:center;gap:8px;
+      margin-bottom:18px;
+    }
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--teal)}
+
+    /* ===== NAV ===== */
+    header.nav{
+      position:sticky;top:0;z-index:50;
+      background:rgba(11,13,18,.85);backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1100px;margin:0 auto;gap:12px;flex-wrap:wrap}
+    .logo{font-family:var(--font-display);font-weight:700;font-size:17px;white-space:nowrap}
+    .logo span{color:var(--teal)}
+    .logo .ai{color:var(--purple);font-weight:800}
+    .nav-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+    .nav-cta{
+      background:var(--gold);color:#241a04;font-weight:600;font-size:14px;
+      padding:9px 18px;border-radius:6px;font-family:var(--font-body);
+      transition:transform .2s,box-shadow .2s;white-space:nowrap;
+    }
+    .nav-cta:hover{transform:scale(1.03);box-shadow:0 0 20px rgba(255,180,67,.2)}
+    .nav-link{font-size:14px;color:var(--text-dim);transition:color .2s;white-space:nowrap}
+    .nav-link:hover{color:var(--text)}
+
+    /* ===== HERO BANNER ===== */
+    .hero{
+      padding:60px 0 50px;
+      position:relative;
+      overflow:hidden;
+      background: radial-gradient(ellipse at 20% 50%, rgba(41,225,201,.06) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 20%, rgba(168,85,247,.05) 0%, transparent 50%);
+    }
+    .hero::before{
+      content:'';
+      position:absolute;
+      top:-50%;right:-30%;width:60%;height:120%;
+      background:radial-gradient(circle,rgba(41,225,201,.03),transparent 70%);
+      pointer-events:none;
+    }
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid var(--border);background:var(--surface);
+      padding:7px 16px;border-radius:100px;font-size:13px;color:var(--text-dim);
+      margin-bottom:24px;font-family:var(--font-mono);
+      position:relative;z-index:1;
+    }
+    .hero h1{
+      font-size:52px;line-height:1.08;max-width:820px;margin-bottom:10px;
+      position:relative;z-index:1;
+    }
+    .hero h1 .brand{color:var(--purple);font-weight:800;background:linear-gradient(135deg,var(--teal),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero h1 .accent{color:var(--teal)}
+    .hero .tagline{
+      font-size:19px;font-weight:600;color:var(--gold);
+      margin-bottom:8px;position:relative;z-index:1;
+    }
+    .hero p.sub{
+      font-size:17px;color:var(--text-dim);max-width:620px;margin-bottom:36px;
+      position:relative;z-index:1;
+    }
+    .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px;position:relative;z-index:1}
+    .btn-primary{
+      background:var(--gold);color:#241a04;font-weight:600;font-size:15px;
+      padding:14px 28px;border-radius:6px;display:inline-block;
+      transition:transform .2s,box-shadow .2s;border:none;cursor:pointer;
+    }
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,180,67,.25)}
+    .btn-secondary{
+      border:1px solid var(--border);color:var(--text);font-weight:500;font-size:15px;
+      padding:14px 28px;border-radius:6px;display:inline-block;
+      transition:border-color .2s,transform .2s;background:transparent;cursor:pointer;
+    }
+    .btn-secondary:hover{border-color:var(--teal);transform:translateY(-2px)}
+
+    .hero-stats{
+      display:flex;gap:40px;flex-wrap:wrap;padding:20px 0;border-top:1px solid var(--border);
+      position:relative;z-index:1;
+    }
+    .hero-stats .stat{display:flex;align-items:baseline;gap:8px}
+    .hero-stats .num{font-family:var(--font-mono);font-size:20px;font-weight:600;color:var(--teal)}
+    .hero-stats .label{font-size:13px;color:var(--text-dim)}
+
+    /* ===== MODULE PROGRESS STRIP ===== */
+    .mod-strip{
+      border:1px solid var(--border);background:var(--surface);border-radius:10px;
+      padding:20px 24px;display:flex;align-items:center;gap:10px;overflow-x:auto;
+      margin-top:8px;position:relative;z-index:1;
+    }
+    .mod-strip .ms-label{font-family:var(--font-mono);font-size:11px;color:var(--text-faint);white-space:nowrap;margin-right:6px}
+    .mod-pip{
+      width:30px;height:30px;border-radius:6px;border:1px solid var(--border);
+      display:flex;align-items:center;justify-content:center;flex-shrink:0;
+      font-family:var(--font-mono);font-size:11px;color:var(--text-dim);
+      background:var(--surface-2);
+    }
+
+    /* ===== VIDEO GRID ===== */
+    .video-grid{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;
+    }
+    .video-card{
+      background:var(--surface);border:1px solid var(--border);border-radius:12px;
+      overflow:hidden;transition:transform .3s,box-shadow .3s;
+    }
+    .video-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+    .video-card .vid-wrap{position:relative;padding-bottom:56.25%;height:0;background:var(--bg)}
+    .video-card .vid-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+    .video-card .info{padding:16px 20px}
+    .video-card .info h3{font-size:15px;font-family:var(--font-body);font-weight:600;margin-bottom:4px}
+    .video-card .info p{font-size:13px;color:var(--text-dim)}
+
+    /* ===== TRUST BAR ===== */
+    .trustbar{
+      display:grid;grid-template-columns:repeat(4,1fr);
+      border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+    }
+    .trustbar .item{padding:26px 20px;text-align:center;border-right:1px solid var(--border)}
+    .trustbar .item:last-child{border-right:none}
+    .trustbar .num{font-family:var(--font-mono);font-size:22px;font-weight:600;color:var(--teal)}
+    .trustbar .label{font-size:12px;color:var(--text-dim);margin-top:4px}
+
+    /* ===== SECTION HEADERS ===== */
+    .section-head{max-width:640px;margin-bottom:48px}
+    .section-head h2{font-size:34px;line-height:1.15;margin-bottom:12px}
+    .section-head h2 .highlight{color:var(--teal)}
+    .section-head p{color:var(--text-dim);font-size:16px}
+
+    /* ===== PROBLEM GRID ===== */
+    .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .problem-card{background:var(--surface);padding:28px;transition:background .2s}
+    .problem-card:hover{background:var(--surface-2)}
+    .problem-q{font-size:15px;color:var(--text-dim);font-style:italic;margin-bottom:14px;line-height:1.5}
+    .problem-q::before{content:'"';color:var(--text-faint)}
+    .problem-a{font-size:15px;color:var(--text);border-left:2px solid var(--teal);padding-left:12px}
+
+    /* ===== PERSONA GRID ===== */
+    .persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .persona-card{
+      background:var(--surface);border:1px solid var(--border);border-radius:10px;
+      padding:24px;transition:transform .2s,border-color .2s;
+    }
+    .persona-card:hover{transform:translateY(-3px);border-color:var(--teal)}
+    .persona-card h3{font-size:16px;margin-bottom:8px;font-family:var(--font-body);font-weight:600}
+    .persona-card p{font-size:14px;color:var(--text-dim)}
+
+    /* ===== BENEFITS STRIP ===== */
+    .benefit-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .benefit-card{
+      background:var(--surface);border:1px solid var(--border);border-radius:10px;
+      padding:26px;display:flex;gap:16px;align-items:flex-start;
+    }
+    .benefit-icon{
+      width:40px;height:40px;border-radius:8px;background:rgba(41,225,201,.1);
+      display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
+    }
+    .benefit-card h3{font-size:15px;margin-bottom:6px;font-family:var(--font-body);font-weight:600}
+    .benefit-card p{font-size:13.5px;color:var(--text-dim)}
+
+    /* ===== MODULES ===== */
+    .module-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .module-card{
+      background:var(--surface);border:1px solid var(--border);border-radius:12px;
+      padding:26px;display:flex;flex-direction:column;gap:14px;transition:border-color .2s;
+    }
+    .module-card:hover{border-color:var(--teal)}
+    .module-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+    .module-num{font-family:var(--font-mono);font-size:12px;color:var(--teal)}
+    .module-card h3{font-size:17px;font-family:var(--font-display);font-weight:600;margin-top:4px}
+    .module-price{font-family:var(--font-mono);font-size:15px;color:var(--gold);white-space:nowrap}
+    .module-lessons{list-style:none;display:flex;flex-direction:column;gap:6px;flex:1}
+    .module-lessons li{font-size:13.5px;color:var(--text-dim);padding-left:16px;position:relative}
+    .module-lessons li::before{content:'—';position:absolute;left:0;color:var(--text-faint)}
+    .module-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:8px;border-top:1px solid var(--border)}
+    .module-check{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-dim);cursor:pointer}
+    .module-check input{width:16px;height:16px;accent-color:var(--teal);cursor:pointer}
+    .module-tag{font-size:11px;color:var(--text-faint);font-family:var(--font-mono)}
+
+    /* ===== CHIPS ===== */
+    .chip-cloud{display:flex;flex-wrap:wrap;gap:10px}
+    .chip{
+      border:1px solid var(--border);background:var(--surface);
+      padding:9px 16px;border-radius:100px;font-size:13.5px;color:var(--text-dim);
+      transition:border-color .2s,transform .2s;
+    }
+    .chip:hover{border-color:var(--teal);transform:scale(1.03)}
+
+    /* ===== LOGO MARQUEE ===== */
+    .logo-marquee{
+      overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+      padding:32px 0;
+    }
+    .logo-track{display:flex;gap:56px;align-items:center;width:max-content;animation:scroll 32s linear infinite}
+    @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media (prefers-reduced-motion:reduce){.logo-track{animation:none}}
+    .logo-track img{height:26px;filter:grayscale(1) brightness(1.8) opacity(.6)}
+
+    /* ===== CLARITY ===== */
+    .clarity-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .clarity-col{border-radius:12px;padding:28px;border:1px solid var(--border)}
+    .clarity-col.no{background:rgba(255,77,77,.05)}
+    .clarity-col.yes{background:rgba(41,225,201,.05)}
+    .clarity-col h3{font-size:15px;margin-bottom:16px;font-family:var(--font-mono);letter-spacing:.05em}
+    .clarity-col.no h3{color:var(--live)}
+    .clarity-col.yes h3{color:var(--teal)}
+    .clarity-col ul{list-style:none}
+    .clarity-col li{font-size:14.5px;color:var(--text-dim);padding:8px 0;border-bottom:1px solid var(--border)}
+    .clarity-col li:last-child{border-bottom:none}
+
+    /* ===== TEACHER ===== */
+    .teacher{display:flex;gap:32px;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px}
+    .teacher img{width:90px;height:90px;border-radius:50%;object-fit:cover;flex-shrink:0}
+    .teacher h3{font-size:19px;margin-bottom:4px}
+    .teacher .role{font-size:13px;color:var(--teal);font-family:var(--font-mono);margin-bottom:10px}
+    .teacher p{font-size:14.5px;color:var(--text-dim)}
+
+    /* ===== PRICING TIERS ===== */
+    .tier-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:20px;max-width:820px;margin:0 auto}
+    .tier-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:32px}
+    .tier-card.full{border-color:var(--gold)}
+    .tier-badge{font-family:var(--font-mono);font-size:11.5px;color:var(--gold);margin-bottom:12px;letter-spacing:.03em}
+    .tier-card.single .tier-badge{color:var(--teal)}
+    .tier-price{font-family:var(--font-display);font-size:40px;font-weight:700}
+    .tier-price small{font-size:15px;color:var(--text-dim);font-weight:500}
+    .tier-save{font-size:12.5px;color:var(--teal);margin-top:4px;font-family:var(--font-mono)}
+    .tier-list{margin:22px 0;list-style:none}
+    .tier-list li{font-size:14px;color:var(--text-dim);padding:7px 0;display:flex;gap:9px;align-items:flex-start}
+    .tier-list li::before{content:'✓';color:var(--teal);font-weight:700}
+
+    /* ===== TESTIMONIALS ===== */
+    .testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .testi-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px;transition:transform .2s,border-color .2s}
+    .testi-card:hover{transform:translateY(-3px);border-color:var(--teal)}
+    .stars{color:var(--gold);font-size:13px;margin-bottom:10px}
+    .testi-card p{font-size:14.5px;color:var(--text-dim);margin-bottom:14px}
+    .testi-name{font-size:13.5px;font-weight:600}
+    .testi-role{font-size:12px;color:var(--text-faint)}
+
+    /* ===== FAQ ===== */
+    .faq-item{border-bottom:1px solid var(--border)}
+    .faq-q{
+      padding:20px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;
+      font-weight:600;font-size:15.5px;font-family:var(--font-display);
+      transition:color .2s;
+    }
+    .faq-q:hover{color:var(--teal)}
+    .faq-plus{font-family:var(--font-mono);color:var(--teal);transition:transform .25s;font-size:20px}
+    .faq-item.open .faq-plus{transform:rotate(45deg)}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+    .faq-item.open .faq-a{max-height:220px;padding-bottom:20px}
+    .faq-a p{color:var(--text-dim);font-size:14.5px}
+
+    /* ===== ORDER BUILDER ===== */
+    .order-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:36px;max-width:640px;margin:0 auto}
+    .order-modules{display:flex;flex-direction:column;gap:0;margin-bottom:20px;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+    .order-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;border-bottom:1px solid var(--border);background:var(--surface-2)}
+    .order-row:last-child{border-bottom:none}
+    .order-row label{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text);cursor:pointer;flex:1}
+    .order-row input{width:16px;height:16px;accent-color:var(--teal);cursor:pointer;flex-shrink:0}
+    .order-row .price{font-family:var(--font-mono);font-size:13px;color:var(--text-dim)}
+    .order-row.full-row{background:rgba(255,180,67,.06)}
+    .order-row.full-row label{font-weight:600}
+    .order-row.full-row .price{color:var(--gold)}
+    .order-total{display:flex;justify-content:space-between;align-items:baseline;padding:16px 0;border-top:1px solid var(--border);margin-bottom:18px}
+    .order-total .lbl{font-size:14px;color:var(--text-dim)}
+    .order-total .val{font-family:var(--font-mono);font-size:24px;font-weight:600;color:var(--teal)}
+    .form-row{margin-bottom:16px}
+    .form-row label{display:block;font-size:13px;color:var(--text-dim);margin-bottom:6px}
+    .form-row input{
+      width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;
+      padding:11px 13px;color:var(--text);font-family:var(--font-body);font-size:14.5px;
+      transition:border-color .2s;
+    }
+    .form-row input:focus{outline:none;border-color:var(--teal)}
+    .submit-btn{
+      width:100%;background:var(--gold);color:#241a04;font-weight:600;font-size:15px;
+      padding:14px;border:none;border-radius:6px;cursor:pointer;margin-top:8px;
+      transition:transform .2s,box-shadow .2s;
+    }
+    .submit-btn:hover{transform:scale(1.01);box-shadow:0 4px 20px rgba(255,180,67,.2)}
+    .submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+
+    /* ===== FOOTER CTA ===== */
+    .footer-cta{text-align:center;padding:100px 0}
+    .footer-cta h2{font-size:36px;margin-bottom:14px}
+    .footer-cta p{color:var(--text-dim);margin-bottom:32px}
+    footer.site-foot{border-top:1px solid var(--border);padding:28px 0;text-align:center;font-size:13px;color:var(--text-faint)}
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width:820px){
+      .hero h1{font-size:32px}
+      .hero .tagline{font-size:16px}
+      .hero-stats{gap:20px}
+      .hero-stats .num{font-size:17px}
+      .trustbar{grid-template-columns:repeat(2,1fr)}
+      .trustbar .item:nth-child(2){border-right:none}
+      .problem-grid{grid-template-columns:1fr}
+      .persona-grid{grid-template-columns:1fr}
+      .benefit-strip{grid-template-columns:1fr}
+      .module-grid{grid-template-columns:1fr}
+      .clarity-grid{grid-template-columns:1fr}
+      .testi-grid{grid-template-columns:1fr}
+      .teacher{flex-direction:column;text-align:center}
+      .tier-grid{grid-template-columns:1fr}
+      section{padding:56px 0}
+      .video-grid{grid-template-columns:1fr}
+    }
+
+    /* ===== MOBILE NAV FIX ===== */
+    @media (max-width:600px){
+      .nav-inner{padding:12px 16px;gap:8px 12px}
+      .logo{font-size:15px}
+      .nav-links{order:3;width:100%;gap:14px;justify-content:flex-start}
+      .nav-link{font-size:13px}
+      .nav-cta{padding:8px 14px;font-size:13px;margin-left:auto}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">Sanjay Meher<span>.</span> <span class="ai">AICreator</span></div>
+    <div class="nav-links">
+      <a class="nav-link" href="#modules">Modules</a>
+      <a class="nav-link" href="#videos">Demo</a>
+      <a class="nav-cta" href="#order">Get Access →</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO BANNER ===== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>8 recorded modules · Watch anytime · Live doubt sessions every Sunday</div>
+
+    <h1>
+      <span class="brand">AICreator</span><br>
+      <span class="accent">AI does 90% of the work.</span><br>
+      You finish the last 10%.
+    </h1>
+
+    <p class="sub">
+      8 recorded modules that teach one complete system — how to use free AI tools to make images, avatars, animation, 3D, invites, film, and edits, then finish them by hand so the output is actually client-ready. Buy the full package, or just the modules you need.
+    </p>
+
+    <div class="hero-ctas">
+      <a class="btn-primary" href="#order">🎯 Get Full Access — ₹1,499 →</a>
+      <a class="btn-secondary" href="#modules">📚 Browse the 8 Modules</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat"><span class="num">8</span><span class="label">Modules</span></div>
+      <div class="stat"><span class="num">₹1,499</span><span class="label">Full Package</span></div>
+      <div class="stat"><span class="num">₹299</span><span class="label">Per Module</span></div>
+      <div class="stat"><span class="num">₹0</span><span class="label">Paid Software</span></div>
+    </div>
+
+    <div class="mod-strip">
+      <span class="ms-label">8 MODULES</span>
+      <div class="mod-pip">01</div><div class="mod-pip">02</div><div class="mod-pip">03</div><div class="mod-pip">04</div>
+      <div class="mod-pip">05</div><div class="mod-pip">06</div><div class="mod-pip">07</div><div class="mod-pip">08</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRUST BAR ===== -->
+<div class="trustbar">
+  <div class="item"><div class="num">8</div><div class="label">Modules, recorded</div></div>
+  <div class="item"><div class="num">₹1,499</div><div class="label">Full package, one-time</div></div>
+  <div class="item"><div class="num">Sundays</div><div class="label">Live doubt sessions</div></div>
+  <div class="item"><div class="num">₹0</div><div class="label">Paid software required</div></div>
+</div>
+
+<!-- ===== DEMO VIDEOS SECTION ===== -->
+<section id="videos">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>🎬 See what you'll create</h2>
+      <p>Real AI-generated videos made with tools that are free at the time of recording — exactly what you'll learn to build.</p>
+    </div>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="vid-wrap">
+          <iframe src="https://www.youtube.com/embed/jJtkVgr4Dbk" title="AI Food Menu" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="info">
+          <h3>AI Food Menu</h3>
+          <p>Made with free tools, finished by hand</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="vid-wrap">
+          <iframe src="https://www.youtube.com/embed/lvt1jgMQwQk" title="Motion Graphics Ad" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="info">
+          <h3>Motion Graphics Ad</h3>
+          <p>Generated, then polished for delivery</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="vid-wrap">
+          <iframe src="https://www.youtube.com/embed/ZL5gyEPAt5w" title="AI Restaurant Menu" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="info">
+          <h3>AI Restaurant Menu</h3>
+          <p>3D effect, built from a template</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOUND FAMILIAR ===== -->
+<section id="familiar">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Sound familiar?</h2>
+      <p>Every AI course promises the same thing. Here's what actually happens once you start watching.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <p class="problem-q">I've tried ten AI tools and still can't finish one complete video.</p>
+        <p class="problem-a">One structured path — you go from prompt to finished, edited output in every module, not just another tool demo.</p>
+      </div>
+      <div class="problem-card">
+        <p class="problem-q">Every AI course teaches prompts, not real formats I can sell.</p>
+        <p class="problem-a">Each module ends with a finished deliverable — an image set, an ad, an animated short, a 3D product, a full film — the kind clients actually pay for.</p>
+      </div>
+      <div class="problem-card">
+        <p class="problem-q">I don't want another expensive AI subscription — and I'm worried free tools won't last.</p>
+        <p class="problem-a">Every workflow uses tools that are free at the time of recording, and the materials get updated as those tools change. When something shifts, your module shifts with it.</p>
+      </div>
+      <div class="problem-card">
+        <p class="problem-q">I only need one or two skills, not a whole course.</p>
+        <p class="problem-a">Buy exactly the modules you need at ₹299 each, or get all 8 for ₹1,499.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHO THIS IS FOR ===== -->
+<section id="who">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Who this is for.</h2>
+      <p>If you make, sell, or promote anything on video, this is built for you.</p>
+    </div>
+    <div class="persona-grid">
+      <div class="persona-card"><h3>🛒 Ecommerce sellers</h3><p>Turn plain product photos into ad-ready animated visuals without a shoot.</p></div>
+      <div class="persona-card"><h3>💍 Wedding & event planners</h3><p>Build client invites and wedding pages in-house, in minutes not days.</p></div>
+      <div class="persona-card"><h3>📊 Digital marketers</h3><p>Produce ads, animation, and video content for clients without outsourcing.</p></div>
+      <div class="persona-card"><h3>🎥 Content creators</h3><p>Give your channel a distinct animated or cinematic style, fast.</p></div>
+      <div class="persona-card"><h3>✂️ Freelance editors</h3><p>Add AI avatars, animation, and movie-making to your service list and charge more.</p></div>
+      <div class="persona-card"><h3>🏢 Business owners</h3><p>Make your own promos, invites, and product videos, no agency retainer.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BENEFITS ===== -->
+<section id="benefits">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>What's included with every purchase.</h2>
+      <p>Buying a module or the full package, you get more than just video files.</p>
+    </div>
+    <div class="benefit-strip">
+      <div class="benefit-card">
+        <div class="benefit-icon">🗓️</div>
+        <div><h3>Live doubt sessions, every Sunday</h3><p>Join a free live call to get stuck workflows sorted, in person, in Hindi.</p></div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🔄</div>
+        <div><h3>Materials updated as tools change</h3><p>AI tools move fast. When a workflow shifts, your module gets updated — no re-purchase needed.</p></div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">💼</div>
+        <div><h3>Portfolio-building help</h3><p>Guidance on which projects to showcase and how to package them for real clients.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MODULES ===== -->
+<section id="modules">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>8 modules. Buy the full set or just what you need.</h2>
+      <p>Every module is recorded, self-paced, and built entirely on free AI tools — then finished by hand so the output is client-ready.</p>
+    </div>
+    <div class="module-grid" id="moduleGrid">
+      <div class="module-card">
+        <div class="module-top">
+          <div><span class="module-num">MODULE 01</span><h3>Client-Ready AI Images — Generate, Then Fix by Hand</h3></div>
+          <span class="module-price">₹299</span>
+        </div>
+        <ul class="module-lessons">
+          <li>Generate social posts, banners, logos & story images</li>
+          <li>Photorealistic & stylized prompting that holds up</li>
+          <li>Fix AI mistakes without regenerating (save the image, edit it)</li>
+          <li>Keep the same character or product consistent across sets</li>
+        </ul>
+        <div class="module-foot">
+          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-name="Module 1: Client-Ready AI Images — Generate, Then Fix by Hand"> Add to order</label>
+          <span class="module-tag">in Full Package</span>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-top">
+          <div><span class="module-num">MODULE 02</span><h3>Avatars, Voice Cloning & Lipsync — The Free Stack</h3></div>
+          <span class="module-price">₹299</span>
+        </div>
+        <ul class="module-lessons">
+          <li>Clone a voice and narrate without paying</li>
+          <li>Make a talking-head avatar explainer or ad</li>
+          <li>Chain 2–3 free tools to get a clean, watermark-free result</li>
+          <li>How to swap tools when a free one changes</li>
+        </ul>
+        <div class="module-foot">
+          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-name="Module 2: Avatars, Voice Cloning & Lipsync — The Free Stack"> Add to order</label>
+          <span class="module-tag">in Full Package</span>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-top">
+          <div><span class="module-num">MODULE 03</span><h3>2D Animation & Motion Graphics — Template + Code</h3></div>
+          <span class="module-price">₹299</span>
+        </div>
+        <ul class="module-lessons">
+          <li>Ready-made 2D animation with characters & actions</li>
+          <li>Auto lipsync & body motion from a voice track</li>
+          <li>Generate code-based motion graphics from a prompt</li>
+          <li>Export motion graphics to video, free</li>
+        </ul>
+        <div class="module-foot">
+          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-name="Module 3: 2D Animation & Motion Graphics — Template + Code"> Add to order</label>
+          <span class="module-tag">in Full Package</span>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-top">
+          <div><span class="module-num">MODULE 04</span><h3>3D Product Animation — Without Learning Blender</h3></div>
+          <span class="module-price">₹299</span>
+        </div>
+        <ul class="module-lessons">
+          <li>Use ready-made 3D templates & animation libraries</li>
+          <li>Swap your product in and render — no Blender curve</li>
+          <li>3D product ads that look like an agency made them</li>
+          <li>Combine templates with AI video for extra polish</li>
+        </ul>
+        <div class="module-foot">
+          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-name="Module 4: 3D Product Animation — Without Learning Blender"> Add to order</label>
+          <span class="module-tag">in Full Package</span>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-top">
+          <div><span class="module-num">MODULE 05</span><h3>Invites, Cards & a Template Store You Can Actually Sell From</h3></div>
+          <span class="module-price">₹299</span>
+        </div>
+        <ul class="module-lessons">
+          <li>AI-generated invite videos & animated cards</li>
+          <li>Host your own template shop — no coding required</li>
+          <li>Upload templates, take payments, deliver to buyers</li>
+          <li>Turn a one-off design into a product you sell repeatedly</li>
+        </ul>
+        <div class="module-foot">
+          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-name="Module 5: Invites, Cards & a Template Store You Can Actually Sell From"> Add to order</label>
+          <span class="module-tag">in Full Package</span>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-top">
+          <div><span class="module-num">MODULE 06</span><h3>Long-Form AI Film — Lock Consistency in Images, Then Animate</h3></div>
+          <span class="module-price">₹299</span>
+        </div>
+        <ul class="module-lessons">
+          <li>Generate a consistent character across 100+ scenes</li>
+          <li>Build the film image-first, then add motion</li>
+          <li>Scene-by-scene workflow that actually holds together</li>
+          <li>Assemble a full AI short film end to end</li>
+        </ul>
+        <div class="module-foot">
+          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-name="Module 6: Long-Form AI Film — Lock Consistency in Images, Then Animate"> Add to order</label>
+          <span class="module-tag">in Full Package</span>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-top">
+          <div><span class="module-num">MODULE 07</span><h3>Storyboard → Edit → Deliver: Professional Editing</h3></div>
+          <span class="module-price">₹299</span>
+        </div>
+        <ul class="module-lessons">
+          <li>Plan a project with storyboards & a visual roadmap</li>
+          <li>Mix AI-generated footage with manual edits</li>
+          <li>Professional editing essentials for client work</li>
+          <li>Polish and package for delivery</li>
+        </ul>
+        <div class="module-foot">
+          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-name="Module 7: Storyboard → Edit → Deliver: Professional Editing"> Add to order</label>
+          <span class="module-tag">in Full Package</span>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-top">
+          <div><span class="module-num">MODULE 08</span><h3>Build Your Own Free AI Tool — APIs, Web App, Deployment</h3></div>
+          <span class="module-price">₹299</span>
+        </div>
+        <ul class="module-lessons">
+          <li>Use free APIs for image & video generation</li>
+          <li>Walkthrough of a working web app I built myself</li>
+          <li>Deploy your own tool — no paid infra</li>
+          <li>Stay current as free APIs change</li>
+        </ul>
+        <div class="module-foot">
+          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-name="Module 8: Build Your Own Free AI Tool — APIs, Web App, Deployment"> Add to order</label>
+          <span class="module-tag">in Full Package</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COVERED ===== -->
+<section id="covered">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Everything on the table.</h2>
+    </div>
+    <div class="chip-cloud">
+      <span class="chip">AI image generation</span>
+      <span class="chip">AI avatars & lipsync</span>
+      <span class="chip">Voice cloning</span>
+      <span class="chip">2D animation</span>
+      <span class="chip">3D product animation</span>
+      <span class="chip">Invites & template store</span>
+      <span class="chip">AI film making</span>
+      <span class="chip">Storyboarding & editing</span>
+      <span class="chip">Free API tools</span>
+      <span class="chip">Build & deploy your own app</span>
+      <span class="chip">Sunday live doubt sessions</span>
+      <span class="chip">Portfolio & pricing help</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LOGO MARQUEE ===== -->
+<div class="logo-marquee">
+  <div class="logo-track" id="logoTrack"></div>
+</div>
+
+<!-- ===== CLARITY ===== -->
+<section id="clarity">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>What this is — and isn't.</h2>
+    </div>
+    <div class="clarity-grid">
+      <div class="clarity-col no">
+        <h3>✕ THIS IS NOT</h3>
+        <ul>
+          <li>A single-tool tutorial that leaves you stuck everywhere else</li>
+          <li>Random prompts with no structure or plan</li>
+          <li>A recording that goes stale the moment a tool changes</li>
+          <li>A course that ends without a way to earn</li>
+        </ul>
+      </div>
+      <div class="clarity-col yes">
+        <h3>✓ YOU'LL ACTUALLY LEARN</h3>
+        <ul>
+          <li>One system across every AI video format — generate with AI, finish by hand</li>
+          <li>Recorded lessons you rewatch anytime, plus live Sunday doubt sessions</li>
+          <li>Workflows kept current as free tools change</li>
+          <li>How to build a portfolio and land your first client</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TEACHER ===== -->
+<section id="teacher">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>You'll be learning from me, directly.</h2>
+    </div>
+    <div class="teacher">
+      <img src="https://sanjaymeher.online/images/passport.jpg" alt="Sanjay Meher">
+      <div>
+        <h3>Sanjay Meher</h3>
+        <div class="role">Video editor & designer · 7+ years</div>
+        <p>I've edited and designed for 18+ brands across gaming, food, fashion, real estate, tech and education — and I record every module myself, in Hindi. If you're stuck mid-workflow, bring it to the Sunday live session and I'll walk you through it directly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head" style="margin:0 auto 40px;text-align:center;max-width:100%">
+      <h2>Two ways to get started.</h2>
+      <p style="margin:0 auto">Buy everything, or start with the one module you need most.</p>
+    </div>
+    <div class="tier-grid">
+      <div class="tier-card full">
+        <div class="tier-badge">🔥 BEST VALUE</div>
+        <div class="tier-price">₹1,499 <small>full package</small></div>
+        <div class="tier-save">All 8 modules separately would cost ₹2,392 — save ₹893</div>
+        <ul class="tier-list" style="margin-top:22px">
+          <li>All 8 modules, recorded, watch anytime</li>
+          <li>Live doubt-clearing session every Sunday</li>
+          <li>Materials updated as tools change</li>
+          <li>Portfolio & pricing guidance</li>
+          <li>Best price per module</li>
+        </ul>
+        <a class="btn-primary" style="width:100%;text-align:center;display:block" href="#order">🎯 Get the full package →</a>
+      </div>
+      <div class="tier-card single">
+        <div class="tier-badge">🎯 PICK ONE</div>
+        <div class="tier-price">₹299 <small>per module</small></div>
+        <div class="tier-save">Start with exactly what you need</div>
+        <ul class="tier-list" style="margin-top:24px">
+          <li>Any single module, recorded, watch anytime</li>
+          <li>Live doubt-clearing session every Sunday</li>
+          <li>Materials updated as tools change</li>
+          <li>Upgrade to the full package anytime</li>
+        </ul>
+        <a class="btn-secondary" style="width:100%;text-align:center;display:block" href="#modules">📚 Choose your module →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section id="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Trusted by learners & clients.</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>Thank you Sanjay sir, it was wonderful month with lots of learning in your session. In these sessions you taught us with great depth and patience.</p>
+        <div class="testi-name">Kanchan Malu</div>
+        <div class="testi-role">Digital Marketer</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>I have done a video editing course from Graphicy (Sanjay Sir). He has explained and taught deeply every thing in a very detailed and easy manner.</p>
+        <div class="testi-name">Anisha Jain</div>
+        <div class="testi-role">Digital Marketer</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>One of the best classes I have done in recent times. The way of teaching is exceptional with minute details, one should definitely go for this if wanna learn real video editing.</p>
+        <div class="testi-name">Avinash Agrawal</div>
+        <div class="testi-role">Businessman</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>Amazing teacher. Awesome graphic designer.</p>
+        <div class="testi-name">Moumita Dhiran</div>
+        <div class="testi-role">Digital Marketer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Quick answers.</h2>
+    </div>
+    <div id="faqList">
+      <div class="faq-item open">
+        <div class="faq-q" data-faq>Do I need to buy any software?<span class="faq-plus">+</span></div>
+        <div class="faq-a"><p>No. Every tool taught is free at the time the module is recorded. Paid tools are always optional, never required.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" data-faq>Can I buy just one module?<span class="faq-plus">+</span></div>
+        <div class="faq-a"><p>Yes — any module is ₹299 on its own. Or get all 8 for ₹1,499, which saves ₹893 over buying them one at a time.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" data-faq>How long do I have access?<span class="faq-plus">+</span></div>
+        <div class="faq-a"><p>Lifetime access to whatever you buy — watch and rewatch anytime, plus join the free live Sunday doubt session whenever you need extra help.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" data-faq>What happens when a free tool changes or shuts down?<span class="faq-plus">+</span></div>
+        <div class="faq-a"><p>That's exactly what the Sunday sessions and material updates are for — when a workflow shifts, your modules get updated at no extra cost.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" data-faq>Which specific tools do you teach?<span class="faq-plus">+</span></div>
+        <div class="faq-a"><p>I don't publish tool names on this page — other sellers copy lists without testing them. If you want to verify a module's tools are genuinely free before buying, message me on WhatsApp and I'll tell you the exact stack for any module. Then decide.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" data-faq>What if I've never used AI tools before?<span class="faq-plus">+</span></div>
+        <div class="faq-a"><p>That's fine. Every module is taught from scratch, no prior knowledge needed. Module 1 is built to bring complete beginners up to speed before anything advanced starts.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" data-faq>What language are the lessons in?<span class="faq-plus">+</span></div>
+        <div class="faq-a"><p>Hindi. Lessons are recorded videos you watch at your own pace; doubt-clearing sessions are live, every Sunday.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" data-faq>Is there a certificate?<span class="faq-plus">+</span></div>
+        <div class="faq-a"><p>No certificate is issued. The focus is real, usable skill and a portfolio you can show clients.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ORDER BUILDER ===== -->
+<section id="order">
+  <div class="wrap">
+    <div class="section-head" style="margin:0 auto 40px;text-align:center;max-width:100%">
+      <h2>Build your order.</h2>
+      <p style="margin:0 auto">Pick the full package or individual modules — the total updates as you go.</p>
+    </div>
+    <div class="order-card">
+      <div class="order-modules" id="orderModules">
+        <div class="order-row full-row">
+          <label><input type="checkbox" id="fullPkgCb"> Full package — all 8 modules</label>
+          <span class="price">₹1,499</span>
+        </div>
+        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 1: Client-Ready AI Images — Generate, Then Fix by Hand"> Module 1 — Client-Ready AI Images</label><span class="price">₹299</span></div>
+        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 2: Avatars, Voice Cloning & Lipsync — The Free Stack"> Module 2 — Avatars, Cloning & Lipsync</label><span class="price">₹299</span></div>
+        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 3: 2D Animation & Motion Graphics — Template + Code"> Module 3 — 2D Animation & Motion Graphics</label><span class="price">₹299</span></div>
+        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 4: 3D Product Animation — Without Learning Blender"> Module 4 — 3D Product Animation</label><span class="price">₹299</span></div>
+        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 5: Invites, Cards & a Template Store You Can Actually Sell From"> Module 5 — Invites, Cards & Template Store</label><span class="price">₹299</span></div>
+        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 6: Long-Form AI Film — Lock Consistency in Images, Then Animate"> Module 6 — Long-Form AI Film</label><span class="price">₹299</span></div>
+        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 7: Storyboard → Edit → Deliver: Professional Editing"> Module 7 — Storyboard, Edit & Deliver</label><span class="price">₹299</span></div>
+        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 8: Build Your Own Free AI Tool — APIs, Web App, Deployment"> Module 8 — Build Your Own Free AI Tool</label><span class="price">₹299</span></div>
+      </div>
+      <div class="order-total"><span class="lbl">Total</span><span class="val" id="orderTotal">₹0</span></div>
+
+      <div class="form-row">
+        <label for="fname">Full name</label>
+        <input type="text" id="fname" placeholder="Your name">
+      </div>
+      <div class="form-row">
+        <label for="fphone">WhatsApp number</label>
+        <input type="tel" id="fphone" placeholder="10-digit number">
+      </div>
+      <div class="form-row">
+        <label for="femail">Email (optional)</label>
+        <input type="email" id="femail" placeholder="you@email.com">
+      </div>
+      <button class="submit-btn" id="submitBtn" disabled>📲 Confirm order on WhatsApp</button>
+      <p id="formError" style="color:var(--live);font-size:13px;margin-top:10px;display:none"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER CTA ===== -->
+<section class="footer-cta">
+  <div class="wrap">
+    <h2>8 modules. One system. Learn at your pace.</h2>
+    <p>Recorded, self-paced, backed by live Sunday support — taught by someone who does this for a living.</p>
+    <a class="btn-primary" href="#order">🎯 Get access →</a>
+  </div>
+</section>
+
+<footer class="site-foot">
+  © 2026 Sanjay Meher · <strong>AICreator</strong> · 8-Module AI Video Creation Course · Recorded, in Hindi.
+</footer>
+
+<script>
+  // ===== LOGO MARQUEE =====
+  var logos = ["3-meter-story","astro","bumble-bee","skination","dgd","digital-poonam","dunkey","gayatri-dental-clinic","hira-industries","home-storey","ms-financials","rk-polymers","noxonlife","rk-sharda","robonite","rpm","starscape","zin-zen","trisimplify","turnip"];
+  var track = document.getElementById('logoTrack');
+  var html = '';
+  for (var rep = 0; rep < 2; rep++){
+    logos.forEach(function(l){
+      html += '<img src="https://sanjaymeher.online/client-logos/'+l+'.png" alt="'+l+'">';
+    });
+  }
+  track.innerHTML = html;
+
+  // ===== FAQ TOGGLE =====
+  document.querySelectorAll('[data-faq]').forEach(function(q){
+    q.addEventListener('click', function(){
+      var item = q.closest('.faq-item');
+      item.classList.toggle('open');
+    });
+  });
+
+  // ===== MODULE GRID quick-add checkboxes mirror into the order builder =====
+  var FULL_PRICE = 1499;
+  var fullCb = document.getElementById('fullPkgCb');
+  var orderCbs = Array.prototype.slice.call(document.querySelectorAll('.order-cb'));
+  var modCbs = Array.prototype.slice.call(document.querySelectorAll('.mod-cb'));
+  var totalEl = document.getElementById('orderTotal');
+  var submitBtn = document.getElementById('submitBtn');
+
+  function syncFromModuleGrid(sourceCb){
+    var match = orderCbs.find(function(cb){ return cb.getAttribute('data-name') === sourceCb.getAttribute('data-name'); });
+    if (match){ match.checked = sourceCb.checked; recalc(); }
+  }
+  modCbs.forEach(function(cb){
+    cb.addEventListener('change', function(){ syncFromModuleGrid(cb); });
+  });
+
+  function recalc(){
+    if (fullCb.checked){
+      orderCbs.forEach(function(cb){ cb.checked = false; cb.disabled = true; });
+      totalEl.textContent = '₹' + FULL_PRICE;
+    } else {
+      orderCbs.forEach(function(cb){ cb.disabled = false; });
+      var total = 0;
+      orderCbs.forEach(function(cb){ if (cb.checked) total += parseInt(cb.getAttribute('data-price'), 10); });
+      totalEl.textContent = '₹' + total;
+    }
+    submitBtn.disabled = (totalEl.textContent === '₹0');
+    if (fullCb.checked){ modCbs.forEach(function(cb){ cb.checked = false; }); }
+  }
+  fullCb.addEventListener('change', recalc);
+  orderCbs.forEach(function(cb){ cb.addEventListener('change', recalc); });
+  recalc();
+
+  // ===== ORDER SUBMIT =====
+  submitBtn.addEventListener('click', function(){
+    var name = document.getElementById('fname').value.trim();
+    var phone = document.getElementById('fphone').value.trim();
+    var email = document.getElementById('femail').value.trim();
+    var errEl = document.getElementById('formError');
+
+    if (!name || !phone){
+      errEl.textContent = 'Enter your name and WhatsApp number to continue.';
+      errEl.style.display = 'block';
+      return;
+    }
+    if (!/^\d{10}$/.test(phone.replace(/\D/g,'').slice(-10))){
+      errEl.textContent = 'Enter a valid 10-digit WhatsApp number.';
+      errEl.style.display = 'block';
+      return;
+    }
+    errEl.style.display = 'none';
+
+    var itemsText, totalText;
+    if (fullCb.checked){
+      itemsText = 'Full Package — all 8 modules';
+      totalText = '₹' + FULL_PRICE;
+    } else {
+      var chosen = orderCbs.filter(function(cb){ return cb.checked; }).map(function(cb){ return cb.getAttribute('data-name'); });
+      itemsText = chosen.join(', ');
+      totalText = totalEl.textContent;
+    }
+
+    var msg = 'Hi Sanjay, I want to order AICreator.%0A%0AName: ' + encodeURIComponent(name) +
+      '%0AWhatsApp: ' + encodeURIComponent(phone) +
+      (email ? '%0AEmail: ' + encodeURIComponent(email) : '') +
+      '%0AOrder: ' + encodeURIComponent(itemsText) +
+      '%0ATotal: ' + encodeURIComponent(totalText);
+
+    window.open('https://wa.me/918984636695?text=' + msg, '_blank');
+  });
+</script>
+
+</body>
+</html>
