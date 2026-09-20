@@ -872,7 +872,7 @@
       <h2>Build your order.</h2>
       <p style="margin:0 auto">Pick the full package or individual modules — the total updates as you go.</p>
     </div>
-    <div class="order-card">
+    <div class="order-card" id="orderCard">
       <div class="order-modules" id="orderModules">
         <div class="order-row full-row">
           <label><input type="checkbox" id="fullPkgCb"> Full package — all 8 modules</label>
@@ -887,6 +887,7 @@
         <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 7: Storyboard → Edit → Deliver: Professional Editing"> Module 7 — Storyboard, Edit & Deliver</label><span class="price">₹299</span></div>
         <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 8: Build Your Own Free AI Tool — APIs, Web App, Deployment"> Module 8 — Build Your Own Free AI Tool</label><span class="price">₹299</span></div>
       </div>
+      <p id="orderNote" style="display:none;font-size:13px;color:var(--gold);margin:-6px 0 14px"></p>
       <div class="order-total"><span class="lbl">Total</span><span class="val" id="orderTotal">₹0</span></div>
 
       <div class="form-row">
@@ -898,11 +899,22 @@
         <input type="tel" id="fphone" placeholder="10-digit number">
       </div>
       <div class="form-row">
-        <label for="femail">Email (optional)</label>
+        <label for="femail">Email (you'll use it to log in and unlock your modules)</label>
         <input type="email" id="femail" placeholder="you@email.com">
       </div>
-      <button class="submit-btn" id="submitBtn" disabled>📲 Confirm order on WhatsApp</button>
+      <button class="submit-btn" id="submitBtn" disabled>💳 Pay & prebook</button>
       <p id="formError" style="color:var(--live);font-size:13px;margin-top:10px;display:none"></p>
+      <p style="font-size:12.5px;color:var(--text-faint);margin-top:14px;text-align:center">
+        Secure payment by Razorpay. Trouble paying?
+        <a href="https://wa.me/918984636695?text=Hi%20Sanjay%2C%20I%20want%20to%20prebook%20AICreator" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:underline">Order on WhatsApp instead</a>.
+      </p>
+      <div id="orderDone" style="display:none;text-align:center;padding:12px 0">
+        <div style="font-size:34px;margin-bottom:10px">✅</div>
+        <h3 style="font-size:20px;margin-bottom:10px">Prebooking confirmed</h3>
+        <p style="color:var(--text-dim);font-size:14.5px;margin-bottom:6px">Paid: <strong id="doneTotal" style="color:var(--teal)"></strong></p>
+        <p style="color:var(--text-dim);font-size:14.5px;margin-bottom:22px">Sign up or log in on the learning platform with <strong id="doneEmail" style="color:var(--text)"></strong>. Your modules unlock there, and new lessons appear as they go live.</p>
+        <a class="btn-primary" id="doneLink" href="#" target="_blank" rel="noopener">Open the learning platform →</a>
+      </div>
     </div>
   </div>
 </section>
@@ -920,6 +932,7 @@
   © 2026 Sanjay Meher · <strong>AICreator</strong> · 8-Module AI Video Creation Course · Recorded, in Hindi.
 </footer>
 
+<script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
 <script>
   // ===== LOGO MARQUEE =====
   var logos = ["3-meter-story","astro","bumble-bee","skination","dgd","digital-poonam","dunkey","gayatri-dental-clinic","hira-industries","home-storey","ms-financials","rk-polymers","noxonlife","rk-sharda","robonite","rpm","starscape","zin-zen","trisimplify","turnip"];
@@ -942,6 +955,9 @@
 
   // ===== MODULE GRID quick-add checkboxes mirror into the order builder =====
   var FULL_PRICE = 1499;
+  var MODULE_PRICE = 299;
+  var API_BASE = 'https://sanjay-lms.vercel.app';          // where /api/prebook lives
+  var LMS_LOGIN = 'https://sanjay-lms.vercel.app/login.html';
   var fullCb = document.getElementById('fullPkgCb');
   var orderCbs = Array.prototype.slice.call(document.querySelectorAll('.order-cb'));
   var modCbs = Array.prototype.slice.call(document.querySelectorAll('.mod-cb'));
@@ -956,59 +972,116 @@
     cb.addEventListener('change', function(){ syncFromModuleGrid(cb); });
   });
 
+  var noteEl = document.getElementById('orderNote');
+
   function recalc(){
+    var note = '';
+    var total = 0, count = 0;
+    if (!fullCb.checked){
+      orderCbs.forEach(function(cb){ if (cb.checked){ total += MODULE_PRICE; count++; } });
+      if (total >= FULL_PRICE){
+        fullCb.checked = true;
+        note = 'These modules cost more than the full package, so we switched you to all 8 for ₹1,499.';
+      } else if (count >= 3){
+        note = 'Get all 8 modules for just ₹' + (FULL_PRICE - total).toLocaleString('en-IN') + ' more.';
+      }
+    }
     if (fullCb.checked){
       orderCbs.forEach(function(cb){ cb.checked = false; cb.disabled = true; });
-      totalEl.textContent = '₹' + FULL_PRICE;
+      modCbs.forEach(function(cb){ cb.checked = false; });
+      total = FULL_PRICE;
     } else {
       orderCbs.forEach(function(cb){ cb.disabled = false; });
-      var total = 0;
-      orderCbs.forEach(function(cb){ if (cb.checked) total += parseInt(cb.getAttribute('data-price'), 10); });
-      totalEl.textContent = '₹' + total;
     }
-    submitBtn.disabled = (totalEl.textContent === '₹0');
-    if (fullCb.checked){ modCbs.forEach(function(cb){ cb.checked = false; }); }
+    totalEl.textContent = '₹' + total.toLocaleString('en-IN');
+    noteEl.textContent = note;
+    noteEl.style.display = note ? 'block' : 'none';
+    submitBtn.disabled = (total === 0);
   }
   fullCb.addEventListener('change', recalc);
   orderCbs.forEach(function(cb){ cb.addEventListener('change', recalc); });
   recalc();
 
-  // ===== ORDER SUBMIT =====
+  // ===== ORDER SUBMIT (prebooking + Razorpay) =====
+  var errEl = document.getElementById('formError');
+
+  function moduleKey(cb){
+    var m = /^Module (\d)/.exec(cb.getAttribute('data-name') || '');
+    return m ? 'm' + m[1] : null;
+  }
+  function showError(msg){ errEl.textContent = msg; errEl.style.display = 'block'; }
+  function setBusy(busy){
+    submitBtn.disabled = busy;
+    submitBtn.textContent = busy ? 'Please wait…' : '💳 Pay & prebook';
+    if (!busy) recalc();
+  }
+  function showDone(email, total){
+    document.getElementById('doneEmail').textContent = email;
+    document.getElementById('doneTotal').textContent = total;
+    document.getElementById('doneLink').href = LMS_LOGIN;
+    Array.prototype.forEach.call(document.getElementById('orderCard').children, function(el){
+      el.style.display = (el.id === 'orderDone') ? 'block' : 'none';
+    });
+  }
+  function postJson(path, body){
+    return fetch(API_BASE + path, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    }).then(function(r){
+      return r.json().catch(function(){ return {}; }).then(function(d){
+        if (!r.ok) throw new Error(d.error || 'Something went wrong. Please try again.');
+        return d;
+      });
+    });
+  }
+
   submitBtn.addEventListener('click', function(){
     var name = document.getElementById('fname').value.trim();
-    var phone = document.getElementById('fphone').value.trim();
-    var email = document.getElementById('femail').value.trim();
-    var errEl = document.getElementById('formError');
-
-    if (!name || !phone){
-      errEl.textContent = 'Enter your name and WhatsApp number to continue.';
-      errEl.style.display = 'block';
-      return;
-    }
-    if (!/^\d{10}$/.test(phone.replace(/\D/g,'').slice(-10))){
-      errEl.textContent = 'Enter a valid 10-digit WhatsApp number.';
-      errEl.style.display = 'block';
-      return;
-    }
+    var phone = document.getElementById('fphone').value.replace(/\D/g, '').slice(-10);
+    var email = document.getElementById('femail').value.trim().toLowerCase();
     errEl.style.display = 'none';
 
-    var itemsText, totalText;
-    if (fullCb.checked){
-      itemsText = 'Full Package — all 8 modules';
-      totalText = '₹' + FULL_PRICE;
-    } else {
-      var chosen = orderCbs.filter(function(cb){ return cb.checked; }).map(function(cb){ return cb.getAttribute('data-name'); });
-      itemsText = chosen.join(', ');
-      totalText = totalEl.textContent;
-    }
+    if (!name) return showError('Enter your name.');
+    if (phone.length !== 10) return showError('Enter a valid 10-digit WhatsApp number.');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('Enter a valid email. You will use it to log in.');
 
-    var msg = 'Hi Sanjay, I want to order AICreator.%0A%0AName: ' + encodeURIComponent(name) +
-      '%0AWhatsApp: ' + encodeURIComponent(phone) +
-      (email ? '%0AEmail: ' + encodeURIComponent(email) : '') +
-      '%0AOrder: ' + encodeURIComponent(itemsText) +
-      '%0ATotal: ' + encodeURIComponent(totalText);
+    var items = fullCb.checked ? ['full'] :
+      orderCbs.filter(function(cb){ return cb.checked; }).map(moduleKey).filter(Boolean);
+    if (!items.length) return showError('Pick at least one module.');
+    if (typeof Razorpay === 'undefined') return showError('The payment window did not load. Check your connection and try again.');
 
-    window.open('https://wa.me/918984636695?text=' + msg, '_blank');
+    setBusy(true);
+    postJson('/api/prebook', {name: name, phone: phone, email: email, items: items})
+      .then(function(o){
+        var totalText = '₹' + Number(o.total).toLocaleString('en-IN');
+        var rz = new Razorpay({
+          key: o.keyId,
+          order_id: o.orderId,
+          amount: o.amount,
+          currency: o.currency,
+          name: 'Sanjay Meher · AICreator',
+          description: o.bundleApplied ? 'Full package prebooking' : 'Module prebooking',
+          prefill: {name: name, email: email, contact: phone},
+          theme: {color: '#29E1C9'},
+          modal: {ondismiss: function(){ setBusy(false); }},
+          handler: function(resp){
+            postJson('/api/prebook-verify', resp)
+              .then(function(){ showDone(email, totalText); })
+              .catch(function(){
+                // Money was taken; the webhook will still confirm it. Tell the buyer exactly what to do.
+                showError('Payment received (ID ' + resp.razorpay_payment_id + '), but confirmation is delayed. Your booking is safe. Message us on WhatsApp with this ID if it does not appear within a few minutes.');
+                setBusy(false);
+              });
+          }
+        });
+        rz.on('payment.failed', function(e){
+          showError((e && e.error && e.error.description) || 'Payment failed. You have not been charged. Please try again.');
+          setBusy(false);
+        });
+        rz.open();
+      })
+      .catch(function(e){ showError(e.message); setBusy(false); });
   });
 </script>
 
