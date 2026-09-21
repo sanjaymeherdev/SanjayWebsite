@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>AICreator: Client-Ready AI Video Course | Sanjay Meher</title>
-  <meta name="description" content="8 recorded Hindi modules on AI video: images, avatars, animation, 3D, wedding invites, film & editing. ₹1,499 full package or ₹299 per module.">
+  <meta name="description" content="8 Hindi modules on AI video: images, marketing & shorts, avatars, animation, 3D, wedding invites, film & editing. Prebook the ₹1,499 full package or ₹299 per module.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -363,7 +363,7 @@
     <div class="nav-links">
       <a class="nav-link" href="#modules">Modules</a>
       <a class="nav-link" href="#videos">Demo</a>
-      <a class="nav-cta" href="#order">Get Access →</a>
+      <a class="nav-cta" href="#order">Prebook Now →</a>
     </div>
   </div>
 </header>
@@ -371,7 +371,7 @@
 <!-- ===== HERO BANNER ===== -->
 <section class="hero">
   <div class="wrap">
-    <div class="eyebrow"><span class="dot"></span>8 recorded modules · Watch anytime · Live doubt sessions every Sunday</div>
+    <div class="eyebrow"><span class="dot"></span>8 modules · Prebooking open · Lessons added as they go live · Live doubt sessions every Sunday</div>
 
     <h1>
       <span class="brand">AICreator</span><br>
@@ -380,11 +380,11 @@
     </h1>
 
     <p class="sub">
-      8 recorded modules that teach one complete system — how to use free AI tools to make images, avatars, animation, 3D, wedding & event invites, film, and edits, then finish them by hand so the output is actually client-ready. Buy the full package, or just the modules you need.
+      8 modules that teach one complete system — how to use free AI tools to make images, marketing videos, avatars, animation, 3D, wedding & event invites, film, and pro edits, then finish them by hand so the output is actually client-ready. Prebook the full package, or just the modules you need.
     </p>
 
     <div class="hero-ctas">
-      <a class="btn-primary" href="#order">🎯 Get Full Access — ₹1,499 →</a>
+      <a class="btn-primary" href="#order">🎯 Prebook Full Access — ₹1,499 →</a>
       <a class="btn-secondary" href="#modules">📚 Browse the 8 Modules</a>
     </div>
 
@@ -405,7 +405,7 @@
 
 <!-- ===== TRUST BAR ===== -->
 <div class="trustbar">
-  <div class="item"><div class="num">8</div><div class="label">Modules, recorded</div></div>
+  <div class="item"><div class="num">8</div><div class="label">Modules, prebooking open</div></div>
   <div class="item"><div class="num">₹1,499</div><div class="label">Full package, one-time</div></div>
   <div class="item"><div class="num">Sundays</div><div class="label">Live doubt sessions</div></div>
   <div class="item"><div class="num">₹0</div><div class="label">Paid software required</div></div>
@@ -521,11 +521,14 @@
 </section>
 
 <!-- ===== MODULES ===== -->
+<!-- Each checkbox carries a data-key: the prebook key sent to /api/prebook.
+     Keys are stable IDs from the courses table (prebook_key) and do NOT follow
+     the module number shown on the page: Module 2 = m7, Module 3 = m2, ... -->
 <section id="modules">
   <div class="wrap">
     <div class="section-head">
       <h2>8 modules. Buy the full set or just what you need.</h2>
-      <p>Every module is recorded, self-paced, and built entirely on free AI tools — then finished by hand so the output is client-ready.</p>
+      <p>Every module is self-paced and built entirely on free AI tools — then finished by hand so the output is client-ready. Lessons are added to each module as they go live.</p>
     </div>
     <div class="module-grid" id="moduleGrid">
       <div class="module-card">
@@ -541,14 +544,33 @@
         </ul>
         <p class="module-stack"><b>TOOL TYPES</b>Free AI image generators + a free browser-based photo editor</p>
         <div class="module-foot">
-          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-name="Module 1: Client-Ready AI Images — Generate, Then Fix by Hand"> Add to order</label>
+          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-key="m1" data-name="Module 1: Client-Ready AI Images — Generate, Then Fix by Hand"> Add to order</label>
           <span class="module-tag">in Full Package</span>
         </div>
       </div>
 
       <div class="module-card">
         <div class="module-top">
-          <div><span class="module-num">MODULE 02</span><h3>Avatars, Voice Cloning & Lipsync — The Free Stack</h3></div>
+          <div><span class="module-num">MODULE 02</span><h3>AI Marketing, Shorts & Professional Editing — Storyboard → Edit → Deliver</h3></div>
+          <span class="module-price">₹299</span>
+        </div>
+        <ul class="module-lessons">
+          <li>Make engaging AI videos for social media marketing, ads & Shorts</li>
+          <li>Plan a project with storyboards & a visual roadmap</li>
+          <li>Mix AI-generated footage with manual edits</li>
+          <li>Professional editing essentials for client work</li>
+          <li>Polish and package for delivery</li>
+        </ul>
+        <p class="module-stack"><b>TOOL TYPES</b>Free AI video tools + free storyboarding tools + a free video editor</p>
+        <div class="module-foot">
+          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-key="m7" data-name="Module 2: AI Marketing, Shorts & Professional Editing — Storyboard → Edit → Deliver"> Add to order</label>
+          <span class="module-tag">in Full Package</span>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-top">
+          <div><span class="module-num">MODULE 03</span><h3>Avatars, Voice Cloning & Lipsync — The Free Stack</h3></div>
           <span class="module-price">₹299</span>
         </div>
         <ul class="module-lessons">
@@ -559,14 +581,14 @@
         </ul>
         <p class="module-stack"><b>TOOL TYPES</b>Free voice-cloning tools + free lipsync tools</p>
         <div class="module-foot">
-          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-name="Module 2: Avatars, Voice Cloning & Lipsync — The Free Stack"> Add to order</label>
+          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-key="m2" data-name="Module 3: Avatars, Voice Cloning & Lipsync — The Free Stack"> Add to order</label>
           <span class="module-tag">in Full Package</span>
         </div>
       </div>
 
       <div class="module-card">
         <div class="module-top">
-          <div><span class="module-num">MODULE 03</span><h3>2D Animation & Motion Graphics — Template + Code</h3></div>
+          <div><span class="module-num">MODULE 04</span><h3>2D Animation & Motion Graphics — Template + Code</h3></div>
           <span class="module-price">₹299</span>
         </div>
         <ul class="module-lessons">
@@ -577,14 +599,14 @@
         </ul>
         <p class="module-stack"><b>TOOL TYPES</b>Free 2D animation templates + AI code generation</p>
         <div class="module-foot">
-          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-name="Module 3: 2D Animation & Motion Graphics — Template + Code"> Add to order</label>
+          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-key="m3" data-name="Module 4: 2D Animation & Motion Graphics — Template + Code"> Add to order</label>
           <span class="module-tag">in Full Package</span>
         </div>
       </div>
 
       <div class="module-card">
         <div class="module-top">
-          <div><span class="module-num">MODULE 04</span><h3>3D Product Animation — Template-First, No 3D Background Needed</h3></div>
+          <div><span class="module-num">MODULE 05</span><h3>3D Product Animation — Template-First, No 3D Background Needed</h3></div>
           <span class="module-price">₹299</span>
         </div>
         <ul class="module-lessons">
@@ -595,14 +617,14 @@
         </ul>
         <p class="module-stack"><b>TOOL TYPES</b>Free open-source 3D software + ready-made templates</p>
         <div class="module-foot">
-          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-name="Module 4: 3D Product Animation — Template-First, No 3D Background Needed"> Add to order</label>
+          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-key="m4" data-name="Module 5: 3D Product Animation — Template-First, No 3D Background Needed"> Add to order</label>
           <span class="module-tag">in Full Package</span>
         </div>
       </div>
 
       <div class="module-card">
         <div class="module-top">
-          <div><span class="module-num">MODULE 05</span><h3>Wedding & Event Invites, Cards + a Template Store You Can Sell From</h3></div>
+          <div><span class="module-num">MODULE 06</span><h3>Wedding & Event Invites, Cards + a Template Store You Can Sell From</h3></div>
           <span class="module-price">₹299</span>
         </div>
         <ul class="module-lessons">
@@ -614,14 +636,14 @@
         </ul>
         <p class="module-stack"><b>TOOL TYPES</b>Free AI video tools + a no-code template shop</p>
         <div class="module-foot">
-          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-name="Module 5: Wedding & Event Invites, Cards + a Template Store You Can Sell From"> Add to order</label>
+          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-key="m5" data-name="Module 6: Wedding & Event Invites, Cards + a Template Store You Can Sell From"> Add to order</label>
           <span class="module-tag">in Full Package</span>
         </div>
       </div>
 
       <div class="module-card">
         <div class="module-top">
-          <div><span class="module-num">MODULE 06</span><h3>Long-Form AI Film — Lock Consistency in Images, Then Animate</h3></div>
+          <div><span class="module-num">MODULE 07</span><h3>Long-Form AI Film — Lock Consistency in Images, Then Animate</h3></div>
           <span class="module-price">₹299</span>
         </div>
         <ul class="module-lessons">
@@ -632,25 +654,7 @@
         </ul>
         <p class="module-stack"><b>TOOL TYPES</b>Free AI image generators + free image-to-video tools</p>
         <div class="module-foot">
-          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-name="Module 6: Long-Form AI Film — Lock Consistency in Images, Then Animate"> Add to order</label>
-          <span class="module-tag">in Full Package</span>
-        </div>
-      </div>
-
-      <div class="module-card">
-        <div class="module-top">
-          <div><span class="module-num">MODULE 07</span><h3>Storyboard → Edit → Deliver: Professional Editing</h3></div>
-          <span class="module-price">₹299</span>
-        </div>
-        <ul class="module-lessons">
-          <li>Plan a project with storyboards & a visual roadmap</li>
-          <li>Mix AI-generated footage with manual edits</li>
-          <li>Professional editing essentials for client work</li>
-          <li>Polish and package for delivery</li>
-        </ul>
-        <p class="module-stack"><b>TOOL TYPES</b>Free storyboarding tools + a free video editor</p>
-        <div class="module-foot">
-          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-name="Module 7: Storyboard → Edit → Deliver: Professional Editing"> Add to order</label>
+          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-key="m6" data-name="Module 7: Long-Form AI Film — Lock Consistency in Images, Then Animate"> Add to order</label>
           <span class="module-tag">in Full Package</span>
         </div>
       </div>
@@ -668,7 +672,7 @@
         </ul>
         <p class="module-stack"><b>TOOL TYPES</b>Free-tier APIs + free web hosting</p>
         <div class="module-foot">
-          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-name="Module 8: Build Your Own Free AI Tool — APIs, Web App, Deployment"> Add to order</label>
+          <label class="module-check"><input type="checkbox" class="mod-cb" data-price="299" data-key="m8" data-name="Module 8: Build Your Own Free AI Tool — APIs, Web App, Deployment"> Add to order</label>
           <span class="module-tag">in Full Package</span>
         </div>
       </div>
@@ -684,6 +688,7 @@
     </div>
     <div class="chip-cloud">
       <span class="chip">AI image generation</span>
+      <span class="chip">AI marketing & Shorts videos</span>
       <span class="chip">AI avatars & lipsync</span>
       <span class="chip">Voice cloning</span>
       <span class="chip">2D animation</span>
@@ -724,7 +729,7 @@
         <h3>✓ YOU'LL ACTUALLY LEARN</h3>
         <ul>
           <li>One system across every AI video format — generate with AI, finish by hand</li>
-          <li>Recorded lessons you rewatch anytime, plus live Sunday doubt sessions</li>
+          <li>Lessons you rewatch anytime, plus live Sunday doubt sessions</li>
           <li>Workflows kept current as free tools change</li>
           <li>How to build a portfolio and land your first client</li>
         </ul>
@@ -755,7 +760,7 @@
   <div class="wrap">
     <div class="section-head" style="margin:0 auto 40px;text-align:center;max-width:100%">
       <h2>Two ways to get started.</h2>
-      <p style="margin:0 auto">Buy everything, or start with the one module you need most.</p>
+      <p style="margin:0 auto">Prebook everything, or start with the one module you need most.</p>
     </div>
     <div class="tier-grid">
       <div class="tier-card full">
@@ -763,20 +768,20 @@
         <div class="tier-price">₹1,499 <small>full package</small></div>
         <div class="tier-save">All 8 modules separately would cost ₹2,392 — save ₹893</div>
         <ul class="tier-list" style="margin-top:22px">
-          <li>All 8 modules, recorded, watch anytime</li>
+          <li>All 8 modules — watch anytime as lessons go live</li>
           <li>Live doubt-clearing session every Sunday</li>
           <li>Materials updated as tools change</li>
           <li>Portfolio & pricing guidance</li>
           <li>Best price per module</li>
         </ul>
-        <a class="btn-primary" style="width:100%;text-align:center;display:block" href="#order">🎯 Get the full package →</a>
+        <a class="btn-primary" style="width:100%;text-align:center;display:block" href="#order">🎯 Prebook the full package →</a>
       </div>
       <div class="tier-card single">
         <div class="tier-badge">🎯 PICK ONE</div>
         <div class="tier-price">₹299 <small>per module</small></div>
         <div class="tier-save">Start with exactly what you need</div>
         <ul class="tier-list" style="margin-top:24px">
-          <li>Any single module, recorded, watch anytime</li>
+          <li>Any single module — watch anytime as lessons go live</li>
           <li>Live doubt-clearing session every Sunday</li>
           <li>Materials updated as tools change</li>
           <li>Upgrade to the full package anytime</li>
@@ -838,6 +843,10 @@
         <div class="faq-a"><p>Yes — any module is ₹299 on its own. Or get all 8 for ₹1,499, which saves ₹893 over buying them one at a time.</p></div>
       </div>
       <div class="faq-item">
+        <div class="faq-q" data-faq>When do the lessons go live?<span class="faq-plus">+</span></div>
+        <div class="faq-a"><p>Prebooking secures your modules now. Lessons are added to the learning platform as each one goes live, and everything you've booked unlocks automatically with the email you used at checkout.</p></div>
+      </div>
+      <div class="faq-item">
         <div class="faq-q" data-faq>How long do I have access?<span class="faq-plus">+</span></div>
         <div class="faq-a"><p>Lifetime access to whatever you buy — watch and rewatch anytime, plus join the free live Sunday doubt session whenever you need extra help.</p></div>
       </div>
@@ -878,14 +887,14 @@
           <label><input type="checkbox" id="fullPkgCb"> Full package — all 8 modules</label>
           <span class="price">₹1,499</span>
         </div>
-        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 1: Client-Ready AI Images — Generate, Then Fix by Hand"> Module 1 — Client-Ready AI Images</label><span class="price">₹299</span></div>
-        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 2: Avatars, Voice Cloning & Lipsync — The Free Stack"> Module 2 — Avatars, Cloning & Lipsync</label><span class="price">₹299</span></div>
-        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 3: 2D Animation & Motion Graphics — Template + Code"> Module 3 — 2D Animation & Motion Graphics</label><span class="price">₹299</span></div>
-        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 4: 3D Product Animation — Template-First, No 3D Background Needed"> Module 4 — 3D Product Animation</label><span class="price">₹299</span></div>
-        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 5: Wedding & Event Invites, Cards + a Template Store You Can Sell From"> Module 5 — Wedding Invites, Cards & Template Store</label><span class="price">₹299</span></div>
-        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 6: Long-Form AI Film — Lock Consistency in Images, Then Animate"> Module 6 — Long-Form AI Film</label><span class="price">₹299</span></div>
-        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 7: Storyboard → Edit → Deliver: Professional Editing"> Module 7 — Storyboard, Edit & Deliver</label><span class="price">₹299</span></div>
-        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-name="Module 8: Build Your Own Free AI Tool — APIs, Web App, Deployment"> Module 8 — Build Your Own Free AI Tool</label><span class="price">₹299</span></div>
+        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-key="m1" data-name="Module 1: Client-Ready AI Images — Generate, Then Fix by Hand"> Module 1 — Client-Ready AI Images</label><span class="price">₹299</span></div>
+        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-key="m7" data-name="Module 2: AI Marketing, Shorts & Professional Editing — Storyboard → Edit → Deliver"> Module 2 — AI Marketing, Shorts & Professional Editing</label><span class="price">₹299</span></div>
+        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-key="m2" data-name="Module 3: Avatars, Voice Cloning & Lipsync — The Free Stack"> Module 3 — Avatars, Cloning & Lipsync</label><span class="price">₹299</span></div>
+        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-key="m3" data-name="Module 4: 2D Animation & Motion Graphics — Template + Code"> Module 4 — 2D Animation & Motion Graphics</label><span class="price">₹299</span></div>
+        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-key="m4" data-name="Module 5: 3D Product Animation — Template-First, No 3D Background Needed"> Module 5 — 3D Product Animation</label><span class="price">₹299</span></div>
+        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-key="m5" data-name="Module 6: Wedding & Event Invites, Cards + a Template Store You Can Sell From"> Module 6 — Wedding Invites, Cards & Template Store</label><span class="price">₹299</span></div>
+        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-key="m6" data-name="Module 7: Long-Form AI Film — Lock Consistency in Images, Then Animate"> Module 7 — Long-Form AI Film</label><span class="price">₹299</span></div>
+        <div class="order-row"><label><input type="checkbox" class="order-cb" data-price="299" data-key="m8" data-name="Module 8: Build Your Own Free AI Tool — APIs, Web App, Deployment"> Module 8 — Build Your Own Free AI Tool</label><span class="price">₹299</span></div>
       </div>
       <p id="orderNote" style="display:none;font-size:13px;color:var(--gold);margin:-6px 0 14px"></p>
       <div class="order-total"><span class="lbl">Total</span><span class="val" id="orderTotal">₹0</span></div>
@@ -923,13 +932,13 @@
 <section class="footer-cta">
   <div class="wrap">
     <h2>8 modules. One system. Learn at your pace.</h2>
-    <p>Recorded, self-paced, backed by live Sunday support — taught by someone who does this for a living.</p>
-    <a class="btn-primary" href="#order">🎯 Get access →</a>
+    <p>Self-paced, backed by live Sunday support — taught by someone who does this for a living.</p>
+    <a class="btn-primary" href="#order">🎯 Prebook now →</a>
   </div>
 </section>
 
 <footer class="site-foot">
-  © 2026 Sanjay Meher · <strong>AICreator</strong> · 8-Module AI Video Creation Course · Recorded, in Hindi.
+  © 2026 Sanjay Meher · <strong>AICreator</strong> · 8-Module AI Video Creation Course · In Hindi.
 </footer>
 
 <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
@@ -964,8 +973,9 @@
   var totalEl = document.getElementById('orderTotal');
   var submitBtn = document.getElementById('submitBtn');
 
+  // Match the grid checkbox to its order-builder twin by prebook key.
   function syncFromModuleGrid(sourceCb){
-    var match = orderCbs.find(function(cb){ return cb.getAttribute('data-name') === sourceCb.getAttribute('data-name'); });
+    var match = orderCbs.find(function(cb){ return cb.getAttribute('data-key') === sourceCb.getAttribute('data-key'); });
     if (match){ match.checked = sourceCb.checked; recalc(); }
   }
   modCbs.forEach(function(cb){
@@ -1005,9 +1015,11 @@
   // ===== ORDER SUBMIT (prebooking + Razorpay) =====
   var errEl = document.getElementById('formError');
 
+  // The key sent to the server is the prebook_key stored on the checkbox
+  // (m1..m8 from the courses table). It is NOT derived from the module number
+  // shown on the page, because Module 2 on the page is key "m7", and so on.
   function moduleKey(cb){
-    var m = /^Module (\d)/.exec(cb.getAttribute('data-name') || '');
-    return m ? 'm' + m[1] : null;
+    return cb.getAttribute('data-key') || null;
   }
   function showError(msg){ errEl.textContent = msg; errEl.style.display = 'block'; }
   function setBusy(busy){
