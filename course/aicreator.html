@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>AICreator: Client-Ready AI Video Course | Sanjay Meher</title>
-  <meta name="description" content="8 Hindi modules on AI video: images, marketing & shorts, avatars, animation, 3D, wedding invites, film & editing. Prebook the ₹1,499 full package or ₹299 per module.">
+  <meta name="description" content="8 Hindi modules on AI video: images, marketing & shorts, avatars, animation, 3D, wedding invites, film & editing. Learn the exact workflow I use for my own clients.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -91,6 +91,25 @@
     }
     .hero h1 .brand{color:var(--purple);font-weight:800;background:linear-gradient(135deg,var(--teal),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .hero h1 .accent{color:var(--teal)}
+
+    /* BIG BOLD CLIENT LINE */
+    .hero-client-line{
+      font-family:var(--font-display);
+      font-size:clamp(20px, 3vw, 28px);
+      font-weight:800;
+      line-height:1.25;
+      color:var(--text);
+      max-width:780px;
+      margin:18px 0 26px;
+      padding-left:18px;
+      border-left:4px solid var(--gold);
+      position:relative;z-index:1;
+    }
+    .hero-client-line .hl{
+      background:linear-gradient(135deg,var(--gold),var(--teal));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+
     .hero p.sub{
       font-size:17px;color:var(--text-dim);max-width:620px;margin-bottom:36px;
       position:relative;z-index:1;
@@ -125,10 +144,10 @@
     }
     .mod-strip .ms-label{font-family:var(--font-mono);font-size:11px;color:var(--text-faint);white-space:nowrap;margin-right:6px}
     .mod-pip{
-      width:30px;height:30px;border-radius:6px;border:1px solid var(--border);
+      width:30px;height:30px;border-radius:6px;border:1px solid var(--teal);
       display:flex;align-items:center;justify-content:center;flex-shrink:0;
-      font-family:var(--font-mono);font-size:11px;color:var(--text-dim);
-      background:var(--surface-2);
+      font-family:var(--font-mono);font-size:11px;color:var(--teal);
+      background:rgba(41,225,201,.08);
     }
 
     /* ===== VIDEO GRID ===== */
@@ -198,9 +217,17 @@
     .module-card{
       background:var(--surface);border:1px solid var(--border);border-radius:12px;
       padding:26px;display:flex;flex-direction:column;gap:14px;transition:border-color .2s;
+      position:relative;
     }
     .module-card:hover{border-color:var(--teal)}
-    .module-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+    .module-badge{
+      position:absolute;top:14px;right:14px;
+      font-family:var(--font-mono);font-size:10.5px;font-weight:600;
+      letter-spacing:.06em;padding:4px 10px;border-radius:100px;
+      text-transform:uppercase;
+      background:rgba(41,225,201,.12);color:var(--teal);border:1px solid rgba(41,225,201,.3);
+    }
+    .module-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding-right:60px}
     .module-num{font-family:var(--font-mono);font-size:12px;color:var(--teal)}
     .module-card h3{font-size:17px;font-family:var(--font-display);font-weight:600;margin-top:4px}
     .module-price{font-family:var(--font-mono);font-size:15px;color:var(--gold);white-space:nowrap}
@@ -363,7 +390,7 @@
     <div class="nav-links">
       <a class="nav-link" href="#modules">Modules</a>
       <a class="nav-link" href="#videos">Demo</a>
-      <a class="nav-cta" href="#order">Prebook Now →</a>
+      <a class="nav-cta" href="#order">Get Access →</a>
     </div>
   </div>
 </header>
@@ -371,7 +398,7 @@
 <!-- ===== HERO BANNER ===== -->
 <section class="hero">
   <div class="wrap">
-    <div class="eyebrow"><span class="dot"></span>8 modules | Recorded Classes | Lessons updated as  tools change | Live doubt sessions every Sunday</div>
+    <div class="eyebrow"><span class="dot"></span>8 modules | Recorded Classes | Lessons updated as tools change | Live doubt sessions every Sunday</div>
 
     <h1>
       <span class="brand">AICreator</span><br>
@@ -379,12 +406,16 @@
       You finish the last 10%.
     </h1>
 
+    <p class="hero-client-line">
+      Learn the <span class="hl">exact workflow I use for my own clients</span> — the same tools, the same process, the same delivery standards.
+    </p>
+
     <p class="sub">
-      8 modules that teach one complete system — how to use free AI tools to make images, marketing videos, avatars, animation, 3D, wedding & event invites, film, and pro edits, then finish them by hand so the output is actually client-ready. Prebook the full package, or just the modules you need.
+      8 modules that teach one complete system — how to use free AI tools to make images, marketing videos, avatars, animation, 3D, wedding & event invites, film, and pro edits, then finish them by hand so the output is actually client-ready. Buy the full package, or just the modules you need.
     </p>
 
     <div class="hero-ctas">
-      <a class="btn-primary" href="#order">🎯 Prebook Full Access — ₹1,499 →</a>
+      <a class="btn-primary" href="#order">🎯 Get Full Access — ₹1,499 →</a>
       <a class="btn-secondary" href="#modules">📚 Browse the 8 Modules</a>
     </div>
 
@@ -396,7 +427,7 @@
     </div>
 
     <div class="mod-strip">
-      <span class="ms-label">8 MODULES</span>
+      <span class="ms-label">8 MODULES · ALL LIVE</span>
       <div class="mod-pip">01</div><div class="mod-pip">02</div><div class="mod-pip">03</div><div class="mod-pip">04</div>
       <div class="mod-pip">05</div><div class="mod-pip">06</div><div class="mod-pip">07</div><div class="mod-pip">08</div>
     </div>
@@ -405,7 +436,7 @@
 
 <!-- ===== TRUST BAR ===== -->
 <div class="trustbar">
-  <div class="item"><div class="num">8</div><div class="label">Modules, prebooking open</div></div>
+  <div class="item"><div class="num">8</div><div class="label">Modules, all live</div></div>
   <div class="item"><div class="num">₹1,499</div><div class="label">Full package, one-time</div></div>
   <div class="item"><div class="num">Sundays</div><div class="label">Live doubt sessions</div></div>
   <div class="item"><div class="num">₹0</div><div class="label">Paid software required</div></div>
@@ -528,10 +559,11 @@
   <div class="wrap">
     <div class="section-head">
       <h2>8 modules. Buy the full set or just what you need.</h2>
-      <p>Every module is self-paced and built entirely on free AI tools — then finished by hand so the output is client-ready. Lessons are added to each module as they go live.</p>
+      <p>Every module is self-paced and built entirely on free AI tools — then finished by hand so the output is client-ready.</p>
     </div>
     <div class="module-grid" id="moduleGrid">
       <div class="module-card">
+        <span class="module-badge">Live</span>
         <div class="module-top">
           <div><span class="module-num">MODULE 01</span><h3>Client-Ready AI Images — Generate, Then Fix by Hand</h3></div>
           <span class="module-price">₹299</span>
@@ -550,6 +582,7 @@
       </div>
 
       <div class="module-card">
+        <span class="module-badge">Live</span>
         <div class="module-top">
           <div><span class="module-num">MODULE 02</span><h3>AI Marketing, Shorts & Professional Editing — Storyboard → Edit → Deliver</h3></div>
           <span class="module-price">₹299</span>
@@ -569,6 +602,7 @@
       </div>
 
       <div class="module-card">
+        <span class="module-badge">Live</span>
         <div class="module-top">
           <div><span class="module-num">MODULE 03</span><h3>Avatars, Voice Cloning & Lipsync — The Free Stack</h3></div>
           <span class="module-price">₹299</span>
@@ -587,6 +621,7 @@
       </div>
 
       <div class="module-card">
+        <span class="module-badge">Live</span>
         <div class="module-top">
           <div><span class="module-num">MODULE 04</span><h3>2D Animation & Motion Graphics — Template + Code</h3></div>
           <span class="module-price">₹299</span>
@@ -605,6 +640,7 @@
       </div>
 
       <div class="module-card">
+        <span class="module-badge">Live</span>
         <div class="module-top">
           <div><span class="module-num">MODULE 05</span><h3>3D Product Animation — Template-First, No 3D Background Needed</h3></div>
           <span class="module-price">₹299</span>
@@ -623,6 +659,7 @@
       </div>
 
       <div class="module-card">
+        <span class="module-badge">Live</span>
         <div class="module-top">
           <div><span class="module-num">MODULE 06</span><h3>Wedding & Event Invites, Cards + a Template Store You Can Sell From</h3></div>
           <span class="module-price">₹299</span>
@@ -642,6 +679,7 @@
       </div>
 
       <div class="module-card">
+        <span class="module-badge">Live</span>
         <div class="module-top">
           <div><span class="module-num">MODULE 07</span><h3>Long-Form AI Film — Lock Consistency in Images, Then Animate</h3></div>
           <span class="module-price">₹299</span>
@@ -660,6 +698,7 @@
       </div>
 
       <div class="module-card">
+        <span class="module-badge">Live</span>
         <div class="module-top">
           <div><span class="module-num">MODULE 08</span><h3>Build Your Own Free AI Tool — APIs, Web App, Deployment</h3></div>
           <span class="module-price">₹299</span>
@@ -749,7 +788,7 @@
       <div>
         <h3>Sanjay Meher</h3>
         <div class="role">Video editor & designer · 7+ years</div>
-        <p>I've edited and designed for 18+ brands across gaming, food, fashion, real estate, tech and education — and I record every module myself, in Hindi. If you're stuck mid-workflow, bring it to the Sunday live session and I'll walk you through it directly.</p>
+        <p>I've edited and designed for 18+ brands across gaming, food, fashion, real estate, tech and education — and I record every module myself, in Hindi. Every workflow in this course is what I actually use for my own paying clients. If you're stuck mid-workflow, bring it to the Sunday live session and I'll walk you through it directly.</p>
       </div>
     </div>
   </div>
@@ -760,7 +799,7 @@
   <div class="wrap">
     <div class="section-head" style="margin:0 auto 40px;text-align:center;max-width:100%">
       <h2>Two ways to get started.</h2>
-      <p style="margin:0 auto">Prebook everything, or start with the one module you need most.</p>
+      <p style="margin:0 auto">Get everything, or start with the one module you need most.</p>
     </div>
     <div class="tier-grid">
       <div class="tier-card full">
@@ -768,20 +807,20 @@
         <div class="tier-price">₹1,499 <small>full package</small></div>
         <div class="tier-save">All 8 modules separately would cost ₹2,392 — save ₹893</div>
         <ul class="tier-list" style="margin-top:22px">
-          <li>All 8 modules — watch anytime as lessons go live</li>
+          <li>All 8 modules — instant access</li>
           <li>Live doubt-clearing session every Sunday</li>
           <li>Materials updated as tools change</li>
           <li>Portfolio & pricing guidance</li>
           <li>Best price per module</li>
         </ul>
-        <a class="btn-primary" style="width:100%;text-align:center;display:block" href="#order">🎯 Prebook the full package →</a>
+        <a class="btn-primary" style="width:100%;text-align:center;display:block" href="#order">🎯 Get the full package →</a>
       </div>
       <div class="tier-card single">
         <div class="tier-badge">🎯 PICK ONE</div>
         <div class="tier-price">₹299 <small>per module</small></div>
         <div class="tier-save">Start with exactly what you need</div>
         <ul class="tier-list" style="margin-top:24px">
-          <li>Any single module — watch anytime as lessons go live</li>
+          <li>Any single module — instant access</li>
           <li>Live doubt-clearing session every Sunday</li>
           <li>Materials updated as tools change</li>
           <li>Upgrade to the full package anytime</li>
@@ -843,8 +882,8 @@
         <div class="faq-a"><p>Yes — any module is ₹299 on its own. Or get all 8 for ₹1,499, which saves ₹893 over buying them one at a time.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" data-faq>When do the lessons go live?<span class="faq-plus">+</span></div>
-        <div class="faq-a"><p>Prebooking secures your modules now. Lessons are added to the learning platform as each one goes live, and everything you've booked unlocks automatically with the email you used at checkout.</p></div>
+        <div class="faq-q" data-faq>How do I access the lessons?<span class="faq-plus">+</span></div>
+        <div class="faq-a"><p>Once you complete your purchase, you'll get instant access on the learning platform using the email you checked out with. All modules unlock immediately.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q" data-faq>How long do I have access?<span class="faq-plus">+</span></div>
@@ -908,20 +947,20 @@
         <input type="tel" id="fphone" placeholder="10-digit number">
       </div>
       <div class="form-row">
-        <label for="femail">Email (you'll use it to log in and unlock your modules)</label>
+        <label for="femail">Email (you'll use it to log in and access your modules)</label>
         <input type="email" id="femail" placeholder="you@email.com">
       </div>
-      <button class="submit-btn" id="submitBtn" disabled>💳 Pay & prebook</button>
+      <button class="submit-btn" id="submitBtn" disabled>💳 Pay & get access</button>
       <p id="formError" style="color:var(--live);font-size:13px;margin-top:10px;display:none"></p>
       <p style="font-size:12.5px;color:var(--text-faint);margin-top:14px;text-align:center">
         Secure payment by Razorpay. Trouble paying?
-        <a href="https://wa.me/918984636695?text=Hi%20Sanjay%2C%20I%20want%20to%20prebook%20AICreator" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:underline">Order on WhatsApp instead</a>.
+        <a href="https://wa.me/918984636695?text=Hi%20Sanjay%2C%20I%20want%20to%20buy%20AICreator" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:underline">Order on WhatsApp instead</a>.
       </p>
       <div id="orderDone" style="display:none;text-align:center;padding:12px 0">
         <div style="font-size:34px;margin-bottom:10px">✅</div>
-        <h3 style="font-size:20px;margin-bottom:10px">Prebooking confirmed</h3>
+        <h3 style="font-size:20px;margin-bottom:10px">Purchase confirmed</h3>
         <p style="color:var(--text-dim);font-size:14.5px;margin-bottom:6px">Paid: <strong id="doneTotal" style="color:var(--teal)"></strong></p>
-        <p style="color:var(--text-dim);font-size:14.5px;margin-bottom:22px">Sign up or log in on the learning platform with <strong id="doneEmail" style="color:var(--text)"></strong>. Your modules unlock there, and new lessons appear as they go live.</p>
+        <p style="color:var(--text-dim);font-size:14.5px;margin-bottom:22px">Log in on the learning platform with <strong id="doneEmail" style="color:var(--text)"></strong>. Your modules are unlocked there.</p>
         <a class="btn-primary" id="doneLink" href="#" target="_blank" rel="noopener">Open the learning platform →</a>
       </div>
     </div>
@@ -933,7 +972,7 @@
   <div class="wrap">
     <h2>8 modules. One system. Learn at your pace.</h2>
     <p>Self-paced, backed by live Sunday support — taught by someone who does this for a living.</p>
-    <a class="btn-primary" href="#order">🎯 Prebook now →</a>
+    <a class="btn-primary" href="#order">🎯 Get access now →</a>
   </div>
 </section>
 
@@ -1012,7 +1051,7 @@
   orderCbs.forEach(function(cb){ cb.addEventListener('change', recalc); });
   recalc();
 
-  // ===== ORDER SUBMIT (prebooking + Razorpay) =====
+  // ===== ORDER SUBMIT (purchase + Razorpay) =====
   var errEl = document.getElementById('formError');
 
   // The key sent to the server is the prebook_key stored on the checkbox
@@ -1024,7 +1063,7 @@
   function showError(msg){ errEl.textContent = msg; errEl.style.display = 'block'; }
   function setBusy(busy){
     submitBtn.disabled = busy;
-    submitBtn.textContent = busy ? 'Please wait…' : '💳 Pay & prebook';
+    submitBtn.textContent = busy ? 'Please wait…' : '💳 Pay & get access';
     if (!busy) recalc();
   }
   function showDone(email, total){
@@ -1073,7 +1112,7 @@
           amount: o.amount,
           currency: o.currency,
           name: 'Sanjay Meher · AICreator',
-          description: o.bundleApplied ? 'Full package prebooking' : 'Module prebooking',
+          description: o.bundleApplied ? 'Full package purchase' : 'Module purchase',
           prefill: {name: name, email: email, contact: phone},
           theme: {color: '#29E1C9'},
           modal: {ondismiss: function(){ setBusy(false); }},
@@ -1082,7 +1121,7 @@
               .then(function(){ showDone(email, totalText); })
               .catch(function(){
                 // Money was taken; the webhook will still confirm it. Tell the buyer exactly what to do.
-                showError('Payment received (ID ' + resp.razorpay_payment_id + '), but confirmation is delayed. Your booking is safe. Message us on WhatsApp with this ID if it does not appear within a few minutes.');
+                showError('Payment received (ID ' + resp.razorpay_payment_id + '), but confirmation is delayed. Your purchase is safe. Message us on WhatsApp with this ID if it does not appear within a few minutes.');
                 setBusy(false);
               });
           }
