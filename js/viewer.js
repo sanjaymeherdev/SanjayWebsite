@@ -107,7 +107,7 @@ function tick() {
 }
 
 const START_SCALE = 0.5;  // model starts at 50% of the old framing (camera is 1 / START_SCALE times further away)
-const BASE_LIFT = 0.7;    // 0 = base at screen centre, 1 = base at the very bottom edge of the stage
+const BASE_LIFT = 1;      // 0 = base at screen centre, 1 = base at the very bottom edge of the stage
 
 // Wraps the model in a pivot group whose origin is the bottom-centre of the model, and frames it.
 function mountModel(model) {

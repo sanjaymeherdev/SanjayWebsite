@@ -89,6 +89,14 @@ main.wrap{padding-top:1.5rem;padding-bottom:7rem;min-height:50vh}
 .side .actions .pill{justify-content:center}
 .side .legal{font-size:.7rem;color:var(--muted)}
 .hint{font-size:.72rem;color:var(--muted)}
+#viewer{--surface:#fff;--line:#d9dde3;--text:#14171c;--muted:#5d6673;background:#eef0f3;color:#14171c;backdrop-filter:none}
+#viewer .stage{background:#eef0f3}
+#viewer .side{background:#fff;border-color:#d9dde3;color:#14171c}
+#viewer .side .facts,#viewer .side p,#viewer .side h3,#viewer .hint,#viewer .legal{color:#5d6673}
+#viewer .ctrls button,#viewer .ctrls select{color:#14171c;border-color:#d9dde3}
+#viewer .ctrls select option{background:#fff;color:#14171c}
+#viewer .close{background:#fff;border-color:#d9dde3;color:#14171c}
+#viewer .v-load{color:#5d6673}
 
 .fab{position:fixed;right:calc(1rem + env(safe-area-inset-right,0px));bottom:calc(1rem + env(safe-area-inset-bottom,0px));z-index:90;display:flex;align-items:center;gap:.5rem;background:var(--wa);color:#04210f;font-weight:600;font-size:.9rem;padding:.8rem 1.1rem;border-radius:100px;box-shadow:0 6px 24px rgba(0,0,0,.45)}
 .fab svg{width:20px;height:20px;fill:currentColor}
