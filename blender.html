@@ -3,505 +3,156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Sanjay Meher — Blender Story Animations</title>
-<meta name="description" content="Story animations made in Blender. Watch the full-length films and the Shorts.">
+<title>Sanjay Meher — Blender Work: 3D Models, Characters, Animation</title>
+<meta name="description" content="Blender portfolio: 3D models, rigged characters you can rotate and animate, product animations, short stories and Roblox animations.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script type="importmap">
+{"imports":{"three":"./js/vendor/three/three.module.min.js","three/addons/":"./js/vendor/three/addons/"}}
+</script>
 <style>
-  :root{
-    --bg:#0d0c0f;
-    --surface:#17151b;
-    --surface-2:#201d27;
-    --line:#2b2833;
-    --text:#ebe8ee;
-    --muted:#8a8494;
-    --accent:#ff8a2b;
-    --accent-2:#6c7cff;
-    --mono:'JetBrains Mono', monospace;
-    --display:'Syne', sans-serif;
-    --body:'DM Sans', sans-serif;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-padding-top:env(safe-area-inset-top,0px);}
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:var(--body);
-    -webkit-font-smoothing:antialiased;
-    min-height:100vh;
-    padding-top:env(safe-area-inset-top,0px);
-    padding-bottom:env(safe-area-inset-bottom,0px);
-  }
-  a{color:inherit;text-decoration:none;}
+:root{--bg:#0d0c0f;--surface:#17151b;--surface-2:#201d27;--line:#2b2833;--text:#ebe8ee;--muted:#8a8494;--accent:#ff8a2b;--accent-2:#6c7cff;--wa:#25d366;--mono:'JetBrains Mono',monospace;--display:'Syne',sans-serif;--body:'DM Sans',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--text);font-family:var(--body);-webkit-font-smoothing:antialiased;min-height:100vh;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+.head{padding:3.5rem 0 1.5rem}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.05;letter-spacing:-.01em;max-width:18ch}
+.sub{margin-top:1rem;color:var(--muted);line-height:1.6;max-width:52ch}
+.head-links{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.5rem}
+.pill{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;border:1px solid var(--line);padding:.5rem .95rem;border-radius:100px;color:var(--muted);transition:border-color .2s,color .2s}
+.pill:hover{border-color:var(--accent);color:var(--text)}
+.pill.wa{background:var(--wa);border-color:var(--wa);color:#04210f;font-weight:600}
+.pill.wa:hover{color:#04210f;filter:brightness(1.08)}
 
-  .page-head{
-    padding:4rem 1.5rem 2rem;
-    max-width:1100px;
-    margin:0 auto;
-  }
-  .eyebrow{
-    font-family:var(--mono);
-    font-size:0.72rem;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:var(--accent);
-    display:flex;align-items:center;gap:0.5rem;
-    margin-bottom:1.25rem;
-  }
-  .eyebrow::before{
-    content:'';width:6px;height:6px;border-radius:50%;
-    background:var(--accent-2);
-    box-shadow:0 0 0 3px rgba(108,124,255,0.2);
-  }
-  h1{
-    font-family:var(--display);
-    font-weight:800;
-    font-size:clamp(2.2rem,6vw,3.6rem);
-    line-height:1.05;
-    letter-spacing:-0.01em;
-    max-width:16ch;
-  }
-  h1 .accent{color:var(--accent);}
-  .page-sub{
-    margin-top:1.1rem;
-    color:var(--muted);
-    font-size:1.02rem;
-    max-width:48ch;
-    line-height:1.6;
-  }
-  .back-link{
-    display:inline-flex;align-items:center;gap:0.4rem;
-    margin-top:1.75rem;
-    font-size:0.85rem;
-    color:var(--muted);
-    border:1px solid var(--line);
-    padding:0.5rem 0.9rem;
-    border-radius:100px;
-    transition:border-color .2s,color .2s;
-  }
-  .back-link:hover{border-color:var(--accent);color:var(--text);}
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(13,12,15,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:.25rem;overflow-x:auto}
+.tab{background:none;border:0;border-bottom:2px solid transparent;padding:1rem 1.1rem;color:var(--muted);font-weight:500;cursor:pointer;white-space:nowrap}
+.tab:hover{color:var(--text)}
+.tab[aria-selected="true"]{color:var(--text);border-bottom-color:var(--accent)}
+.subbar{display:flex;gap:.5rem;flex-wrap:wrap;padding:1.25rem 0 0}
+.chip{font-size:.82rem;font-weight:500;color:var(--muted);background:none;border:1px solid var(--line);padding:.45rem .95rem;border-radius:100px;cursor:pointer;transition:border-color .2s,color .2s,background .2s}
+.chip:hover{color:var(--text);border-color:#443f52}
+.chip[aria-pressed="true"]{color:#1a1007;background:var(--accent);border-color:var(--accent)}
+.chip .n{font-family:var(--mono);font-size:.68rem;margin-left:.4rem;opacity:.7}
+main.wrap{padding-top:1.5rem;padding-bottom:7rem;min-height:50vh}
 
-  /* Filter bar */
-  .filter-bar{
-    max-width:1100px;
-    margin:0 auto;
-    padding:1.25rem 1.5rem;
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-    display:flex;gap:0.5rem;flex-wrap:wrap;
-  }
-  .chip{
-    font-family:var(--body);
-    font-size:0.82rem;
-    font-weight:500;
-    color:var(--muted);
-    background:transparent;
-    border:1px solid var(--line);
-    padding:0.45rem 0.95rem;
-    border-radius:100px;
-    cursor:pointer;
-    transition:border-color .2s,color .2s,background .2s;
-  }
-  .chip:hover{color:var(--text);border-color:#443f52;}
-  .chip[aria-pressed="true"]{
-    color:#1a1007;
-    background:var(--accent);
-    border-color:var(--accent);
-  }
-  .chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
-  .chip .n{font-family:var(--mono);font-size:0.68rem;margin-left:0.4rem;opacity:0.7;}
+.series-name{font-family:var(--display);font-weight:700;font-size:1.35rem;letter-spacing:-.02em;margin:2rem 0 .9rem;padding-bottom:.55rem;border-bottom:1px solid var(--line)}
+.sub-label{font-size:.8rem;font-weight:600;color:var(--muted);margin:1.2rem 0 .8rem}
+.grid-long{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.1rem}
+.grid-short{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem}
+.grid-3d{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.1rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .2s,border-color .2s;text-align:left;display:block;width:100%}
+.card:hover{transform:translateY(-3px);border-color:#46404f}
+.thumb{position:relative;width:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 30% 20%,rgba(255,138,43,.16),transparent 55%),linear-gradient(160deg,var(--surface-2),#100e14 75%)}
+.t-short{aspect-ratio:9/16}.t-long{aspect-ratio:16/9}.t-3d{aspect-ratio:4/3}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.play{width:44px;height:44px;border-radius:50%;background:rgba(13,12,15,.55);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;z-index:2}
+.play svg{width:16px;height:16px;fill:var(--text);margin-left:2px}
+.badge{position:absolute;top:.65rem;left:.65rem;z-index:3;font-family:var(--mono);font-size:.62rem;padding:.28rem .5rem;border-radius:5px;background:rgba(13,12,15,.7);border:1px solid var(--line);color:var(--text)}
+.meta{padding:.7rem .85rem .9rem}
+.c-title{font-size:.9rem;font-weight:500;line-height:1.3}
+.c-sub{margin-top:.3rem;font-size:.76rem;color:var(--muted);line-height:1.4}
+.empty{text-align:center;padding:4rem 1rem;color:var(--muted);line-height:1.8}
+.empty code{font-family:var(--mono);font-size:.82rem;color:var(--accent);background:var(--surface);padding:.15rem .4rem;border-radius:4px}
 
-  .grid-wrap{
-    max-width:1100px;
-    margin:0 auto;
-    padding:2.5rem 1.5rem 6rem;
-  }
+.overlay{position:fixed;inset:0;z-index:100;background:rgba(6,5,8,.94);backdrop-filter:blur(10px);display:none}
+.overlay.open{display:flex}
+.close{position:absolute;top:calc(1rem + env(safe-area-inset-top,0px));right:1rem;z-index:5;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:1.05rem}
+#lightbox{align-items:center;justify-content:center;padding:2rem 1rem;flex-direction:column}
+.lb-frame{background:#000;border-radius:16px;overflow:hidden;border:1px solid var(--line);width:100%}
+.lb-short .lb-frame{aspect-ratio:9/16;max-width:min(420px,100%,calc(72vh*9/16))}
+.lb-long .lb-frame{aspect-ratio:16/9;max-width:min(960px,100%,calc(72vh*16/9))}
+.lb-frame iframe{width:100%;height:100%;border:0;display:block}
+.lb-cap{margin-top:1rem;text-align:center}
+.lb-cap .t{font-weight:600}.lb-cap a{display:inline-block;margin-top:.6rem;font-family:var(--mono);font-size:.72rem;color:var(--accent)}
 
-  .series-section{margin-bottom:3.75rem;}
-  .series-header{
-    display:flex;align-items:baseline;gap:1rem;
-    margin-bottom:1.25rem;
-    border-bottom:1px solid var(--line);
-    padding-bottom:0.6rem;
-  }
-  .series-name{
-    font-family:var(--display);
-    font-weight:700;
-    font-size:1.5rem;
-    letter-spacing:-0.02em;
-  }
-  .series-count{
-    font-family:var(--mono);
-    font-size:0.7rem;
-    color:var(--muted);
-    background:var(--surface);
-    padding:0.15rem 0.6rem;
-    border-radius:12px;
-    border:1px solid var(--line);
-  }
+#viewer{flex-direction:row}
+.stage{position:relative;flex:1;min-width:0;touch-action:none}
+.stage canvas{display:block;width:100%;height:100%}
+.v-load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:var(--mono);font-size:.85rem;text-align:center;padding:2rem;pointer-events:none}
+.side{width:340px;flex-shrink:0;background:var(--surface);border-left:1px solid var(--line);padding:4.2rem 1.4rem 1.4rem;overflow-y:auto;display:flex;flex-direction:column;gap:1rem}
+.side h2{font-family:var(--display);font-size:1.5rem;letter-spacing:-.02em;line-height:1.1}
+.side .facts{font-family:var(--mono);font-size:.72rem;color:var(--muted);line-height:1.7}
+.side p{font-size:.9rem;color:var(--muted);line-height:1.55}
+.side h3{font-size:.8rem;font-weight:600;color:var(--muted);margin-bottom:.5rem}
+.anims{display:flex;flex-wrap:wrap;gap:.4rem}
+.ctrls{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
+.ctrls button,.ctrls select{background:transparent;border:1px solid var(--line);border-radius:100px;padding:.4rem .85rem;font-size:.8rem;cursor:pointer;color:var(--text)}
+.ctrls select option{background:var(--surface)}
+.ctrls button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+.side .actions{display:flex;flex-direction:column;gap:.5rem;margin-top:auto}
+.side .actions .pill{justify-content:center}
+.side .legal{font-size:.7rem;color:var(--muted)}
+.hint{font-size:.72rem;color:var(--muted)}
 
-  .sub-label{
-    font-size:0.8rem;
-    font-weight:600;
-    color:var(--muted);
-    margin:0 0 0.8rem;
-  }
-  .grid-long{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-    gap:1.1rem;
-    margin-bottom:1.75rem;
-  }
-  .grid-short{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-    gap:1rem;
-  }
+.fab{position:fixed;right:calc(1rem + env(safe-area-inset-right,0px));bottom:calc(1rem + env(safe-area-inset-bottom,0px));z-index:90;display:flex;align-items:center;gap:.5rem;background:var(--wa);color:#04210f;font-weight:600;font-size:.9rem;padding:.8rem 1.1rem;border-radius:100px;box-shadow:0 6px 24px rgba(0,0,0,.45)}
+.fab svg{width:20px;height:20px;fill:currentColor}
+.fab:hover{filter:brightness(1.08)}
+body.viewer-open .fab{display:none}
 
-  .clip{
-    position:relative;
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:14px;
-    overflow:hidden;
-    cursor:pointer;
-    transition:transform .2s ease,border-color .2s ease;
-  }
-  .clip:hover{transform:translateY(-3px);border-color:#46404f;}
-  .clip:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
-
-  .clip-thumb{
-    display:flex;align-items:center;justify-content:center;
-    position:relative;width:100%;overflow:hidden;
-    background:
-      radial-gradient(circle at 30% 20%,rgba(255,138,43,0.16),transparent 55%),
-      linear-gradient(160deg,var(--surface-2),#100e14 75%);
-  }
-  .clip-short .clip-thumb{aspect-ratio:9/16;}
-  .clip-long .clip-thumb{aspect-ratio:16/9;}
-  .clip-thumb img{
-    width:100%;height:100%;object-fit:cover;
-    position:absolute;inset:0;
-  }
-  .play-glyph{
-    width:44px;height:44px;border-radius:50%;
-    background:rgba(13,12,15,0.55);
-    border:1px solid rgba(255,255,255,0.2);
-    backdrop-filter:blur(6px);
-    display:flex;align-items:center;justify-content:center;
-    z-index:2;
-    transition:transform .2s ease,background .2s ease;
-  }
-  .clip:hover .play-glyph{transform:scale(1.08);background:rgba(255,138,43,0.4);}
-  .play-glyph svg{width:16px;height:16px;fill:var(--text);margin-left:2px;}
-
-  .fmt-tag{
-    position:absolute;top:0.65rem;left:0.65rem;z-index:3;
-    font-family:var(--mono);
-    font-size:0.62rem;letter-spacing:0.08em;
-    padding:0.28rem 0.5rem;border-radius:5px;
-    text-transform:uppercase;
-    backdrop-filter:blur(4px);
-  }
-  .fmt-tag-short{background:rgba(255,76,76,0.2);color:#ff8a8a;border:1px solid rgba(255,76,76,0.35);}
-  .fmt-tag-long{background:rgba(108,124,255,0.22);color:#a9b2ff;border:1px solid rgba(108,124,255,0.4);}
-
-  .clip-meta{padding:0.7rem 0.85rem 0.9rem;}
-  .clip-title{font-size:0.85rem;font-weight:500;line-height:1.3;}
-  .clip-desc{
-    margin-top:0.35rem;
-    font-size:0.76rem;
-    line-height:1.45;
-    color:var(--muted);
-    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
-  }
-
-  .state-msg{
-    text-align:center;
-    padding:4rem 1rem;
-    color:var(--muted);
-    font-family:var(--mono);
-    font-size:0.85rem;
-    line-height:1.8;
-  }
-  .state-msg code{
-    color:var(--accent);
-    background:var(--surface);
-    padding:0.15rem 0.4rem;
-    border-radius:4px;
-  }
-
-  /* Lightbox */
-  .lightbox{
-    position:fixed;inset:0;
-    background:rgba(6,5,8,0.93);
-    backdrop-filter:blur(10px);
-    z-index:100;
-    display:none;
-    align-items:center;justify-content:center;
-    padding:2rem 1rem;
-  }
-  .lightbox.open{display:flex;}
-  .lightbox-inner{
-    width:100%;max-height:100%;
-    display:flex;flex-direction:column;align-items:center;
-  }
-  .lightbox-frame{
-    background:#000;
-    border-radius:16px;
-    overflow:hidden;
-    border:1px solid var(--line);
-    width:100%;
-  }
-  .lb-short .lightbox-frame{
-    aspect-ratio:9/16;
-    max-width:min(420px,100%,calc(72vh * 9 / 16));
-  }
-  .lb-long .lightbox-frame{
-    aspect-ratio:16/9;
-    max-width:min(960px,100%,calc(72vh * 16 / 9));
-  }
-  .lightbox-frame iframe{width:100%;height:100%;border:0;display:block;}
-  .lightbox-cap{margin-top:1rem;text-align:center;width:100%;max-width:720px;}
-  .lightbox-cap .title{font-weight:600;font-size:0.95rem;}
-  .lightbox-cap .sub{color:var(--muted);font-size:0.78rem;margin-top:0.25rem;font-family:var(--mono);}
-  .lightbox-close{
-    position:absolute;
-    top:calc(1.25rem + env(safe-area-inset-top,0px));right:1.25rem;
-    width:40px;height:40px;border-radius:50%;
-    border:1px solid var(--line);
-    background:var(--surface);color:var(--text);
-    font-size:1.1rem;cursor:pointer;
-    display:flex;align-items:center;justify-content:center;
-    z-index:101;
-  }
-  .lightbox-close:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
-  .lightbox-open-original{
-    display:inline-block;margin-top:0.85rem;
-    font-family:var(--mono);font-size:0.72rem;
-    color:var(--accent);
-    border-bottom:1px solid transparent;
-  }
-  .lightbox-open-original:hover{border-color:var(--accent);}
-
-  @media (prefers-reduced-motion:reduce){
-    .clip,.play-glyph,.chip{transition:none;}
-    .clip:hover{transform:none;}
-  }
-  @media (max-width:560px){
-    .page-head{padding:2.5rem 1.25rem 1.5rem;}
-    .filter-bar,.grid-wrap{padding-left:1.25rem;padding-right:1.25rem;}
-    .grid-long{grid-template-columns:1fr;}
-    .grid-short{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.75rem;}
-    .series-name{font-size:1.2rem;}
-  }
+@media (max-width:760px){
+  .wrap{padding:0 1.25rem}.head{padding:2.5rem 0 1.25rem}
+  .grid-long{grid-template-columns:1fr}.grid-short{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}.grid-3d{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.75rem}
+  #viewer{flex-direction:column}.stage{flex:none;height:55vh}
+  .side{width:auto;flex:1;border-left:0;border-top:1px solid var(--line);padding:1.1rem 1.25rem}
+  .fab span{display:none}.fab{padding:.9rem}
+}
+@media (prefers-reduced-motion:reduce){.card,.pill,.chip{transition:none}.card:hover{transform:none}}
 </style>
 </head>
 <body>
-
-  <header class="page-head">
-    <div class="eyebrow">Portfolio · Story Animations</div>
-    <h1>Stories, built in <span class="accent">Blender.</span></h1>
-    <p class="page-sub">Original animated stories, modeled, rigged, animated and edited by me. Watch the full-length films or the quick Shorts.</p>
-    <a href="index.html" class="back-link">← Back home</a>
-  </header>
-
-  <nav class="filter-bar" id="filterBar" aria-label="Filter by format"></nav>
-
-  <main class="grid-wrap">
-    <div id="storiesContainer">
-      <div class="state-msg">Loading stories…</div>
-    </div>
-  </main>
-
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Video player">
-    <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
-    <div class="lightbox-inner">
-      <div class="lightbox-frame" id="lightboxFrame"></div>
-      <div class="lightbox-cap">
-        <div class="title" id="lightboxTitle"></div>
-        <div class="sub" id="lightboxSub"></div>
-        <a class="lightbox-open-original" id="lightboxOriginal" href="#" target="_blank" rel="noopener">Open on YouTube ↗</a>
-      </div>
-    </div>
+<header class="wrap head">
+  <h1>3D models, characters and animation made in Blender</h1>
+  <p class="sub">Rotate every model, play the character animations, or watch the videos. Want something similar for your project? Message me.</p>
+  <div class="head-links">
+    <a class="pill wa" id="waHead" href="#" target="_blank" rel="noopener">Message on WhatsApp</a>
+    <a class="pill" href="index.html">Back home</a>
   </div>
+</header>
 
-<script>
-/*
-  Put a file called blender-stories.json in your repo and point this at it.
-  Format: an array of objects, e.g.
-  [
-    { "url": "https://www.youtube.com/shorts/XXXXXXXXXXX", "title": "The Last Lantern, Part 1",
-      "series": "The Last Lantern", "format": "short", "description": "optional one-liner" },
-    { "url": "https://www.youtube.com/watch?v=YYYYYYYYYYY", "title": "The Last Lantern (Full Film)",
-      "series": "The Last Lantern", "format": "long" }
-  ]
-  "id" can be used instead of "url". "format" is "short" or "long". Clips without a series go under "Standalone".
-*/
-const STORIES_JSON_URL = "https://raw.githubusercontent.com/sanjaymeherdev/Godot-Website/main/blender-stories.json";
+<nav class="tabs" aria-label="Sections"><div class="wrap" role="tablist" id="tablist">
+  <button class="tab" role="tab" id="tab-models" data-tab="models">Models</button>
+  <button class="tab" role="tab" id="tab-characters" data-tab="characters">Characters</button>
+  <button class="tab" role="tab" id="tab-videos" data-tab="videos">Videos</button>
+</div></nav>
 
-const container = document.getElementById('storiesContainer');
-const filterBar = document.getElementById('filterBar');
-const lightbox = document.getElementById('lightbox');
-const lightboxFrame = document.getElementById('lightboxFrame');
-const lightboxTitle = document.getElementById('lightboxTitle');
-const lightboxSub = document.getElementById('lightboxSub');
-const lightboxOriginal = document.getElementById('lightboxOriginal');
-const lightboxClose = document.getElementById('lightboxClose');
+<main class="wrap" id="panel" role="tabpanel" tabindex="-1"><div class="empty">Loading…</div></main>
 
-let allClips = [];
-let activeFilter = 'all';
-let lastFocus = null;
+<div class="overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Video player">
+  <button class="close" id="lbClose" aria-label="Close video">✕</button>
+  <div class="lb-frame" id="lbFrame"></div>
+  <div class="lb-cap"><div class="t" id="lbTitle"></div><a id="lbYt" href="#" target="_blank" rel="noopener">Open on YouTube</a></div>
+</div>
 
-function esc(s){
-  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
+<div class="overlay" id="viewer" role="dialog" aria-modal="true" aria-label="3D viewer">
+  <button class="close" id="vClose" aria-label="Close viewer">✕</button>
+  <div class="stage" id="stage"><div class="v-load" id="vLoad">Loading model…</div></div>
+  <aside class="side">
+    <div><h2 id="vTitle"></h2><div class="facts" id="vFacts"></div></div>
+    <p id="vDesc"></p>
+    <div id="vAnimWrap" hidden><h3>Animations</h3><div class="anims ctrls" id="vAnims"></div></div>
+    <div class="ctrls">
+      <button id="vSpin" aria-pressed="false">Auto-rotate</button>
+      <button id="vPause" aria-pressed="false" hidden>Pause</button>
+      <select id="vSpeed" aria-label="Animation speed" hidden><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>
+      <button id="vReset">Reset view</button>
+    </div>
+    <div class="hint">Drag to rotate, scroll or pinch to zoom, right-drag to pan.</div>
+    <div class="actions">
+      <a class="pill" id="vVideo" href="#" target="_blank" rel="noopener" hidden>Watch this on YouTube</a>
+      <a class="pill wa" id="vWa" href="#" target="_blank" rel="noopener">Ask about this on WhatsApp</a>
+      <div class="legal" id="vLegal"></div>
+    </div>
+  </aside>
+</div>
 
-function youTubeIdFromUrl(url){
-  const m = String(url).match(/(?:shorts\/|v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{6,})/);
-  return m ? m[1] : null;
-}
+<a class="fab" id="waFab" href="#" target="_blank" rel="noopener" aria-label="Message on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg><span>WhatsApp</span></a>
 
-function normalizeClip(raw){
-  const id = raw.id || (raw.url ? youTubeIdFromUrl(raw.url) : null);
-  if(!id) return null;
-  const format = raw.format === 'long' ? 'long' : 'short';
-  return {
-    id,
-    title: raw.title || 'Untitled story',
-    series: raw.series || raw.category || 'Standalone',
-    format,
-    description: raw.description || '',
-    url: raw.url || `https://www.youtube.com/watch?v=${id}`
-  };
-}
-
-function groupBySeries(clips){
-  const groups = {};
-  clips.forEach(c => { (groups[c.series] = groups[c.series] || []).push(c); });
-  const names = Object.keys(groups);
-  // Series with the most clips first; "Standalone" always last
-  names.sort((a,b) => {
-    if(a === 'Standalone') return 1;
-    if(b === 'Standalone') return -1;
-    return groups[b].length - groups[a].length;
-  });
-  return names.map(name => ({ name, clips: groups[name] }));
-}
-
-const playIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>`;
-
-function clipCard(clip){
-  const isLong = clip.format === 'long';
-  const thumb = `https://i.ytimg.com/vi/${encodeURIComponent(clip.id)}/${isLong ? 'maxresdefault' : 'hqdefault'}.jpg`;
-  const fallback = `https://i.ytimg.com/vi/${encodeURIComponent(clip.id)}/hqdefault.jpg`;
-  return `
-    <div class="clip ${isLong ? 'clip-long' : 'clip-short'}" tabindex="0" role="button" data-id="${esc(clip.id)}" aria-label="Play ${esc(clip.title)}">
-      <div class="clip-thumb">
-        <span class="fmt-tag ${isLong ? 'fmt-tag-long' : 'fmt-tag-short'}">${isLong ? 'Film' : 'Short'}</span>
-        <img src="${thumb}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${fallback}'">
-        <div class="play-glyph">${playIcon}</div>
-      </div>
-      <div class="clip-meta">
-        <div class="clip-title">${esc(clip.title)}</div>
-        ${clip.description ? `<div class="clip-desc">${esc(clip.description)}</div>` : ''}
-      </div>
-    </div>`;
-}
-
-function renderFilters(){
-  const counts = {
-    all: allClips.length,
-    long: allClips.filter(c => c.format === 'long').length,
-    short: allClips.filter(c => c.format === 'short').length
-  };
-  const items = [['all','All'],['long','Long form'],['short','Shorts']];
-  filterBar.innerHTML = items.map(([key,label]) =>
-    `<button class="chip" data-filter="${key}" aria-pressed="${key === activeFilter}">${label}<span class="n">${counts[key]}</span></button>`
-  ).join('');
-  filterBar.querySelectorAll('.chip').forEach(btn => {
-    btn.addEventListener('click', () => {
-      activeFilter = btn.dataset.filter;
-      renderFilters();
-      renderStories();
-    });
-  });
-}
-
-function renderStories(){
-  const visible = allClips.filter(c => activeFilter === 'all' || c.format === activeFilter);
-  if(!visible.length){
-    container.innerHTML = `<div class="state-msg">No stories here yet.<br>Add entries to <code>blender-stories.json</code> to show them.</div>`;
-    return;
-  }
-
-  container.innerHTML = groupBySeries(visible).map(({name, clips}) => {
-    const longs = clips.filter(c => c.format === 'long');
-    const shorts = clips.filter(c => c.format === 'short');
-    const showLabels = longs.length && shorts.length;
-    return `
-      <section class="series-section">
-        <div class="series-header">
-          <h2 class="series-name">${esc(name)}</h2>
-          <span class="series-count">${clips.length}</span>
-        </div>
-        ${longs.length ? `
-          ${showLabels ? '<p class="sub-label">Full films</p>' : ''}
-          <div class="grid-long">${longs.map(clipCard).join('')}</div>` : ''}
-        ${shorts.length ? `
-          ${showLabels ? '<p class="sub-label">Shorts</p>' : ''}
-          <div class="grid-short">${shorts.map(clipCard).join('')}</div>` : ''}
-      </section>`;
-  }).join('');
-
-  container.querySelectorAll('.clip').forEach(el => {
-    const clip = allClips.find(c => c.id === el.dataset.id);
-    if(!clip) return;
-    el.addEventListener('click', () => openLightbox(clip, el));
-    el.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openLightbox(clip, el); }
-    });
-  });
-}
-
-function openLightbox(clip, trigger){
-  lastFocus = trigger || null;
-  lightbox.className = `lightbox open ${clip.format === 'long' ? 'lb-long' : 'lb-short'}`;
-  lightboxTitle.textContent = clip.title;
-  lightboxSub.textContent = `${clip.series} · ${clip.format === 'long' ? 'Full film' : 'Short'}`;
-  lightboxOriginal.href = clip.url;
-  lightboxFrame.innerHTML = `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(clip.id)}?autoplay=1&rel=0" title="${esc(clip.title)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
-  document.body.style.overflow = 'hidden';
-  lightboxClose.focus();
-}
-
-function closeLightbox(){
-  lightbox.className = 'lightbox';
-  lightboxFrame.innerHTML = '';
-  document.body.style.overflow = '';
-  if(lastFocus) lastFocus.focus();
-}
-
-lightboxClose.addEventListener('click', closeLightbox);
-lightbox.addEventListener('click', e => { if(e.target === lightbox) closeLightbox(); });
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
-});
-
-fetch(STORIES_JSON_URL, { cache: 'no-store' })
-  .then(res => {
-    if(!res.ok) throw new Error('blender-stories.json not found (' + res.status + ')');
-    return res.json();
-  })
-  .then(data => {
-    allClips = (Array.isArray(data) ? data : []).map(normalizeClip).filter(Boolean);
-    renderFilters();
-    renderStories();
-  })
-  .catch(err => {
-    container.innerHTML = `<div class="state-msg">Couldn't load the stories.<br>Add <code>blender-stories.json</code> to the repo and check the URL at the top of the script.<br><br>${esc(err.message)}</div>`;
-  });
-</script>
+<script type="module" src="js/hub.js"></script>
 </body>
 </html>
