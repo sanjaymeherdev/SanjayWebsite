@@ -3,5 +3,47 @@
     "id": "cover",
     "title": "Cover",
     "glb": "models/Cover.glb"
+  },
+  {
+    "id": "boy",
+    "title": "Boy",
+    "glb": "models/Boy.glb",
+    "category": "Characters"
+  },
+  {
+    "id": "girl",
+    "title": "Girl",
+    "glb": "models/Girl.glb",
+    "category": "Characters"
+  },
+  {
+    "id": "biker",
+    "title": "Biker",
+    "glb": "models/Biker.glb",
+    "category": "Characters"
+  },
+  {
+    "id": "lady",
+    "title": "Lady",
+    "glb": "models/Lady.glb",
+    "category": "Characters"
+  },
+  {
+    "id": "man",
+    "title": "Man",
+    "glb": "models/Man.glb",
+    "category": "Characters"
+  },
+  {
+    "id": "rookie",
+    "title": "Rookie",
+    "glb": "models/Rookie.glb",
+    "category": "Characters"
+  },
+  {
+    "id": "woman",
+    "title": "Woman",
+    "glb": "models/Woman.glb",
+    "category": "Characters"
   }
 ]
