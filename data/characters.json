@@ -1,0 +1,12 @@
+[
+  {
+    "id": "boy",
+    "title": "Boy",
+    "glb": "models/Boy.glb"
+  },
+  {
+    "id": "girl",
+    "title": "Girl",
+    "glb": "models/Girl.glb"
+  }
+]

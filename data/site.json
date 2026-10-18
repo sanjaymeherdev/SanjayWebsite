@@ -4,8 +4,8 @@
   "defaultTab": "videos",
   "copyright": "© Sanjay Meher. Models are not free to use or redistribute.",
   "videoSections": [
-    { "key": "product", "label": "Product Animation" },
-    { "key": "story", "label": "Short Human Style Story" },
-    { "key": "roblox", "label": "Roblox Animations" }
+    { "key": "story", "label": "Shorts Animation" },
+    { "key": "roblox", "label": "Roblox Animations" },
+    { "key": "product", "label": "Product Animation" }
   ]
 }

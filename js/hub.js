@@ -4,7 +4,7 @@ import { openViewer, closeViewer, isViewerOpen } from './viewer.js';
 
 const $ = s => document.querySelector(s);
 const panel = $('#panel');
-const TABS = ['models', 'characters', 'videos'];
+const TABS = ['videos', 'characters', 'models'];
 const cache = {};
 let site = null;
 

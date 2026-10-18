@@ -17,8 +17,8 @@ function card(v) {
 function grids(list) {
   const longs = list.filter(v => v.format === 'long'), shorts = list.filter(v => v.format !== 'long');
   const labels = longs.length && shorts.length;
-  return (longs.length ? `${labels ? '<p class="sub-label">Full films</p>' : ''}<div class="grid-long">${longs.map(card).join('')}</div>` : '') +
-         (shorts.length ? `${labels ? '<p class="sub-label">Shorts</p>' : ''}<div class="grid-short">${shorts.map(card).join('')}</div>` : '');
+    return (shorts.length ? `${labels ? '<p class="sub-label">Shorts</p>' : ''}<div class="grid-short">${shorts.map(card).join('')}</div>` : '') +
+      (longs.length ? `${labels ? '<p class="sub-label">Full films</p>' : ''}<div class="grid-long">${longs.map(card).join('')}</div>` : '');
 }
 
 export function renderVideos(panel, videos, sections, sub, go) {
