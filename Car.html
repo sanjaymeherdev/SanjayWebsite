@@ -23,6 +23,11 @@ h1{font-size:16px;margin:0 0 2px}.sub{color:var(--mute);font-size:12px;margin:0 
 .sw button{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0}
 .sw button.on{outline:2px solid var(--accent);outline-offset:2px}
 .sw button.orig{background:conic-gradient(#888,#ccc,#666,#aaa,#888)}
+.tx{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tx button{background:none;border:0;padding:0;cursor:pointer;color:var(--ink);font:inherit;font-size:11px;text-align:center}
+.tx img{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;border:2px solid var(--line);margin-bottom:4px}
+.tx button.on img{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.tx button.on span{color:var(--accent);font-weight:600}
 .seg{display:flex;gap:6px;flex-wrap:wrap}
 .seg button,.btn{background:var(--chip);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font:inherit;cursor:pointer}
 .seg button.on{border-color:var(--accent);color:var(--accent);font-weight:600}
@@ -42,12 +47,11 @@ h1{font-size:16px;margin:0 0 2px}.sub{color:var(--mute);font-size:12px;margin:0 
  <div class="card" id="cardCover"><h2>Cover</h2>
   <div class="lbl">Material</div><div class="sw" id="swCover"></div>
   <div class="lbl">Custom colour</div><div class="row"><input type="color" id="colCover" value="#2b2f36"><button class="btn" id="texBtn">Upload texture…</button><input type="file" id="texIn" accept="image/*" hidden></div>
-  <div class="lbl">Finish</div><div class="seg" id="finCover"></div>
+  <div class="lbl">Texture</div><div class="tx" id="txCover"></div>
  </div>
  <div class="card" id="cardSeam"><h2>Seam <label class="tog" title="Show or hide seam"><input type="checkbox" id="seamVis" checked><i></i></label></h2>
   <div class="lbl">Material</div><div class="sw" id="swSeam"></div>
   <div class="lbl">Custom colour</div><div class="row"><input type="color" id="colSeam" value="#ffffff"></div>
-  <div class="lbl">Finish</div><div class="seg" id="finSeam"></div>
  </div>
  <div class="foot"><label class="row"><input type="checkbox" id="rot"> Auto-rotate</label><button class="btn" id="loadBtn">Load another GLB…</button><input type="file" id="glbIn" accept=".glb,.gltf" hidden></div>
 </aside>
@@ -83,15 +87,16 @@ const sun=new THREE.DirectionalLight(0xffffff,.9);sun.position.set(5,9,6);scene.
  m.rotation.x=-Math.PI/2;m.position.y=-.03;scene.add(m);
 })();
 
-const FINISH={Matte:{r:.9,m:0},Satin:{r:.5,m:.05},Glossy:{r:.18,m:.1},Metallic:{r:.35,m:.9}};
+const TEXTURES=[['Texture 1','models/tx1.png'],['Texture 2','models/tx2.png'],['Texture 3','models/tx3.png'],['Texture 4','models/tx4.png']];
+const texCache={};
 const COVER_SW=[['Original',null],['Black','#1a1c20'],['Charcoal','#3b4048'],['Silver','#aeb4bc'],['Navy','#1f3355'],['Red','#a3131f'],['Olive','#4f5a3a'],['Sand','#c9b48a']];
 const SEAM_SW=[['White','#ffffff'],['Black','#111111'],['Red','#d11a2a'],['Gold','#d4a937'],['Silver','#c4c9d0'],['Blue','#2a62d9'],['Orange','#f08a1c']];
-const state={Cover:{sw:'Original',color:'#2b2f36',fin:'Satin',tex:null},Seam:{sw:'White',color:'#ffffff',fin:'Matte'}};
+const state={Cover:{sw:'Original',color:'#2b2f36',tex:null,texName:null},Seam:{sw:'White',color:'#ffffff'}};
 let coverObj=null,coverMeshes=[],seams=[],origMats=new Map(),seamMat=new THREE.MeshStandardMaterial();
 
 function buildMat(part){
- const s=state[part],f=FINISH[s.fin];
- const m=new THREE.MeshStandardMaterial({color:s.color,roughness:f.r,metalness:f.m,side:THREE.DoubleSide});
+ const s=state[part],rough=part==='Cover'?.5:.9,metal=part==='Cover'?.05:0;
+ const m=new THREE.MeshStandardMaterial({color:s.color,roughness:rough,metalness:metal,side:THREE.DoubleSide});
  if(part==='Cover'&&s.tex){m.map=s.tex;m.color.set('#ffffff')}
  return m;
 }
@@ -109,28 +114,40 @@ function swatches(part,list,box){
   const b=document.createElement('button');b.title=name;b.setAttribute('aria-label',name);
   if(col)b.style.background=col;else b.className='orig';
   if(state[part].sw===name)b.classList.add('on');
-  b.onclick=()=>{state[part].sw=name;if(col){state[part].color=col;(part==='Cover'?$('colCover'):$('colSeam')).value=col;if(part==='Cover')state.Cover.tex=null}
-    else if(part==='Cover')state.Cover.tex=null;
+  b.onclick=()=>{state[part].sw=name;if(col){state[part].color=col;(part==='Cover'?$('colCover'):$('colSeam')).value=col;if(part==='Cover'){state.Cover.tex=null;state.Cover.texName=null}}
+    else if(part==='Cover'){state.Cover.tex=null;state.Cover.texName=null}
+    if(part==='Cover')textures();
     swatches(part,list,box);part==='Cover'?applyCover():applySeam()};
   box.appendChild(b);
  });
 }
-function finishes(part,box){
- box.innerHTML='';
- Object.keys(FINISH).forEach(n=>{const b=document.createElement('button');b.textContent=n;if(state[part].fin===n)b.className='on';
-  b.onclick=()=>{state[part].fin=n;finishes(part,box);part==='Cover'?applyCover():applySeam()};box.appendChild(b)});
+function loadTex(url){
+ return texCache[url]||(texCache[url]=new Promise((res,rej)=>new THREE.TextureLoader().load(url,t=>{
+  t.encoding=THREE.sRGBEncoding;t.flipY=false;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=8;res(t)},undefined,rej)));
+}
+function textures(){
+ const box=$('txCover');box.innerHTML='';
+ TEXTURES.forEach(([name,url])=>{
+  const b=document.createElement('button');b.title=name;if(state.Cover.texName===name)b.className='on';
+  const img=document.createElement('img');img.src=url;img.alt=name;img.loading='lazy';
+  const sp=document.createElement('span');sp.textContent=name;
+  b.append(img,sp);
+  b.onclick=()=>loadTex(url).then(t=>{state.Cover.tex=t;state.Cover.texName=name;state.Cover.sw=name;
+   swatches('Cover',COVER_SW,$('swCover'));textures();applyCover()}).catch(e=>console.error('Texture failed',url,e));
+  box.appendChild(b);
+ });
 }
 function setupUI(){
  swatches('Cover',COVER_SW,$('swCover'));swatches('Seam',SEAM_SW,$('swSeam'));
- finishes('Cover',$('finCover'));finishes('Seam',$('finSeam'));
- $('colCover').oninput=e=>{state.Cover.color=e.target.value;state.Cover.sw='Custom';state.Cover.tex=null;swatches('Cover',COVER_SW,$('swCover'));applyCover()};
+ textures();
+ $('colCover').oninput=e=>{state.Cover.color=e.target.value;state.Cover.sw='Custom';state.Cover.tex=null;state.Cover.texName=null;swatches('Cover',COVER_SW,$('swCover'));textures();applyCover()};
  $('colSeam').oninput=e=>{state.Seam.color=e.target.value;state.Seam.sw='Custom';swatches('Seam',SEAM_SW,$('swSeam'));applySeam()};
  $('seamVis').onchange=e=>seams.forEach(o=>o.visible=e.target.checked);
  $('rot').onchange=e=>controls.autoRotate=e.target.checked;controls.autoRotateSpeed=1.2;
  $('texBtn').onclick=()=>$('texIn').click();
  $('texIn').onchange=e=>{const f=e.target.files[0];if(!f)return;const url=URL.createObjectURL(f);
   new THREE.TextureLoader().load(url,t=>{t.encoding=THREE.sRGBEncoding;t.flipY=false;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=8;
-   state.Cover.tex=t;state.Cover.sw='Custom';swatches('Cover',COVER_SW,$('swCover'));applyCover()})};
+   state.Cover.tex=t;state.Cover.texName=null;state.Cover.sw='Custom';swatches('Cover',COVER_SW,$('swCover'));textures();applyCover()})};
  $('loadBtn').onclick=()=>$('glbIn').click();
  $('glbIn').onchange=e=>{const f=e.target.files[0];if(f)f.arrayBuffer().then(b=>loadModel(b))};
 }
