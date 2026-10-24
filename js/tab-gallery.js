@@ -68,7 +68,7 @@ function requestPreview(canvas, item) {
 
 export function renderGallery(panel, items, kind, open) {
   if (!items.length) {
-    panel.innerHTML = `<div class="empty">No ${kind} yet.<br>Add a GLB to <code>3Dmodels/${kind}/</code> and an entry in <code>data/${kind}.json</code>.</div>`;
+    panel.innerHTML = `<div class="empty">No ${kind} yet.</div>`;
     return;
   }
   const cats = ['All', ...new Set(items.map(i => i.category).filter(Boolean))];
