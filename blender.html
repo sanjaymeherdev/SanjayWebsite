@@ -104,6 +104,10 @@ main.wrap{padding-top:1.5rem;padding-bottom:7rem;min-height:50vh}
 .fab:hover{filter:brightness(1.08)}
 body.viewer-open .fab{display:none}
 
+input[type="range"]{width:100%;accent-color:var(--accent)}
+#vStatus{font-size:.75rem;color:var(--muted);min-height:1em}
+#vUpload,#vModes{display:flex}#vUpload[hidden],#vDel[hidden],#vAuth[hidden]{display:none}
+#vAuth{display:flex;flex-direction:column;gap:.4rem}#vAuth input{font:inherit;font-size:.85rem;padding:.5rem .8rem;border:1px solid var(--line);border-radius:100px;background:transparent;color:inherit}
 @media (max-width:760px){
   .wrap{padding:0 1.25rem}.head{padding:2.5rem 0 1.25rem}
   .grid-long{grid-template-columns:1fr}.grid-short{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}.grid-3d{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.75rem}
@@ -121,6 +125,8 @@ body.viewer-open .fab{display:none}
   <div class="head-links">
     <a class="pill wa" id="waHead" href="#" target="_blank" rel="noopener">Message on WhatsApp</a>
     <a class="pill" href="index.html">Back home</a>
+    <button class="pill" id="uploadBtn" type="button">Upload model</button>
+    <input type="file" id="uploadFile" accept=".glb,model/gltf-binary" hidden>
   </div>
 </header>
 
@@ -144,15 +150,21 @@ body.viewer-open .fab{display:none}
   <aside class="side">
     <div><h2 id="vTitle"></h2><div class="facts" id="vFacts"></div></div>
     <p id="vDesc"></p>
-    <div id="vAnimWrap" hidden><h3>Animations</h3><div class="anims ctrls" id="vAnims"></div></div>
+    <div><h3>Tool</h3><div class="ctrls" id="vModes"><button data-m="view" aria-pressed="true">View</button><button data-m="translate" aria-pressed="false">Move</button><button data-m="rotate" aria-pressed="false">Rotate</button><button data-m="scale" aria-pressed="false">Scale</button></div></div>
+    <div id="vAnimWrap" hidden><h3>Animations</h3><div class="anims ctrls" id="vAnims"></div>
+      <input type="range" id="vSeek" min="0" max="1" step="0.001" value="0" aria-label="Animation time" style="margin-top:.7rem"><div class="hint" id="vTime"></div></div>
     <div class="ctrls">
       <button id="vSpin" aria-pressed="false">Auto-rotate</button>
       <button id="vPause" aria-pressed="false" hidden>Pause</button>
       <select id="vSpeed" aria-label="Animation speed" hidden><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>
       <button id="vReset">Reset view</button>
     </div>
-    <div class="hint">Drag to rotate, scroll or pinch to zoom, right-drag to pan.</div>
+    <div class="hint">Drag to orbit, scroll or pinch to zoom, right-drag to pan. Pick Move, Rotate or Scale to change the model with the gizmo.</div>
+    <div id="vUpload" class="ctrls" hidden><select id="vKind" aria-label="Save as"><option value="characters">Character</option><option value="models">Model</option></select><button id="vSave" type="button">Save</button></div>
+    <div id="vAuth" hidden><input id="vEmail" type="email" placeholder="Admin email" autocomplete="username" aria-label="Admin email"><input id="vPass" type="password" placeholder="Password" autocomplete="current-password" aria-label="Password"><button class="pill" id="vSignIn" type="button" style="justify-content:center;cursor:pointer;background:transparent">Sign in</button></div>
+    <div id="vStatus" role="status"></div>
     <div class="actions">
+      <button class="pill" id="vDel" type="button" hidden>Delete this model</button>
       <a class="pill" id="vVideo" href="#" target="_blank" rel="noopener" hidden>Watch this on YouTube</a>
       <a class="pill wa" id="vWa" href="#" target="_blank" rel="noopener">Ask about this on WhatsApp</a>
       <div class="legal" id="vLegal"></div>

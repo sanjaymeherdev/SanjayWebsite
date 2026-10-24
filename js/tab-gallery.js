@@ -91,7 +91,7 @@ export function renderGallery(panel, items, kind, open) {
       if (!entry.isIntersecting) return;
       const canvas = entry.target, item = list.find(i => i.id === canvas.dataset.id);
       galleryObserver.unobserve(canvas);
-      if (item?.glb) requestPreview(canvas, item);
+      if (item?.glb && !item.remote) requestPreview(canvas, item);
     }), { rootMargin: '180px' });
     panel.querySelectorAll('.model-preview').forEach(canvas => galleryObserver.observe(canvas));
   };

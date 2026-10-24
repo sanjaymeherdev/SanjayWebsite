@@ -1,6 +1,7 @@
 import { renderVideos } from './tab-videos.js';
 import { renderGallery } from './tab-gallery.js';
 import { openViewer, closeViewer, isViewerOpen } from './viewer.js';
+import { listModels } from './supa.js';
 
 const $ = s => document.querySelector(s);
 const panel = $('#panel');
@@ -9,7 +10,8 @@ const cache = {};
 let site = null;
 
 const load = name => cache[name] ??= fetch(`data/${name}.json`)
-  .then(r => { if (!r.ok) throw new Error(`data/${name}.json (${r.status})`); return r.json(); });
+  .then(r => { if (!r.ok) throw new Error(`data/${name}.json (${r.status})`); return r.json(); })
+  .then(async items => name === 'characters' || name === 'models' ? items.concat(await listModels(name)) : items);
 
 export function waLink(context) {
   const msg = context
@@ -60,6 +62,13 @@ document.querySelectorAll('.tab').forEach(b => {
   });
 });
 window.addEventListener('hashchange', route);
+addEventListener('models-updated', () => { delete cache.characters; delete cache.models; shownTab = null; });
+$('#uploadBtn').addEventListener('click', () => $('#uploadFile').click());
+$('#uploadFile').addEventListener('change', async e => {
+  const f = e.target.files[0]; e.target.value = '';
+  if (!f) return;
+  openViewer({ title: f.name.replace(/\.glb$/i, ''), buffer: await f.arrayBuffer() }, 'models', site, waLink(), () => { shownTab = null; route(); });
+});
 
 fetch('data/site.json').then(r => r.json()).then(s => {
   site = s;
