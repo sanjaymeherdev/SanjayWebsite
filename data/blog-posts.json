@@ -1,0 +1,70 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "AdMob Integration Guide for Godot",
+      "excerpt": "Complete guide to integrating AdMob ads into your Godot game for Android and iOS. Learn banner, interstitial, and rewarded ad implementation with production-ready code.",
+      "category": "mobile",
+      "date": "2026-04-10",
+      "readTime": "8 min read",
+      "thumbnail": "images/godot-admob.webp",
+      "url": "blog/admob-guide.html",
+      "tags": ["admob", "monetization", "mobile", "android", "ios"]
+    },
+    {
+      "id": 2,
+      "title": "Debug vs Release Keystore in Godot Android Builds",
+      "excerpt": "Understand the difference between debug and release keystores for Godot Android exports, and how to properly sign your APK for Google Play submission.",
+      "category": "mobile",
+      "date": "2026-04-05",
+      "readTime": "6 min read",
+      "thumbnail": "images/keystore.jpg",
+      "url": "blog/debug-vs-release-keystore.html",
+      "tags": ["android", "keystore", "export", "google-play", "mobile"]
+    },
+    {
+      "id": 3,
+      "title": "Export Settings for APK Release from Godot",
+      "excerpt": "Step-by-step walkthrough of all the critical export settings you need to configure before releasing your Godot game as an APK on the Google Play Store.",
+      "category": "mobile",
+      "date": "2026-03-28",
+      "readTime": "7 min read",
+      "thumbnail": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=600&q=80",
+      "url": "blog/export-setting-for-apk-release-from-godot.html",
+      "tags": ["export", "apk", "android", "google-play", "release"]
+    },
+    {
+      "id": 4,
+      "title": "Fixing Godot Export Problems",
+      "excerpt": "Troubleshoot the most common Godot export errors — missing templates, Android SDK issues, signing failures, and black screen problems — with proven fixes.",
+      "category": "tutorials",
+      "date": "2026-03-20",
+      "readTime": "9 min read",
+      "thumbnail": "https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?auto=format&fit=crop&w=600&q=80",
+      "url": "blog/godot-export-problem.html",
+      "tags": ["export", "troubleshooting", "android", "errors", "godot4"]
+    },
+    {
+      "id": 5,
+      "title": "Godot Keystore Setup: Complete Guide",
+      "excerpt": "Learn how to create, configure, and securely store your Android keystore for Godot projects. Covers keytool commands, Godot editor settings, and common pitfalls.",
+      "category": "mobile",
+      "date": "2026-03-12",
+      "readTime": "6 min read",
+      "thumbnail": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80",
+      "url": "blog/godot-keystore.html",
+      "tags": ["keystore", "android", "security", "export", "setup"]
+    },
+    {
+      "id": 6,
+      "title": "Unity Ads Integration in Godot",
+      "excerpt": "How to integrate Unity Ads into your Godot mobile game for Android and iOS. Includes plugin setup, banner and interstitial implementation, and revenue optimization tips.",
+      "category": "mobile",
+      "date": "2026-03-05",
+      "readTime": "8 min read",
+      "thumbnail": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=600&q=80",
+      "url": "blog/unityads-guide.html",
+      "tags": ["unity-ads", "monetization", "mobile", "android", "ios"]
+    }
+  ]
+}
