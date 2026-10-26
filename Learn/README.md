@@ -10,7 +10,7 @@ Learn/
 ├── login.html          # User authentication page
 ├── admin.html          # Admin panel (requires admin email)
 ├── admin-login.html    # Admin login page
-├── lms.js              # Core LMS functionality
+├── lms.js              # Core LMS functionality 
 ├── admin.js            # Admin panel functionality
 ├── lms.css             # Dashboard styles
 ├── admin.css           # Admin panel styles
