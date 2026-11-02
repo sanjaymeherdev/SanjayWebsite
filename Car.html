@@ -159,7 +159,7 @@ function loadModel(buf){
   coverObj=null;coverMeshes=[];seams=[];origMats=new Map();
   const SEAM_NAMES=['SeamL','Plane','LsL','LsL.001','LsL.002'];
   root.traverse(o=>{const n=o.userData.name||o.name;
-   if(n==='cover')coverObj=o;
+   if(typeof n==='string'&&n.toLowerCase()==='cover')coverObj=o;
    if(o.isMesh&&SEAM_NAMES.includes(n))seams.push(o)});
   if(coverObj)coverObj.traverse(o=>{if(o.isMesh&&!seams.includes(o)){coverMeshes.push(o);origMats.set(o,o.material)}});
   const box=new THREE.Box3().setFromObject(root),size=box.getSize(new THREE.Vector3()),ctr=box.getCenter(new THREE.Vector3());
