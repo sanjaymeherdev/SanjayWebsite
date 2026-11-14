@@ -168,7 +168,7 @@ export async function openViewer(item, kind, site, wa, close) {
   el.anims.innerHTML = ''; el.animWrap.hidden = el.pause.hidden = el.speed.hidden = true;
   el.upload.hidden = !item.buffer; el.del.hidden = !item.supa; el.auth.hidden = true; pending = null; el.status.textContent = '';
   el.spin.setAttribute('aria-pressed', 'false');
-  el.load.hidden = false; el.load.textContent = 'Loading model…';
+  el.load.hidden = true; el.load.textContent = '';
   $('vClose').focus();
   try {
     await init();
@@ -176,7 +176,7 @@ export async function openViewer(item, kind, site, wa, close) {
     if (S.raf) cancelAnimationFrame(S.raf);
     unload(); resize();
     const gltf = item.buffer ? await S.loader.parseAsync(item.buffer, '')
-      : await S.loader.loadAsync(item.glb, e => { if (mine === token && e.lengthComputable) el.load.textContent = `Loading model… ${Math.round(e.loaded / e.total * 100)}%`; });
+      : await S.loader.loadAsync(item.glb);
     if (mine !== token) { dispose(gltf.scene); return; }
     const pivot = mountModel(gltf.scene);
     current = { item, root: pivot, actions: [] };
@@ -196,7 +196,7 @@ export async function openViewer(item, kind, site, wa, close) {
     el.load.hidden = true; S.clock.getDelta(); tick();
   } catch (e) {
     console.error(e);
-    if (mine === token) el.load.textContent = `Couldn't load this model. ${item.remote ? e.message : 'Check the path (lowercase, no spaces) and that the file is committed.'}`;
+    if (mine === token) { el.load.hidden = false; el.load.textContent = `Couldn't load this model. ${item.remote ? e.message : 'Check the path (lowercase, no spaces) and that the file is committed.'}`; }
   }
 }
 
