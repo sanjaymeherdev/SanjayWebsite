@@ -183,7 +183,8 @@ export async function openViewer(item, kind, site, wa, close) {
     setMode('view');
     S.spin = !reduceMotion && kind === 'models' && !item.buffer;
     el.spin.setAttribute('aria-pressed', String(S.spin));
-    if (item.buffer) el.kind.value = gltf.animations.length ? 'characters' : 'models';
+    // Pages can override the upload targets via data-anim / data-static on the #vKind select.
+    if (item.buffer) el.kind.value = gltf.animations.length ? (el.kind.dataset.anim || 'characters') : (el.kind.dataset.static || 'models');
     if (gltf.animations.length) {
       current.mixer = new T.AnimationMixer(gltf.scene);
       current.actions = gltf.animations.map(c => current.mixer.clipAction(c));
@@ -247,7 +248,7 @@ el.save.addEventListener('click', () => withAuth(async () => {
   el.save.disabled = true;
   try {
     await uploadModel({ buffer: item.buffer, title, kind, thumb: snapshot(),
-      category: kind === 'characters' ? 'Rigged Characters' : 'Models' },
+      category: el.kind.selectedOptions[0]?.dataset.category || (kind === 'characters' ? 'Rigged Characters' : 'Models') },
       p => { el.status.textContent = `Uploading… ${Math.round(p * 100)}%`; });
     el.status.textContent = `Saved. It now shows in the ${kind} tab.`;
     dispatchEvent(new Event('models-updated'));

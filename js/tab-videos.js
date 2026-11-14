@@ -40,6 +40,17 @@ export function renderVideos(panel, videos, sections, sub, go) {
   panel.querySelectorAll('.card').forEach(el => el.addEventListener('click', () => open(videos.find(v => v.id === el.dataset.id), el)));
 }
 
+// Plain list of videos (no section chips), grouped by series. Used by pages that do their own tabs.
+export function renderVideoList(panel, videos, emptyHtml) {
+  if (!videos.length) { panel.innerHTML = `<div class="empty">${emptyHtml}</div>`; return; }
+  const series = {};
+  videos.forEach(v => (series[v.series || ''] ??= []).push(v));
+  const names = Object.keys(series);
+  panel.innerHTML = names.length === 1 && !names[0] ? grids(videos)
+    : names.map(n => (n ? `<h2 class="series-name">${esc(n)}</h2>` : '') + grids(series[n])).join('');
+  panel.querySelectorAll('.card').forEach(el => el.addEventListener('click', () => open(videos.find(v => v.id === el.dataset.id), el)));
+}
+
 function open(v, trigger) {
   lastFocus = trigger;
   lb.className = `overlay open ${v.format === 'long' ? 'lb-long' : 'lb-short'}`;

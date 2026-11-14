@@ -66,9 +66,9 @@ function requestPreview(canvas, item) {
   }).catch(error => console.warn(`Could not render preview for ${item.glb}.`, error));
 }
 
-export function renderGallery(panel, items, kind, open) {
+export function renderGallery(panel, items, kind, open, label = kind) {
   if (!items.length) {
-    panel.innerHTML = `<div class="empty">No ${kind} yet.</div>`;
+    panel.innerHTML = `<div class="empty">No ${esc(label)} yet.</div>`;
     return;
   }
   const cats = ['All', ...new Set(items.map(i => i.category).filter(Boolean))];
@@ -79,7 +79,7 @@ export function renderGallery(panel, items, kind, open) {
       `<button class="chip" data-c="${esc(c)}" aria-pressed="${c === active}">${esc(c)}<span class="n">${c === 'All' ? items.length : items.filter(i => i.category === c).length}</span></button>`).join('')}</div>` : '') +
       `<div class="grid-3d" style="margin-top:1.25rem">${list.map(i => `
       <button class="card" data-id="${esc(i.id)}" aria-label="View ${esc(i.title)} in 3D">
-        <div class="thumb t-3d"><span class="badge">${kind === 'characters' ? 'Rigged · 3D' : '3D'}</span>
+        <div class="thumb t-3d"><span class="badge">${/character|animation/.test(kind) ? 'Rigged · 3D' : '3D'}</span>
         ${i.thumb ? `<img src="${esc(i.thumb)}" alt="" loading="lazy">` : ''}
         <canvas class="model-preview" data-id="${esc(i.id)}" width="480" height="360" aria-hidden="true"></canvas></div>
         <div class="meta"><div class="c-title">${esc(i.title)}</div>

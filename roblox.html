@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sanjay Meher — Roblox Portfolio: Animations, Characters, Scripts and Addons</title>
+<meta name="description" content="Roblox portfolio: animation shorts and films, rigged R15 characters you can rotate and animate, animation packs, and Blender addons and scripts for Roblox creators.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script type="importmap">
+{"imports":{"three":"./js/vendor/three/three.module.min.js","three/addons/":"./js/vendor/three/addons/"}}
+</script>
+<link rel="stylesheet" href="css/portfolio-hub.css">
+<style>:root{--accent:#e8453c;--accent-rgb:232,69,60}</style>
+</head>
+<body>
+<header class="wrap head">
+  <h1>Roblox animations, characters, scripts and addons</h1>
+  <p class="sub">Watch the animation work, rotate and animate the R15 characters, browse animation packs, or grab the tools I use. Want something similar for your game? Message me.</p>
+  <div class="head-links">
+    <a class="pill wa" id="waHead" href="#" target="_blank" rel="noopener">Message on WhatsApp</a>
+    <a class="pill" href="index.html">Back home</a>
+    <a class="pill" href="blender.html">Blender work</a>
+    <button class="pill" id="uploadBtn" type="button">Upload GLB</button>
+    <input type="file" id="uploadFile" accept=".glb,model/gltf-binary" hidden>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections"><div class="wrap" role="tablist" id="tablist">
+  <button class="tab" role="tab" id="tab-shorts" data-tab="shorts">Shorts Demo</button>
+  <button class="tab" role="tab" id="tab-long" data-tab="long">Long Videos</button>
+  <button class="tab" role="tab" id="tab-characters" data-tab="characters">Characters</button>
+  <button class="tab" role="tab" id="tab-animations" data-tab="animations">Animations Pack</button>
+  <button class="tab" role="tab" id="tab-addons" data-tab="addons">Addons &amp; Scripts</button>
+</div></nav>
+
+<main class="wrap" id="panel" role="tabpanel" tabindex="-1"><div class="empty">Loading…</div></main>
+
+<div class="overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Video player">
+  <button class="close" id="lbClose" aria-label="Close video">✕</button>
+  <div class="lb-frame" id="lbFrame"></div>
+  <div class="lb-cap"><div class="t" id="lbTitle"></div><a id="lbYt" href="#" target="_blank" rel="noopener">Open on YouTube</a></div>
+</div>
+
+<div class="overlay" id="viewer" role="dialog" aria-modal="true" aria-label="3D viewer">
+  <button class="close" id="vClose" aria-label="Close viewer">✕</button>
+  <div class="stage" id="stage"><div class="v-load" id="vLoad">Loading model…</div></div>
+  <aside class="side">
+    <div><h2 id="vTitle"></h2><div class="facts" id="vFacts"></div></div>
+    <p id="vDesc"></p>
+    <div><h3>Tool</h3><div class="ctrls" id="vModes"><button data-m="view" aria-pressed="true">View</button><button data-m="translate" aria-pressed="false">Move</button><button data-m="rotate" aria-pressed="false">Rotate</button><button data-m="scale" aria-pressed="false">Scale</button></div></div>
+    <div id="vAnimWrap" hidden><h3>Animations</h3><div class="anims ctrls" id="vAnims"></div>
+      <input type="range" id="vSeek" min="0" max="1" step="0.001" value="0" aria-label="Animation time" style="margin-top:.7rem"><div class="hint" id="vTime"></div></div>
+    <div class="ctrls">
+      <button id="vSpin" aria-pressed="false">Auto-rotate</button>
+      <button id="vPause" aria-pressed="false" hidden>Pause</button>
+      <select id="vSpeed" aria-label="Animation speed" hidden><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>
+      <button id="vReset">Reset view</button>
+    </div>
+    <div class="hint">Drag to orbit, scroll or pinch to zoom, right-drag to pan. Pick Move, Rotate or Scale to change the model with the gizmo.</div>
+    <div id="vUpload" class="ctrls" hidden>
+      <select id="vKind" aria-label="Save as" data-anim="roblox-animations" data-static="roblox-characters">
+        <option value="roblox-characters" data-category="Roblox Characters">Character</option>
+        <option value="roblox-animations" data-category="Animation Packs">Animations Pack</option>
+      </select><button id="vSave" type="button">Save</button></div>
+    <div id="vAuth" hidden><input id="vEmail" type="email" placeholder="Admin email" autocomplete="username" aria-label="Admin email"><input id="vPass" type="password" placeholder="Password" autocomplete="current-password" aria-label="Password"><button class="pill" id="vSignIn" type="button" style="justify-content:center;cursor:pointer;background:transparent">Sign in</button></div>
+    <div id="vStatus" role="status"></div>
+    <div class="actions">
+      <button class="pill" id="vDel" type="button" hidden>Delete this model</button>
+      <a class="pill" id="vVideo" href="#" target="_blank" rel="noopener" hidden>Watch this on YouTube</a>
+      <a class="pill wa" id="vWa" href="#" target="_blank" rel="noopener">Ask about this on WhatsApp</a>
+      <div class="legal" id="vLegal"></div>
+    </div>
+  </aside>
+</div>
+
+<a class="fab" id="waFab" href="#" target="_blank" rel="noopener" aria-label="Message on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg><span>WhatsApp</span></a>
+
+<script type="module" src="js/roblox-hub.js"></script>
+</body>
+</html>

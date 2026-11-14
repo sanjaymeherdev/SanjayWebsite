@@ -1,0 +1,21 @@
+[
+  {
+    "id": "mixamo-batch-importer",
+    "title": "Mixamo Batch Importer",
+    "type": "Blender addon",
+    "price": "Free",
+    "description": "Import a whole folder of Mixamo FBX files at once. Each animation becomes an Action with Fake User enabled.",
+    "tags": ["Blender", "Mixamo", "Animation"],
+    "downloadUrl": "",
+    "docsUrl": "blog/mixamo-character-animation.html"
+  },
+  {
+    "id": "mixamo-to-r15-retargeter",
+    "title": "Mixamo to R15 Retargeter",
+    "type": "Blender addon",
+    "price": "",
+    "description": "Bakes Mixamo animations onto a Roblox R15 rig, with world or parent-relative matching per bone and batch baking of every action in the file.",
+    "tags": ["Blender", "Roblox", "R15", "Retargeting"],
+    "downloadUrl": ""
+  }
+]
