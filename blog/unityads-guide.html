@@ -281,6 +281,7 @@
         <div class="hero-stat"><span class="num">3</span><span class="label">AD TYPES</span></div>
         <div class="hero-stat"><span class="num">Auto</span><span class="label">MANIFEST</span></div>
         <div class="hero-stat"><span class="num">4.12</span><span class="label">SDK VERSION</span></div>
+        <div class="hero-stat"><span class="num">17</span><span class="label">JDK VERSION</span></div>
         <div class="hero-stat"><span class="num">4.4+</span><span class="label">GODOT VERSION</span></div>
     </div>
 </section>
@@ -296,7 +297,7 @@
                 <li><a href="#step1"><span class="step-dot">1</span> Installation</a></li>
                 <li><a href="#step2"><span class="step-dot">2</span> Unity Dashboard</a></li>
                 <li><a href="#step3"><span class="step-dot">3</span> Android Templates</a></li>
-                <li><a href="#step4"><span class="step-dot">4</span> Export Settings</a></li>
+                <li><a href="#step4"><span class="step-dot">4</span> Export Guide</a></li>
                 <li><a href="#step5"><span class="step-dot">5</span> Using the Ads</a></li>
                 <li><a href="#step6"><span class="step-dot">6</span> Signals Reference</a></li>
                 <li><a href="#step7"><span class="step-dot">7</span> Debugging</a></li>
@@ -458,6 +459,7 @@
                     <li>Go to <strong>Project → Install Android Build Template…</strong></li>
                     <li>Click <strong>Install</strong> and wait for Godot to finish</li>
                     <li>The <code style="font-family:var(--font-mono); color:var(--accent); font-size:0.82rem;">android/build/</code> folder will now exist in your project</li>
+                    <li><span>Requires <strong>JDK 17</strong> and the Android SDK — see <a href="#step4" style="color:var(--unity-blue);">Step 4: Export Guide</a></span></li>
                 </ol>
 
                 <div class="callout success">
@@ -475,24 +477,108 @@
 
         <div class="divider"></div>
 
-        <!-- ── STEP 4: EXPORT SETTINGS ── -->
+        <!-- ── STEP 4: EXPORT GUIDE ── -->
         <section class="step-section" id="step4">
             <div class="step-header">
                 <div class="step-num">4</div>
-                <h2>Export <span>Settings</span></h2>
+                <h2>Export <span>Guide</span></h2>
             </div>
 
-            <div class="callout danger">
-                <span class="callout-icon">🚨</span>
-                <div>
-                    <strong>Same rules as AdMob — both are critical:</strong>
-                    <p>1. Use a <strong>Release Keystore</strong> — debug keystore will not serve real ads.</p>
-                    <p>2. <strong>Export as Release APK</strong> via Project → Export. Do NOT use One-Click Deploy.</p>
+            <div class="card">
+                <h3>Requirements Checklist</h3>
+                <table class="placement-table">
+                    <thead>
+                        <tr><th>Item</th><th>Required</th><th>Why</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Godot</strong></td><td><code>4.4</code> (4.2+ works)</td><td class="fix">Plugin uses the Godot v2 Android plugin format</td></tr>
+                        <tr><td><strong>JDK</strong></td><td><code>JDK 17</code></td><td class="fix">Godot 4.4 Gradle build and the compiled AAR both target Java 17. JDK 21+ can cause Gradle errors</td></tr>
+                        <tr><td><strong>Android SDK</strong></td><td><code>Platform 35</code>, <code>Build-Tools 35.0.1</code>, <code>Platform-Tools</code>, <code>Cmdline-Tools</code></td><td class="fix">Godot 4.4 export defaults</td></tr>
+                        <tr><td><strong>Min SDK</strong></td><td><code>24</code> or higher</td><td class="fix">The plugin AAR declares minSdkVersion 24. Lower values break the manifest merge</td></tr>
+                        <tr><td><strong>Unity Ads SDK</strong></td><td><code>4.12.3</code></td><td class="fix">Downloaded from Maven Central automatically on first build</td></tr>
+                        <tr><td><strong>Internet</strong></td><td>On first build</td><td class="fix">Gradle downloads the Unity Ads SDK and its dependencies</td></tr>
+                        <tr><td><strong>Build template</strong></td><td>Installed (Step 3)</td><td class="fix">Must match your editor version — reinstall after upgrading Godot</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>A. Install JDK 17 and the Android SDK</h3>
+                <ol class="steps-list">
+                    <li><span>Install <strong>JDK 17</strong> (Temurin or OpenJDK 17). Verify in a terminal with <code style="font-family:var(--font-mono); font-size:0.82rem; color:var(--accent);">java -version</code> — it should print <code style="font-family:var(--font-mono); font-size:0.82rem; color:var(--accent);">17.x</code></span></li>
+                    <li><span>Install the Android SDK, either through <strong>Android Studio → SDK Manager</strong> or the command-line tools</span></li>
+                    <li><span>In the SDK Manager, install <strong>Android SDK Platform 35</strong>, <strong>Build-Tools 35.0.1</strong>, <strong>Platform-Tools</strong> and <strong>Command-line Tools</strong></span></li>
+                    <li><span>If Godot asks for extra SDK components (such as NDK or CMake) during setup, install the versions it names</span></li>
+                </ol>
+
+                <div class="code-wrap">
+                    <div class="code-header">
+                        <span class="code-filename">Terminal — command-line install (optional)</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><span class="cm"># Run from your cmdline-tools/latest/bin folder</span>
+sdkmanager <span class="str">"platform-tools"</span> <span class="str">"platforms;android-35"</span> <span class="str">"build-tools;35.0.1"</span> <span class="str">"cmdline-tools;latest"</span>
+sdkmanager --licenses</pre>
+                </div>
+
+                <div class="callout warning">
+                    <span class="callout-icon">⚠️</span>
+                    <div><strong>Do not use JDK 21 or newer.</strong> Godot 4.4's Gradle setup expects JDK 17. If your system default is another version, that is fine — Godot uses the path you set in Editor Settings (next step), not the system default.</div>
                 </div>
             </div>
 
             <div class="card">
-                <h3>Android Export Preset — Required Settings</h3>
+                <h3>B. Point Godot at the JDK and SDK</h3>
+                <ol class="steps-list">
+                    <li><span>Open <strong>Editor → Editor Settings → Export → Android</strong></span></li>
+                    <li><span>Set <strong>Java SDK Path</strong> to your JDK 17 folder (the folder that contains <code style="font-family:var(--font-mono); font-size:0.82rem; color:var(--accent);">bin</code>)</span></li>
+                    <li><span>Set <strong>Android SDK Path</strong> to your Android SDK folder</span></li>
+                    <li><span>Set the <strong>Debug Keystore</strong>, user and password (see the keystore section below)</span></li>
+                </ol>
+
+                <div class="img-placeholder">
+                    <div class="ph-icon">🖼️</div>
+                    <p>Screenshot: Editor Settings → Export → Android — Java SDK Path and Android SDK Path</p>
+                    <!-- Replace with: <img src="images/editor-settings-android.png" alt="Android editor settings"> -->
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>C. Create Keystores</h3>
+                <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1rem;">Use <code style="font-family:var(--font-mono); font-size:0.82rem; color:var(--accent);">keytool</code> from your JDK 17 <code style="font-family:var(--font-mono); font-size:0.82rem; color:var(--accent);">bin</code> folder.</p>
+
+                <div class="code-wrap">
+                    <div class="code-header">
+                        <span class="code-filename">Terminal — release keystore (keep this file safe)</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre>keytool -genkey -v -keystore release.keystore -alias my_alias -keyalg RSA -keysize 2048 -validity 10000</pre>
+                </div>
+
+                <div class="code-wrap">
+                    <div class="code-header">
+                        <span class="code-filename">Terminal — debug keystore (only if you don't have one)</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre>keytool -keyalg RSA -genkeypair -alias androiddebugkey -keypass android -keystore debug.keystore -storepass android -dname "CN=Android Debug,O=Android,C=US" -validity 9999 -deststoretype pkcs12</pre>
+                </div>
+
+                <div class="callout danger">
+                    <span class="callout-icon">🚨</span>
+                    <div><strong>Back up your release keystore and its passwords.</strong> If you lose them you cannot publish updates to the same Play Store app.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>D. Android Export Preset</h3>
+                <ol class="steps-list">
+                    <li><span>Go to <strong>Project → Export → Add… → Android</strong></span></li>
+                    <li><span>Turn on <strong>Use Gradle Build</strong></span></li>
+                    <li><span>Set <strong>Min SDK</strong> to <code style="font-family:var(--font-mono); font-size:0.82rem; color:var(--accent);">24</code> or higher</span></li>
+                    <li><span>Under <strong>Architectures</strong>, enable <code style="font-family:var(--font-mono); font-size:0.82rem; color:var(--accent);">arm64-v8a</code> (add <code style="font-family:var(--font-mono); font-size:0.82rem; color:var(--accent);">armeabi-v7a</code> if you support older devices)</span></li>
+                    <li><span>Enable the <strong>INTERNET</strong> and <strong>ACCESS_NETWORK_STATE</strong> permissions</span></li>
+                    <li><span>Fill in the <strong>Release</strong> keystore, user and password</span></li>
+                </ol>
 
                 <div class="code-wrap">
                     <div class="code-header">
@@ -501,28 +587,93 @@
                     </div>
                     <pre><span class="cm">── Gradle Build ──────────────────────────────</span>
 <span class="str">[✓]</span> Use Gradle Build
-<span class="str">[✓]</span> Use Custom Build
+Min SDK:        <span class="fn">24</span> <span class="cm">(or higher)</span>
+
+<span class="cm">── Architectures ─────────────────────────────</span>
+<span class="str">[✓]</span> arm64-v8a
+<span class="str">[ ]</span> armeabi-v7a <span class="cm">(optional)</span>
 
 <span class="cm">── Permissions ───────────────────────────────</span>
 <span class="str">[✓]</span> INTERNET
 <span class="str">[✓]</span> ACCESS_NETWORK_STATE
 
-<span class="cm">Note: AD_ID permission is auto-injected by plugin</span>
+<span class="cm">Note: AD_ID permission is auto-injected by plugin.
+There is no plugin checkbox to tick — the export plugin adds the AAR automatically.</span>
 
-<span class="cm">── Keystore (REQUIRED for real ads) ──────────</span>
-Release Keystore:  <span class="fn">path/to/your-release.keystore</span>
-Release User:      <span class="fn">your_key_alias</span>
-Release Password:  <span class="fn">your_password</span>
-
-<span class="cm">── Export ────────────────────────────────────</span>
-Export Format:  <span class="str">APK</span>
-Build Mode:     <span class="str">Release</span></pre>
+<span class="cm">── Keystore (release build) ──────────────────</span>
+Release Keystore:  <span class="fn">path/to/release.keystore</span>
+Release User:      <span class="fn">my_alias</span>
+Release Password:  <span class="fn">your_password</span></pre>
                 </div>
 
                 <div class="img-placeholder">
                     <div class="ph-icon">🖼️</div>
-                    <p>Screenshot: Export dialog — Gradle Build enabled, permissions checked, Release keystore set</p>
+                    <p>Screenshot: Export dialog — Gradle Build enabled, Min SDK 24, permissions checked, Release keystore set</p>
                     <!-- Replace with: <img src="images/export-settings.png" alt="Export settings"> -->
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>E. Export the Build</h3>
+                <ol class="steps-list">
+                    <li><span>In the Export dialog, <strong>uncheck "Export With Debug"</strong> for a release build</span></li>
+                    <li><span>Click <strong>Export Project…</strong> (not One-Click Deploy) and choose a file name</span></li>
+                    <li><span>Choose <strong>APK</strong> for direct install and testing, or <strong>AAB</strong> for Play Store upload (AAB needs Gradle Build, which you already enabled)</span></li>
+                    <li><span>Wait for Gradle. The <strong>first build is slow</strong> because it downloads Gradle, the Unity Ads SDK and other dependencies</span></li>
+                    <li><span>Install the APK on a real Android device and test with <code style="font-family:var(--font-mono); font-size:0.82rem; color:var(--accent);">TEST_MODE = true</code> first</span></li>
+                </ol>
+
+                <div class="callout danger">
+                    <span class="callout-icon">🚨</span>
+                    <div>
+                        <strong>Before you publish:</strong>
+                        <p>1. Use a <strong>Release Keystore</strong> and export a <strong>Release</strong> build via Project → Export. Do NOT use One-Click Deploy.</p>
+                        <p>2. Set <code style="font-family:var(--font-mono); font-size:0.82rem; color:var(--accent);">TEST_MODE = false</code> in <code style="font-family:var(--font-mono); font-size:0.82rem; color:var(--accent);">UnityAds.gd</code> and use your real Game ID.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Export Errors and Fixes</h3>
+                <table class="debug-table">
+                    <thead>
+                        <tr><th>ERROR / SYMPTOM</th><th>CAUSE &amp; FIX</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="issue">Unsupported class file major version / Could not determine java version</td>
+                            <td class="fix"><strong>Wrong JDK.</strong> Install JDK 17 and set <strong>Java SDK Path</strong> in Editor Settings → Export → Android.</td>
+                        </tr>
+                        <tr>
+                            <td class="issue">minSdkVersion 21 cannot be smaller than version 24 declared in library</td>
+                            <td class="fix"><strong>Min SDK too low.</strong> In the Android export preset, set <strong>Min SDK to 24</strong> or higher.</td>
+                        </tr>
+                        <tr>
+                            <td class="issue">Could not resolve com.unity3d.ads:unity-ads:4.12.3</td>
+                            <td class="fix"><strong>No access to Maven Central.</strong> Check internet, VPN, proxy or firewall. Gradle needs network access on the first build.</td>
+                        </tr>
+                        <tr>
+                            <td class="issue">Android build template version mismatch</td>
+                            <td class="fix"><strong>Template out of date.</strong> Run <strong>Project → Install Android Build Template</strong> again after upgrading Godot.</td>
+                        </tr>
+                        <tr>
+                            <td class="issue">Invalid Android SDK path / missing build-tools or platform</td>
+                            <td class="fix"><strong>SDK components missing.</strong> Install Platform 35 and Build-Tools 35.0.1 in the SDK Manager, then re-check the Android SDK Path.</td>
+                        </tr>
+                        <tr>
+                            <td class="issue">Keystore / signing error</td>
+                            <td class="fix"><strong>Wrong keystore path, alias or password.</strong> Re-check the Release (or Debug) fields in the export preset. Alias is case-sensitive.</td>
+                        </tr>
+                        <tr>
+                            <td class="issue">Manifest merger failed</td>
+                            <td class="fix"><strong>Conflicting manifest entries.</strong> Read the Gradle log for the exact line. The plugin adds the Unity Ads activities and permissions itself — remove any copies you added by hand to <code style="font-family:var(--font-mono); font-size:0.82rem; color:var(--accent);">android/build/AndroidManifest.xml</code>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout info">
+                    <span class="callout-icon">ℹ️</span>
+                    <div>For any other build failure, copy the full Gradle output from Godot's output panel. The first "What went wrong" block usually names the exact problem.</div>
                 </div>
             </div>
         </section>
@@ -821,7 +972,7 @@ Build Mode:     <span class="str">Release</span></pre>
                         </tr>
                         <tr>
                             <td class="issue">Gradle build fails</td>
-                            <td class="fix"><strong>Gradle Build not enabled in export.</strong> Check "Use Gradle Build" in your Android export preset. Also confirm INTERNET and ACCESS_NETWORK_STATE permissions are enabled.</td>
+                            <td class="fix"><strong>Gradle Build not enabled in export.</strong> Check "Use Gradle Build" in your Android export preset. Also confirm INTERNET and ACCESS_NETWORK_STATE permissions are enabled. Make sure you are building with <strong>JDK 17</strong> and Min SDK 24 or higher — see the Export Guide error table.</td>
                         </tr>
                         <tr>
                             <td class="issue">App crashes on launch (Android)</td>
