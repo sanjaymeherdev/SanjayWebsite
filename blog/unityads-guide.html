@@ -243,6 +243,16 @@
         .also-check a { color: var(--primary); text-decoration: none; font-weight: 700; font-size: 0.85rem; }
         .also-check a:hover { text-decoration: underline; }
 
+        /* ── MISTAKES TO AVOID ── */
+        .mistake-list { display: grid; gap: 0.9rem; margin-top: 1.2rem; }
+        .mistake { display: flex; gap: 1rem; background: rgba(255,82,82,0.06); border: 1px solid rgba(255,82,82,0.22); border-radius: 10px; padding: 1.1rem 1.3rem; }
+        .mistake-num { min-width: 28px; height: 28px; border-radius: 6px; background: rgba(255,82,82,0.15); border: 1px solid rgba(255,82,82,0.3); color: var(--danger); font-weight: 800; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .mistake h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.35rem; color: white; }
+        .mistake p { font-size: 0.85rem; color: var(--muted); }
+        .mistake .do { margin-top: 0.45rem; color: var(--muted); }
+        .mistake .do strong { color: var(--success); }
+        .mistake code { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); }
+
         footer { border-top: 1px solid var(--border); text-align: center; padding: 2.5rem 2rem; color: var(--muted); font-size: 0.82rem; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: var(--dark); }
@@ -272,7 +282,7 @@
     <div class="hero-badge">📖 SETUP GUIDE</div>
     <h1>Unity Ads Plugin for<br><span>Godot 4.4</span> — Full Setup</h1>
     <p class="guide-subtitle">
-        Banner, Interstitial & Rewarded Ads with auto-retry, signals, and zero manifest editing required.
+        Banner, Interstitial & Rewarded Ads for Android with auto-retry, signals, and zero manifest editing required.
         Step-by-step guide based on the actual plugin code.
     </p>
     <a href="#step1" class="cta-button">Start Setup →</a>
@@ -301,6 +311,7 @@
                 <li><a href="#step5"><span class="step-dot">5</span> Using the Ads</a></li>
                 <li><a href="#step6"><span class="step-dot">6</span> Signals Reference</a></li>
                 <li><a href="#step7"><span class="step-dot">7</span> Debugging</a></li>
+                <li><a href="#step8"><span class="step-dot">!</span> Mistakes to Avoid</a></li>
             </ul>
         </nav>
         <div class="sidebar-itch">
@@ -329,6 +340,8 @@
 │   └── <span class="dir">unity_ads_plugin/</span>
 │       ├── <span class="file">UnityAds.gd</span>              <span class="note">← wrapper (autoloaded as UnityAds)</span>
 │       ├── <span class="file">unity_ads_plugin.gd</span>      <span class="note">← export plugin</span>
+│       ├── <span class="file">plugin.cfg</span>               <span class="note">← plugin manifest</span>
+│       ├── <span class="file">*.gd.uid</span>                 <span class="note">← Godot 4.4+ ID files — keep them</span>
 │       └── <span class="dir">plugin/</span>
 │           └── <span class="file">unityadsplugin-release.aar</span>
 ├── <span class="dir">android/</span>
@@ -339,6 +352,19 @@
                 <div class="callout info">
                     <span class="callout-icon">ℹ️</span>
                     <div>The folder name <strong>must</strong> stay <code style="font-family:var(--font-mono); font-size:0.82rem;">unity_ads_plugin</code> — the AAR path is hardcoded in the export plugin.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Autoload, not a scene node</h3>
+                <p style="color:var(--muted); font-size:0.9rem;"><code style="font-family:var(--font-mono); color:var(--accent); font-size:0.82rem;">UnityAds</code> is a <strong>global autoload (singleton)</strong>. Enabling the plugin registers it for you (check <strong>Project Settings → Globals → Autoload</strong>). You call it from any script as <code style="font-family:var(--font-mono); color:var(--accent); font-size:0.82rem;">UnityAds.initialize()</code>, <code style="font-family:var(--font-mono); color:var(--accent); font-size:0.82rem;">UnityAds.show_interstitial()</code> and so on.</p>
+                <div class="callout danger">
+                    <span class="callout-icon">🚨</span>
+                    <div><strong>Do not also drag <code style="font-family:var(--font-mono); font-size:0.82rem;">UnityAds.gd</code> into a scene as a Node.</strong> A second copy connects to the native plugin again, and every signal fires twice. It also has no <code style="font-family:var(--font-mono); font-size:0.82rem;">_ready()</code> timing guarantee relative to your own scene. Use the autoload only.</div>
+                </div>
+                <div class="callout info">
+                    <span class="callout-icon">ℹ️</span>
+                    <div><strong>Android only.</strong> The native plugin exists only in Android builds. In the editor or on desktop, <code style="font-family:var(--font-mono); font-size:0.82rem;">UnityAds</code> still exists but every call just prints <em>"Plugin NOT found"</em> and does nothing. Test ads on a real Android device.</div>
                 </div>
             </div>
 
@@ -385,7 +411,7 @@
 
                 <div class="code-wrap">
                     <div class="code-header">
-                        <span class="code-filename">addons/unity_ads_plugin/UnityAds.gd — line 2</span>
+                        <span class="code-filename">addons/unity_ads_plugin/UnityAds.gd — constants at the top of the file</span>
                         <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                     </div>
                     <pre><span class="cm"># Replace with your real Game ID from Unity Dashboard</span>
@@ -429,7 +455,7 @@
 
                 <div class="callout warning">
                     <span class="callout-icon">⚠️</span>
-                    <div><strong>Banner requires manual creation.</strong> Go to <strong>Monetization → Ad Units → Add Ad Unit</strong>. Set the name to <code style="font-family:var(--font-mono); font-size:0.82rem;">Banner_Android</code>, platform to Android, format to Banner. Without this, banner ads will fail silently.</div>
+                    <div><strong>Banner requires manual creation.</strong> Go to <strong>Monetization → Ad Units → Add Ad Unit</strong>. Set the name to <code style="font-family:var(--font-mono); font-size:0.82rem;">Banner_Android</code>, platform to Android, format to Banner. Without this, the banner will not load and <code style="font-family:var(--font-mono); font-size:0.82rem;">on_banner_failed_to_load</code> fires (nothing appears on screen, so watch the log).</div>
                 </div>
 
                 <div class="img-placeholder">
@@ -440,7 +466,7 @@
 
                 <div class="callout info">
                     <span class="callout-icon">ℹ️</span>
-                    <div>These placement IDs are already set as constants in <code style="font-family:var(--font-mono); font-size:0.82rem;">UnityAds.gd</code> — you don't need to change them as long as you use the default names above.</div>
+                    <div>These placement IDs are already set as constants in <code style="font-family:var(--font-mono); font-size:0.82rem;">UnityAds.gd</code> — you don't need to change them as long as you use the default names above. If your dashboard placements are named differently, edit the <code style="font-family:var(--font-mono); font-size:0.82rem;">PLACEMENT_*</code> constants at the top of <code style="font-family:var(--font-mono); font-size:0.82rem;">UnityAds.gd</code> to match exactly (they are case-sensitive).</div>
                 </div>
             </div>
         </section>
@@ -500,6 +526,10 @@
                         <tr><td><strong>Build template</strong></td><td>Installed (Step 3)</td><td class="fix">Must match your editor version — reinstall after upgrading Godot</td></tr>
                     </tbody>
                 </table>
+                <div class="callout warning">
+                    <span class="callout-icon">⚠️</span>
+                    <div><strong>Versions above are for Godot 4.4.</strong> The JDK and Android SDK / Build-Tools versions are the defaults for that release. On a newer Godot (4.5, 4.6, 4.7…) the required JDK and SDK versions can change, so check the Android export page in the official Godot docs for your version, and do a clean Gradle build after changing editors.</div>
+                </div>
             </div>
 
             <div class="card">
@@ -704,16 +734,16 @@ Release Password:  <span class="fn">your_password</span></pre>
                     <div><strong>Always wait for <code style="font-family:var(--font-mono); font-size:0.82rem;">on_initialization_complete</code> before loading ads.</strong> And always wait for <code style="font-family:var(--font-mono); font-size:0.82rem;">on_*_loaded</code> before showing. The wrapper has built-in guards — calling <code style="font-family:var(--font-mono); font-size:0.82rem;">show_interstitial()</code> before it's ready just prints a warning and does nothing.</div>
                 </div>
 
-                <!-- FIX 1: Updated to Godot 4 signal syntax throughout -->
-                <!-- FIX 2: Removed misleading show_banner() function; banner auto-shows on load -->
-                <!-- FIX 3: All signals connected upfront in _ready(), not inside _on_ads_ready() -->
-                <!-- FIX 4: Added on_banner_clicked signal which was missing -->
                 <div class="code-wrap">
                     <div class="code-header">
-                        <span class="code-filename">your_scene.gd — complete example (Godot 4 syntax)</span>
+                        <span class="code-filename">boot_scene.gd — complete example (Godot 4 syntax)</span>
                         <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                     </div>
                     <pre><span class="kw">extends</span> <span class="fn">Node</span>
+
+<span class="cm"># Load these from YOUR consent screen / saved settings. Never hardcode true.</span>
+<span class="kw">var</span> has_gdpr_consent := <span class="kw">false</span>
+<span class="kw">var</span> has_privacy_consent := <span class="kw">false</span>
 
 <span class="kw">func</span> <span class="fn">_ready</span>() -> <span class="kw">void</span>:
     <span class="cm"># 1. Connect ALL signals first, before calling initialize()</span>
@@ -723,20 +753,25 @@ Release Password:  <span class="fn">your_password</span></pre>
     UnityAds.on_interstitial_loaded.<span class="fn">connect</span>(<span class="fn">_on_interstitial_loaded</span>)
     UnityAds.on_interstitial_completed.<span class="fn">connect</span>(<span class="fn">_on_interstitial_completed</span>)
     UnityAds.on_interstitial_failed_to_load.<span class="fn">connect</span>(<span class="fn">_on_interstitial_failed</span>)
+    UnityAds.on_interstitial_failed_to_show.<span class="fn">connect</span>(<span class="fn">_on_interstitial_failed_to_show</span>)
 
     UnityAds.on_rewarded_loaded.<span class="fn">connect</span>(<span class="fn">_on_rewarded_loaded</span>)
     UnityAds.on_rewarded_earned.<span class="fn">connect</span>(<span class="fn">_on_reward_earned</span>)
     UnityAds.on_rewarded_failed_to_load.<span class="fn">connect</span>(<span class="fn">_on_rewarded_failed</span>)
+    UnityAds.on_rewarded_failed_to_show.<span class="fn">connect</span>(<span class="fn">_on_rewarded_failed_to_show</span>)
 
     UnityAds.on_banner_loaded.<span class="fn">connect</span>(<span class="fn">_on_banner_loaded</span>)
     UnityAds.on_banner_failed_to_load.<span class="fn">connect</span>(<span class="fn">_on_banner_failed</span>)
     UnityAds.on_banner_clicked.<span class="fn">connect</span>(<span class="fn">_on_banner_clicked</span>)
 
-    <span class="cm"># 2. Set GDPR consent if needed (call before initialize)</span>
-    UnityAds.<span class="fn">set_consent</span>(<span class="kw">true</span>, <span class="kw">true</span>)
+    <span class="cm"># 2. Pass the player's real consent choice (call before initialize)</span>
+    UnityAds.<span class="fn">set_consent</span>(has_gdpr_consent, has_privacy_consent)
 
-    <span class="cm"># 3. Now initialize — uses GAME_ID + TEST_MODE from UnityAds.gd</span>
-    UnityAds.<span class="fn">initialize</span>()
+    <span class="cm"># 3. Initialize ONCE per app launch — uses GAME_ID + TEST_MODE from UnityAds.gd</span>
+    <span class="kw">if</span> <span class="kw">not</span> UnityAds.<span class="fn">is_initialized</span>():
+        UnityAds.<span class="fn">initialize</span>()
+    <span class="kw">else</span>:
+        <span class="fn">_on_ads_ready</span>()
 
 <span class="kw">func</span> <span class="fn">_on_ads_ready</span>() -> <span class="kw">void</span>:
     <span class="fn">print</span>(<span class="str">"Unity Ads ready — loading all ad types"</span>)
@@ -777,13 +812,19 @@ Release Password:  <span class="fn">your_password</span></pre>
 <span class="kw">func</span> <span class="fn">on_level_complete</span>() -> <span class="kw">void</span>:
     <span class="kw">if</span> UnityAds.<span class="fn">is_interstitial_ready</span>():
         UnityAds.<span class="fn">show_interstitial</span>()
-        <span class="cm"># Do NOT change scene here — wait for on_interstitial_completed</span>
+        <span class="cm"># Do NOT change scene here — wait for completed OR failed_to_show</span>
     <span class="kw">else</span>:
         <span class="fn">change_scene</span>()   <span class="cm"># Ad not ready — proceed without it</span>
 
 <span class="kw">func</span> <span class="fn">_on_interstitial_completed</span>(placement_id: <span class="kw">String</span>) -> <span class="kw">void</span>:
     <span class="cm"># Ad closed by user — now safe to change scene</span>
     <span class="cm"># UnityAds.gd auto-reloads interstitial here</span>
+    <span class="fn">change_scene</span>()
+
+<span class="kw">func</span> <span class="fn">_on_interstitial_failed_to_show</span>(placement_id: <span class="kw">String</span>, error: <span class="kw">String</span>, message: <span class="kw">String</span>) -> <span class="kw">void</span>:
+    <span class="cm"># The ad never appeared, so on_interstitial_completed will NOT fire.</span>
+    <span class="cm"># Continue anyway or the player is stuck on this screen.</span>
+    <span class="fn">print</span>(<span class="str">"Interstitial failed to show: "</span>, error)
     <span class="fn">change_scene</span>()
 
 <span class="cm"># ── Rewarded ────────────────────────────────────────────────────</span>
@@ -798,7 +839,12 @@ Release Password:  <span class="fn">your_password</span></pre>
         UnityAds.<span class="fn">show_rewarded</span>()
         <span class="cm"># Reward is given in _on_reward_earned, NOT here</span>
     <span class="kw">else</span>:
-        <span class="fn">print</span>(<span class="str">"Rewarded not ready yet"</span>)
+        <span class="fn">print</span>(<span class="str">"Rewarded not ready yet — requesting a new load"</span>)
+        UnityAds.<span class="fn">load_rewarded</span>()   <span class="cm"># safe fallback, see note below</span>
+
+<span class="kw">func</span> <span class="fn">_on_rewarded_failed_to_show</span>(placement_id: <span class="kw">String</span>, error: <span class="kw">String</span>, message: <span class="kw">String</span>) -> <span class="kw">void</span>:
+    <span class="fn">print</span>(<span class="str">"Rewarded failed to show: "</span>, error)
+    <span class="cm"># Tell the player the ad isn't available — do NOT give the reward</span>
 
 <span class="kw">func</span> <span class="fn">_on_reward_earned</span>(placement_id: <span class="kw">String</span>) -> <span class="kw">void</span>:
     <span class="cm"># Only fires when user COMPLETES the video — safe to give reward</span>
@@ -817,8 +863,54 @@ Release Password:  <span class="fn">your_password</span></pre>
             </div>
 
             <div class="card">
+                <h3>Notes on the Example</h3>
+
+                <div class="callout warning">
+                    <span class="callout-icon">⚠️</span>
+                    <div><strong>Initialize once, not in every scene.</strong> Put the code above in your first (boot) scene or in another autoload. Calling <code style="font-family:var(--font-mono); font-size:0.82rem;">initialize()</code> again in each scene re-runs the SDK start-up and stacks up signal connections. The <code style="font-family:var(--font-mono); font-size:0.82rem;">is_initialized()</code> check in the example guards against this.</div>
+                </div>
+
+                <div class="callout warning">
+                    <span class="callout-icon">⚠️</span>
+                    <div><strong>Rewarded: don't rely on auto-reload alone.</strong> <code style="font-family:var(--font-mono); font-size:0.82rem;">UnityAds.gd</code> reloads the rewarded ad after <code style="font-family:var(--font-mono); font-size:0.82rem;">on_rewarded_earned</code> and after a failed show. If a player skips or closes the video early, neither signal fires, so nothing triggers a new load and <code style="font-family:var(--font-mono); font-size:0.82rem;">is_rewarded_ready()</code> stays <code style="font-family:var(--font-mono); font-size:0.82rem;">false</code>. Call <code style="font-family:var(--font-mono); font-size:0.82rem;">load_rewarded()</code> whenever your "watch ad" button is pressed while the ad is not ready (as <code style="font-family:var(--font-mono); font-size:0.82rem;">offer_revive()</code> does above), and verify this behaviour on a real device.</div>
+                </div>
+
+                <div class="callout warning">
+                    <span class="callout-icon">⚠️</span>
+                    <div><strong>Consent.</strong> <code style="font-family:var(--font-mono); font-size:0.82rem;">set_consent(gdpr_consent, privacy_consent)</code> takes two booleans: the player's GDPR consent and their privacy-law consent. Pass the real answer from your own consent screen. Do not hardcode <code style="font-family:var(--font-mono); font-size:0.82rem;">true</code>. If your game is aimed at children, check Unity's child-directed / COPPA requirements and the Play Console families policy before you ship ads.</div>
+                </div>
+
+                <div class="callout info">
+                    <span class="callout-icon">ℹ️</span>
+                    <div><strong>Don't spam interstitials.</strong> Show them at natural breaks (level complete, game over), not at app launch or mid-gameplay. Rewarded ads should always be the player's choice.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Other Functions Available</h3>
+                <table class="signal-table">
+                    <thead>
+                        <tr><th>FUNCTION</th><th>RETURNS</th><th>WHAT IT DOES</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>initialize()</code></td><td>—</td><td class="sig-desc">Starts the SDK with <code>GAME_ID</code> and <code>TEST_MODE</code></td></tr>
+                        <tr><td><code>is_initialized()</code></td><td>bool</td><td class="sig-desc">True once the SDK has started (false on non-Android)</td></tr>
+                        <tr><td><code>set_consent(gdpr, privacy)</code></td><td>—</td><td class="sig-desc">Send the player's consent choice. Call before <code>initialize()</code></td></tr>
+                        <tr><td><code>load_interstitial()</code> / <code>show_interstitial()</code></td><td>—</td><td class="sig-desc">Load, then show. Show does nothing unless the ad is ready</td></tr>
+                        <tr><td><code>is_interstitial_ready()</code></td><td>bool</td><td class="sig-desc">True after <code>on_interstitial_loaded</code>, false after show</td></tr>
+                        <tr><td><code>load_rewarded()</code> / <code>show_rewarded()</code></td><td>—</td><td class="sig-desc">Same pattern as interstitial</td></tr>
+                        <tr><td><code>is_rewarded_ready()</code></td><td>bool</td><td class="sig-desc">True after <code>on_rewarded_loaded</code>, false after show</td></tr>
+                        <tr><td><code>load_banner(position)</code></td><td>—</td><td class="sig-desc"><code>"top"</code> or <code>"bottom"</code>. Loads and shows automatically</td></tr>
+                        <tr><td><code>set_banner_position(position)</code></td><td>—</td><td class="sig-desc">Move the banner without reloading it</td></tr>
+                        <tr><td><code>hide_banner()</code></td><td>—</td><td class="sig-desc">Removes the banner from the screen</td></tr>
+                        <tr><td><code>is_banner_ready()</code></td><td>bool</td><td class="sig-desc">True after <code>on_banner_loaded</code>, false after hide</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
                 <h3>Switching to Production</h3>
-                <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1rem;">Two changes needed in <code style="font-family:var(--font-mono); color:var(--accent); font-size:0.82rem;">UnityAds.gd</code> before your release build:</p>
+                <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1rem;">Before your release build, check these two constants in <code style="font-family:var(--font-mono); color:var(--accent); font-size:0.82rem;">UnityAds.gd</code> before your release build:</p>
 
                 <div class="code-wrap">
                     <div class="code-header">
@@ -826,17 +918,17 @@ Release Password:  <span class="fn">your_password</span></pre>
                         <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                     </div>
                     <pre><span class="cm"># DEVELOPMENT</span>
-<span class="kw">const</span> GAME_ID = <span class="str">"6020875"</span>      <span class="cm">← replace with your real Game ID</span>
-<span class="kw">const</span> TEST_MODE = <span class="kw">true</span>         <span class="cm">← set to false for release</span>
+<span class="kw">const</span> GAME_ID = <span class="str">"YOUR_GAME_ID_HERE"</span>   <span class="cm">← your real Game ID from Unity Dashboard</span>
+<span class="kw">const</span> TEST_MODE = <span class="kw">true</span>                 <span class="cm">← test ads only</span>
 
-<span class="cm"># PRODUCTION</span>
-<span class="kw">const</span> GAME_ID = <span class="str">"YOUR_REAL_ID"</span> <span class="cm">← from Unity Dashboard</span>
-<span class="kw">const</span> TEST_MODE = <span class="kw">false</span>        <span class="cm">← must be false in release APK</span></pre>
+<span class="cm"># PRODUCTION (same Game ID, only the flag changes)</span>
+<span class="kw">const</span> GAME_ID = <span class="str">"YOUR_GAME_ID_HERE"</span>
+<span class="kw">const</span> TEST_MODE = <span class="kw">false</span>                <span class="cm">← must be false in the release build</span></pre>
                 </div>
 
                 <div class="callout warning">
                     <span class="callout-icon">⚠️</span>
-                    <div><strong>Never release with <code style="font-family:var(--font-mono); font-size:0.82rem;">TEST_MODE = true</code>.</strong> Test mode serves fake ads that don't generate revenue and will violate Unity Ads policies if left on in production.</div>
+                    <div><strong>Never release with <code style="font-family:var(--font-mono); font-size:0.82rem;">TEST_MODE = true</code>.</strong> Test mode serves test ads that generate no revenue. Also never click your own live ads while testing: switch <code style="font-family:var(--font-mono); font-size:0.82rem;">TEST_MODE</code> back to <code style="font-family:var(--font-mono); font-size:0.82rem;">true</code> for development builds.</div>
                 </div>
             </div>
         </section>
@@ -881,7 +973,7 @@ Release Password:  <span class="fn">your_password</span></pre>
 
                 <div class="callout info">
                     <span class="callout-icon">ℹ️</span>
-                    <div><strong>Auto-retry is built in.</strong> If interstitial or rewarded fails to load, the plugin automatically retries after 5 seconds — you don't need to write any retry logic yourself.</div>
+                    <div><strong>Auto-retry is built in.</strong> If interstitial or rewarded fails to load, the plugin automatically retries after 5 seconds — you don't need to write any retry logic yourself. Note that the retry has <strong>no limit</strong>: with no fill it keeps trying every 5 seconds, so on a very new app you will see repeated failed-to-load messages in the log. That is normal, but you can cap it by editing the <code style="font-family:var(--font-mono); font-size:0.82rem;">await</code> retry lines in <code style="font-family:var(--font-mono); font-size:0.82rem;">UnityAds.gd</code> if you want.</div>
                 </div>
             </div>
         </section>
@@ -897,7 +989,7 @@ Release Password:  <span class="fn">your_password</span></pre>
 
             <div class="callout warning">
                 <span class="callout-icon">⚠️</span>
-                <div><strong>Before debugging:</strong> Confirm you exported a <strong>Release APK</strong> (not one-click deploy) with a <strong>Release Keystore</strong>, installed on a real Android device.</div>
+                <div><strong>Before debugging:</strong> Confirm you are testing on a <strong>real Android device</strong> with a <strong>Gradle build</strong>. Ads never run in the editor or on desktop. A debug build is fine for testing with <code style="font-family:var(--font-mono); font-size:0.82rem;">TEST_MODE = true</code>.</div>
             </div>
 
             <div class="card">
@@ -931,7 +1023,7 @@ Release Password:  <span class="fn">your_password</span></pre>
                                 <div style="font-weight:700; font-size:0.82rem; color:white;">Play Store listing</div>
                             </td>
                             <td class="fix">
-                                <strong>Your app must be published on the Play Store to serve real ads.</strong> Unity Ads verifies your app through the store. Publish to at least internal testing on Play Console to pass verification and enable full ad serving.
+                                <strong>Real ad fill is usually poor until your app is live.</strong> Test ads (<code style="font-family:var(--font-mono); font-size:0.82rem;">TEST_MODE = true</code>) do not need a Play Store listing. For real ads, expect low or no fill for a brand-new or unpublished app, and add your store details in the Unity dashboard once the app is published.
                             </td>
                         </tr>
                         <tr>
@@ -968,7 +1060,7 @@ Release Password:  <span class="fn">your_password</span></pre>
                         </tr>
                         <tr>
                             <td class="issue">Ads work in test, not production</td>
-                            <td class="fix"><strong>TEST_MODE still true, or debug keystore used.</strong> Set <code style="font-family:var(--font-mono); font-size:0.82rem;">TEST_MODE = false</code> and re-export with your release keystore.</td>
+                            <td class="fix"><strong>Usually no fill yet, or a setup mismatch.</strong> Check that <code style="font-family:var(--font-mono); font-size:0.82rem;">TEST_MODE = false</code>, the Game ID and placement names match the dashboard exactly, and the Reporting page shows requests. A new app can take days to get consistent fill. Also confirm your consent values are being passed correctly.</td>
                         </tr>
                         <tr>
                             <td class="issue">Gradle build fails</td>
@@ -981,6 +1073,18 @@ Release Password:  <span class="fn">your_password</span></pre>
                         <tr>
                             <td class="issue">show_interstitial() does nothing</td>
                             <td class="fix"><strong>Called before loading or wrong signal syntax.</strong> Always call <code style="font-family:var(--font-mono); font-size:0.82rem;">initialize()</code> → wait for <code style="font-family:var(--font-mono); font-size:0.82rem;">on_initialization_complete</code> → <code style="font-family:var(--font-mono); font-size:0.82rem;">load_interstitial()</code> → wait for <code style="font-family:var(--font-mono); font-size:0.82rem;">on_interstitial_loaded</code> → then show. Also confirm you're using Godot 4 dot syntax for signals: <code style="font-family:var(--font-mono); font-size:0.82rem;">UnityAds.on_interstitial_loaded.connect(func)</code></td>
+                        </tr>
+                        <tr>
+                            <td class="issue">Player stuck after an interstitial</td>
+                            <td class="fix"><strong>You changed scene only in <code style="font-family:var(--font-mono); font-size:0.82rem;">on_interstitial_completed</code>.</strong> If the show fails, that signal never fires. Connect <code style="font-family:var(--font-mono); font-size:0.82rem;">on_interstitial_failed_to_show</code> and continue there too.</td>
+                        </tr>
+                        <tr>
+                            <td class="issue">Rewarded button works once, then never again</td>
+                            <td class="fix"><strong>No new load after a skipped video.</strong> Call <code style="font-family:var(--font-mono); font-size:0.82rem;">load_rewarded()</code> when the ad is not ready (see the notes in Step 5).</td>
+                        </tr>
+                        <tr>
+                            <td class="issue">Every signal fires twice</td>
+                            <td class="fix"><strong><code style="font-family:var(--font-mono); font-size:0.82rem;">UnityAds.gd</code> was also added to a scene as a Node.</strong> Remove it from the scene. It must exist only as the autoload.</td>
                         </tr>
                         <tr>
                             <td class="issue">Signals never fire</td>
@@ -1035,6 +1139,167 @@ adb logcat | grep -i <span class="str">"Godot"</span>
                 <div class="callout success">
                     <span class="callout-icon">💡</span>
                     <div><strong>Pro tip:</strong> Use both plugins together. Add Unity Ads as a mediation source inside AdMob dashboard for maximum fill rate and revenue. Both plugins can run in the same Godot project simultaneously.</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- ── STEP 8: MISTAKES TO AVOID ── -->
+        <section class="step-section" id="step8">
+            <div class="step-header">
+                <div class="step-num" style="background:rgba(255,82,82,0.15); border-color:rgba(255,82,82,0.4); color:var(--danger);">!</div>
+                <h2>Mistakes <span style="color:var(--danger);">to Avoid</span></h2>
+            </div>
+
+            <div class="card">
+                <h3>The 18 Mistakes That Break Most Setups</h3>
+                <p style="color:var(--muted); font-size:0.9rem;">Almost every "my ads don't work" report comes from one of these. Skim the list before you export, and again before you publish.</p>
+                <div class="mistake-list">
+                    <div class="mistake">
+                        <div class="mistake-num">1</div>
+                        <div>
+                            <h4>Adding <code>UnityAds.gd</code> to a scene as well as the autoload</h4>
+                            <p>A second copy connects to the native plugin again, so every signal fires twice (double rewards, double scene changes).</p>
+                            <p class="do"><strong>Do this instead:</strong> Use only the <code>UnityAds</code> autoload that the plugin registers.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">2</div>
+                        <div>
+                            <h4>Exporting without Gradle Build or the Android build template</h4>
+                            <p>The <code>.aar</code> cannot be bundled, so the app crashes on launch or the singleton is never found.</p>
+                            <p class="do"><strong>Do this instead:</strong> Install the build template, turn on <strong>Use Gradle Build</strong> in the Android preset, and reinstall the template after every Godot upgrade.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">3</div>
+                        <div>
+                            <h4>Using the wrong JDK, SDK or Min SDK</h4>
+                            <p>JDK 21+ with Godot 4.4 gives Gradle errors, and a Min SDK below 24 breaks the manifest merge.</p>
+                            <p class="do"><strong>Do this instead:</strong> Use JDK 17 for Godot 4.4, set Min SDK to 24 or higher, and check the Godot docs for the versions your editor needs.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">4</div>
+                        <div>
+                            <h4>Hand-editing <code>AndroidManifest.xml</code> to add Unity activities or permissions</h4>
+                            <p>The export plugin already injects them, so your copy causes a <em>Manifest merger failed</em> error.</p>
+                            <p class="do"><strong>Do this instead:</strong> Remove manual copies and let the plugin do it.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">5</div>
+                        <div>
+                            <h4>Releasing with <code>TEST_MODE = true</code></h4>
+                            <p>You get test ads and no revenue.</p>
+                            <p class="do"><strong>Do this instead:</strong> Set <code>TEST_MODE = false</code> in <code>UnityAds.gd</code> before your release export, and set it back to <code>true</code> for development.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">6</div>
+                        <div>
+                            <h4>Clicking your own live ads</h4>
+                            <p>Self-clicks look like invalid traffic and can get your Unity account flagged.</p>
+                            <p class="do"><strong>Do this instead:</strong> Test with <code>TEST_MODE = true</code>. Never tap live ads on your own device.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">7</div>
+                        <div>
+                            <h4>Loading before init finishes, or showing before the ad is loaded</h4>
+                            <p>Loads fail and <code>show_*()</code> silently does nothing.</p>
+                            <p class="do"><strong>Do this instead:</strong> Wait for <code>on_initialization_complete</code> before <code>load_*()</code>, and check <code>is_*_ready()</code> before <code>show_*()</code>.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">8</div>
+                        <div>
+                            <h4>Calling <code>initialize()</code> in every scene</h4>
+                            <p>It re-runs SDK start-up and stacks signal connections each time the scene loads.</p>
+                            <p class="do"><strong>Do this instead:</strong> Initialize once from a boot scene, guarded by <code>is_initialized()</code>.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">9</div>
+                        <div>
+                            <h4>Changing scene only in <code>on_interstitial_completed</code></h4>
+                            <p>If the ad fails to show, that signal never fires and the player is stuck.</p>
+                            <p class="do"><strong>Do this instead:</strong> Also connect <code>on_interstitial_failed_to_show</code> and continue from there.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">10</div>
+                        <div>
+                            <h4>Giving the reward when you call <code>show_rewarded()</code></h4>
+                            <p>Players get the reward without watching, and failed shows still pay out.</p>
+                            <p class="do"><strong>Do this instead:</strong> Give rewards only in <code>on_rewarded_earned</code>.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">11</div>
+                        <div>
+                            <h4>Trusting auto-reload for rewarded ads</h4>
+                            <p>A skipped video can leave the rewarded ad unloaded, so the button stops working.</p>
+                            <p class="do"><strong>Do this instead:</strong> Call <code>load_rewarded()</code> when you need the ad and <code>is_rewarded_ready()</code> is false.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">12</div>
+                        <div>
+                            <h4>Forgetting to create the <code>Banner_Android</code> placement</h4>
+                            <p>Banners never load. Interstitial and Rewarded are created for you, Banner is not.</p>
+                            <p class="do"><strong>Do this instead:</strong> Create it under <strong>Monetization → Ad Units</strong>, named exactly <code>Banner_Android</code> (case-sensitive).</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">13</div>
+                        <div>
+                            <h4>Hardcoding <code>set_consent(true, true)</code></h4>
+                            <p>You tell Unity the player consented when they may not have, which is a privacy-law problem.</p>
+                            <p class="do"><strong>Do this instead:</strong> Pass the player's real choice from a consent screen, and check child-directed rules if your game targets kids.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">14</div>
+                        <div>
+                            <h4>Using Godot 3 signal syntax</h4>
+                            <p><code>UnityAds.connect("on_x", fn)</code> is the old style, so your handlers never run.</p>
+                            <p class="do"><strong>Do this instead:</strong> Use <code>UnityAds.on_x.connect(fn)</code>.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">15</div>
+                        <div>
+                            <h4>Testing in the editor or on desktop</h4>
+                            <p>There is no native plugin there, so nothing loads and the log says <em>Plugin NOT found</em>.</p>
+                            <p class="do"><strong>Do this instead:</strong> Export to a real Android device and read <code>adb logcat</code>.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">16</div>
+                        <div>
+                            <h4>Renaming the addon folder</h4>
+                            <p>The AAR path and autoload path are hardcoded to <code>unity_ads_plugin</code>.</p>
+                            <p class="do"><strong>Do this instead:</strong> Keep the folder at <code>res://addons/unity_ads_plugin/</code>.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">17</div>
+                        <div>
+                            <h4>Showing interstitials at the wrong moments</h4>
+                            <p>Ads at app launch or mid-gameplay hurt retention and reviews.</p>
+                            <p class="do"><strong>Do this instead:</strong> Show them at natural breaks such as level complete or game over, and keep rewarded ads optional.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">18</div>
+                        <div>
+                            <h4>Losing your release keystore</h4>
+                            <p>You cannot publish updates to the same Play Store app.</p>
+                            <p class="do"><strong>Do this instead:</strong> Back it up with its alias and passwords in more than one safe place.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
