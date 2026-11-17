@@ -989,7 +989,7 @@ Release Password:  <span class="fn">your_password</span></pre>
 
             <div class="callout warning">
                 <span class="callout-icon">⚠️</span>
-                <div><strong>Before debugging:</strong> Confirm you are testing on a <strong>real Android device</strong> with a <strong>Gradle build</strong>. Ads never run in the editor or on desktop. A debug build is fine for testing with <code style="font-family:var(--font-mono); font-size:0.82rem;">TEST_MODE = true</code>.</div>
+                <div><strong>Before debugging:</strong> Confirm you exported a <strong>Release build signed with your Release Keystore</strong> (via Project → Export, not one-click deploy) and installed it on a <strong>real Android device</strong>. Ads never run in the editor or on desktop. A debug build is fine only for quick checks with <code style="font-family:var(--font-mono); font-size:0.82rem;">TEST_MODE = true</code>; real ads need the release build.</div>
             </div>
 
             <div class="card">
@@ -1023,7 +1023,7 @@ Release Password:  <span class="fn">your_password</span></pre>
                                 <div style="font-weight:700; font-size:0.82rem; color:white;">Play Store listing</div>
                             </td>
                             <td class="fix">
-                                <strong>Real ad fill is usually poor until your app is live.</strong> Test ads (<code style="font-family:var(--font-mono); font-size:0.82rem;">TEST_MODE = true</code>) do not need a Play Store listing. For real ads, expect low or no fill for a brand-new or unpublished app, and add your store details in the Unity dashboard once the app is published.
+                                <strong>Publish the app and add your Play Store ID.</strong> Test ads (<code style="font-family:var(--font-mono); font-size:0.82rem;">TEST_MODE = true</code>) work without a listing, but for real ads publish the app on the Play Store (at least internal testing) and add its Store ID in Unity Dashboard → Project Settings. Unity says this is optional for showing ads, but some of its advertising partners require it, so without it fill rate and revenue suffer. If the app was just published, Unity may not find it for 5 to 7 days; try again then.
                             </td>
                         </tr>
                         <tr>
@@ -1060,7 +1060,7 @@ Release Password:  <span class="fn">your_password</span></pre>
                         </tr>
                         <tr>
                             <td class="issue">Ads work in test, not production</td>
-                            <td class="fix"><strong>Usually no fill yet, or a setup mismatch.</strong> Check that <code style="font-family:var(--font-mono); font-size:0.82rem;">TEST_MODE = false</code>, the Game ID and placement names match the dashboard exactly, and the Reporting page shows requests. A new app can take days to get consistent fill. Also confirm your consent values are being passed correctly.</td>
+                            <td class="fix"><strong>TEST_MODE still true, debug-signed build, or no Store ID.</strong> Set <code style="font-family:var(--font-mono); font-size:0.82rem;">TEST_MODE = false</code>, re-export a Release build signed with your release keystore, and make sure the app is published with its Play Store ID added in the Unity dashboard. Also check the Game ID and placement names match the dashboard exactly, that Reporting shows requests, and that your consent values are passed correctly. A new app can take days to get consistent fill.</td>
                         </tr>
                         <tr>
                             <td class="issue">Gradle build fails</td>
@@ -1153,7 +1153,7 @@ adb logcat | grep -i <span class="str">"Godot"</span>
             </div>
 
             <div class="card">
-                <h3>The 18 Mistakes That Break Most Setups</h3>
+                <h3>The 19 Mistakes That Break Most Setups</h3>
                 <p style="color:var(--muted); font-size:0.9rem;">Almost every "my ads don't work" report comes from one of these. Skim the list before you export, and again before you publish.</p>
                 <div class="mistake-list">
                     <div class="mistake">
@@ -1298,6 +1298,14 @@ adb logcat | grep -i <span class="str">"Godot"</span>
                             <h4>Losing your release keystore</h4>
                             <p>You cannot publish updates to the same Play Store app.</p>
                             <p class="do"><strong>Do this instead:</strong> Back it up with its alias and passwords in more than one safe place.</p>
+                        </div>
+                    </div>
+                    <div class="mistake">
+                        <div class="mistake-num">19</div>
+                        <div>
+                            <h4>Expecting real ads from a debug build or an unpublished app</h4>
+                            <p>Real production traffic needs a Release build signed with your release keystore. Unity also says some ad partners require your Play Store ID, so skipping it hurts fill and revenue.</p>
+                            <p class="do"><strong>Do this instead:</strong> Export a Release build, publish the app on the Play Store, and add its Store ID under <strong>Unity Dashboard → Project Settings</strong> (retry after 5 to 7 days if Unity can't find a new app).</p>
                         </div>
                     </div>
                 </div>
