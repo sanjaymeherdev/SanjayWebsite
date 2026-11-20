@@ -1,0 +1,47 @@
+/* Roblox services page. Uses the shared hub styles in portfolio-hub.css. */
+main.wrap{display:flex;flex-direction:column;gap:3rem}
+.svc-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem}
+.svc-sub{font-size:.88rem;color:var(--muted);margin:-.4rem 0 1rem;max-width:60ch;line-height:1.55}
+
+.svc-primary{background:radial-gradient(circle at 0% 0%,rgba(var(--accent-rgb),.14),transparent 55%),var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:16px;padding:1.6rem 1.6rem 1.5rem;display:grid;grid-template-columns:1.15fr 1fr;gap:1.6rem 2.2rem}
+.svc-primary h2{font-family:var(--display);font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.02em;line-height:1.1}
+.svc-primary .lead{margin-top:.8rem;color:var(--muted);line-height:1.6;font-size:.95rem}
+.svc-points{list-style:none;display:flex;flex-direction:column;gap:.55rem;margin-top:1.1rem}
+.svc-points li{position:relative;padding-left:1.5rem;font-size:.9rem;line-height:1.5}
+.svc-points li::before{content:"";position:absolute;left:0;top:.45em;width:.55rem;height:.55rem;border-radius:50%;background:var(--accent)}
+.svc-steps{list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:.9rem;align-self:start;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.15rem}
+.svc-steps h3{font-size:.8rem;font-weight:600;color:var(--muted);margin-bottom:.2rem}
+.svc-steps li{counter-increment:s;position:relative;padding-left:2.1rem}
+.svc-steps li::before{content:counter(s);position:absolute;left:0;top:0;width:1.45rem;height:1.45rem;border-radius:50%;background:var(--accent);color:#1a0705;font-family:var(--mono);font-size:.72rem;font-weight:500;display:flex;align-items:center;justify-content:center}
+.svc-steps b{display:block;font-size:.9rem;font-weight:600}
+.svc-steps span{display:block;margin-top:.15rem;font-size:.82rem;color:var(--muted);line-height:1.45}
+.svc-foot{grid-column:1/-1;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:1.1rem}
+.svc-meta{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-right:auto}
+.svc-meta b{color:var(--accent);font-weight:500}
+
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.1rem}
+.svc-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.2rem 1.25rem;display:flex;flex-direction:column;gap:.7rem;transition:border-color .2s}
+.svc-card:hover{border-color:#46404f}
+.svc-card h3{font-family:var(--display);font-size:1.2rem;letter-spacing:-.01em;line-height:1.2}
+.svc-card p{font-size:.88rem;color:var(--muted);line-height:1.55}
+.svc-card .svc-points{margin-top:.2rem}
+.svc-card .svc-points li{font-size:.84rem}
+.svc-card .acts{margin-top:auto;padding-top:.5rem;display:flex;flex-direction:column;align-items:flex-start;gap:.6rem}
+.svc-card.addon-card{padding:1rem 1.1rem;gap:.5rem}
+.svc-card.addon-card h3{font-size:1.05rem}
+.svc-tag{align-self:flex-start;font-family:var(--mono);font-size:.62rem;padding:.25rem .5rem;border-radius:5px;background:var(--surface-2);border:1px solid var(--line);color:var(--muted)}
+.svc-price{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.svc-price b{color:var(--accent);font-weight:500}
+.pill.main{background:var(--accent);border-color:var(--accent);color:#1a0705;font-weight:600}
+.pill.main:hover{color:#1a0705;filter:brightness(1.08)}
+
+.svc-contact{text-align:center;padding:2.2rem 1.2rem;border:1px dashed var(--line);border-radius:16px}
+.svc-contact h2{font-family:var(--display);font-size:1.6rem;letter-spacing:-.02em}
+.svc-contact p{margin:.6rem auto 1.2rem;color:var(--muted);max-width:46ch;line-height:1.6;font-size:.92rem}
+
+@media (max-width:760px){
+  main.wrap{gap:2.2rem}
+  .svc-primary{grid-template-columns:1fr;padding:1.25rem 1.15rem}
+  .svc-grid{grid-template-columns:1fr}
+  .svc-meta{width:100%;margin-right:0}
+}

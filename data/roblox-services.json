@@ -1,0 +1,99 @@
+{
+  "primary": {
+    "label": "Main service",
+    "id": "story-shorts",
+    "title": "Animated story shorts for YouTubers",
+    "summary": "I turn your scripts into finished animated shorts for your channel, so you can keep a steady upload schedule without animating anything yourself.",
+    "points": [
+      "Your script or idea turned into a vertical short, ready to upload",
+      "The same characters and sets across episodes, so your channel looks consistent",
+      "Works for one-off videos or a monthly package of episodes",
+      "Draft for feedback before the final render, with revisions agreed upfront",
+      "Characters and animations made for your channel, with ownership agreed in writing"
+    ],
+    "steps": [
+      {
+        "t": "Share the script",
+        "d": "Send the story, a rough idea or a reference video."
+      },
+      {
+        "t": "Set up the look",
+        "d": "Pick the characters, sets and style for your channel."
+      },
+      {
+        "t": "Review a draft",
+        "d": "You see the animation early and can ask for changes."
+      },
+      {
+        "t": "Final delivery",
+        "d": "The finished short, ready to upload."
+      }
+    ],
+    "price": "",
+    "turnaround": "",
+    "cta": "Ask about story shorts",
+    "work": [
+      {
+        "label": "See story shorts",
+        "href": "roblox.html#videos"
+      },
+      {
+        "label": "See client work",
+        "href": "roblox.html#clients"
+      }
+    ]
+  },
+  "secondary": {
+    "label": "Also offered",
+    "services": [
+      {
+        "id": "character-rigging",
+        "title": "Character rigging",
+        "summary": "Rigs that animate cleanly, for Roblox characters or your own custom characters.",
+        "points": [
+          "R15 and custom character rigs",
+          "Mixamo animations retargeted onto R15",
+          "Tested with animations before I hand it over"
+        ],
+        "price": "",
+        "turnaround": "",
+        "cta": "Ask about rigging"
+      },
+      {
+        "id": "dev-game-ready-animation",
+        "title": "Dev and game-ready animation",
+        "summary": "Animations built to be used inside a Roblox game, and help getting them working.",
+        "points": [
+          "Idles, walks, combat moves and emotes made for in-game use",
+          "Set up and exported so they work in Roblox Studio",
+          "Roblox game development help when you need it"
+        ],
+        "price": "",
+        "turnaround": "",
+        "cta": "Ask about game animation"
+      }
+    ]
+  },
+  "addons": {
+    "label": "Add-ons",
+    "sub": "Add these to any project. I do not sell them as stand-alone services.",
+    "services": [
+      {
+        "id": "modelling",
+        "title": "Modelling",
+        "summary": "UGC items and custom models for your characters, props and sets.",
+        "price": ""
+      },
+      {
+        "id": "texturing",
+        "title": "Texturing",
+        "summary": "Textures and materials for the models in your project.",
+        "price": ""
+      }
+    ]
+  },
+  "contact": {
+    "title": "Have a project in mind?",
+    "sub": "Message me with what you are making, how many videos or characters you need, and when you want them."
+  }
+}
