@@ -119,3 +119,15 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 .addon .acts .pill{font-size:.8rem;padding:.45rem .85rem}
 .addon .acts .pill.main{background:var(--accent);border-color:var(--accent);color:#1a1007;font-weight:600}
 @media (max-width:760px){.grid-addons{grid-template-columns:1fr}}
+
+/* ---- Client Works: watermark, top shield and full-screen button on the Drive player ---- */
+.lb-frame{position:relative}
+.cw-wm{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}
+.cw-wm img{position:absolute;width:15%;min-width:44px;max-width:120px;height:auto;opacity:.4;left:4%;top:12%;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5));user-select:none;animation:cw-drift 26s ease-in-out infinite alternate}
+@keyframes cw-drift{0%{left:4%;top:12%}25%{left:78%;top:22%}50%{left:66%;top:66%}75%{left:8%;top:58%}100%{left:42%;top:40%}}
+.cw-shield{position:absolute;top:0;left:0;right:0;height:64px;z-index:3}
+.cw-fs{position:absolute;top:10px;right:10px;z-index:4;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid rgba(255,255,255,.25);background:rgba(13,12,15,.6);color:#fff;cursor:pointer}
+.cw-fs:hover{background:rgba(13,12,15,.85)}
+.lb-frame:fullscreen{max-width:none!important;width:100vw;height:100vh;aspect-ratio:auto!important;border-radius:0;border:0}
+.lb-frame:-webkit-full-screen{max-width:none!important;width:100vw;height:100vh;aspect-ratio:auto!important;border-radius:0;border:0}
+@media (prefers-reduced-motion:reduce){.cw-wm img{animation:none;left:42%;top:40%}}

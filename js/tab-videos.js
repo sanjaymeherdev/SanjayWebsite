@@ -1,6 +1,7 @@
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const lb = document.getElementById('lightbox'), frame = document.getElementById('lbFrame');
 let lastFocus = null;
+export const setLastFocus = el => { lastFocus = el; };
 const play = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
 
 function card(v) {
@@ -53,6 +54,7 @@ export function renderVideoList(panel, videos, emptyHtml) {
 
 function open(v, trigger) {
   lastFocus = trigger;
+  document.getElementById('lbYt').style.display = '';
   lb.className = `overlay open ${v.format === 'long' ? 'lb-long' : 'lb-short'}`;
   document.getElementById('lbTitle').textContent = v.title;
   document.getElementById('lbYt').href = `https://www.youtube.com/watch?v=${encodeURIComponent(v.id)}`;

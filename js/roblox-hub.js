@@ -2,22 +2,26 @@
 import { renderVideoList } from './tab-videos.js';
 import { renderGallery } from './tab-gallery.js';
 import { renderAddons } from './tab-addons.js';
+import { renderClients } from './tab-clients.js';
 import { openViewer, closeViewer } from './viewer.js';
 import { listModels } from './supa.js';
 
 const $ = s => document.querySelector(s);
 const panel = $('#panel');
 
-// type: 'videos' | 'gallery' | 'addons'.
+// type: 'videos' | 'clients' | 'gallery' | 'addons'.
+// 'videos' lists every Roblox entry of data/videos.json (shorts and long films together).
+// 'clients' reads data/clients.json (private Drive videos with a watermark).
 // gallery tabs read data/<data>.json and every Supabase folder in `kinds` (uploads go to the "roblox-*" folders).
 // 'characters' also lists the existing "characters" folder; drop it from `kinds` if those are not Roblox characters.
 const TABS = [
-  { key: 'shorts',     type: 'videos',  format: 'short', empty: 'No Roblox shorts yet.<br>Add entries with <code>"section": "roblox"</code> and <code>"format": "short"</code> to <code>data/videos.json</code>.' },
-  { key: 'long',       type: 'videos',  format: 'long',  empty: 'No long Roblox videos yet.<br>Add entries with <code>"section": "roblox"</code> and <code>"format": "long"</code> to <code>data/videos.json</code>.' },
+  { key: 'videos',     type: 'videos',  empty: 'No Roblox videos yet.<br>Add entries with <code>"section": "roblox"</code> to <code>data/videos.json</code> (<code>"format"</code> is <code>short</code> or <code>long</code>).' },
+  { key: 'clients',    type: 'clients', data: 'clients' },
   { key: 'characters', type: 'gallery', data: 'roblox-characters', kinds: ['roblox-characters', 'characters'], label: 'characters' },
   { key: 'animations', type: 'gallery', data: 'roblox-animations', kinds: ['roblox-animations'], label: 'animation packs' },
   { key: 'addons',     type: 'addons',  data: 'roblox-addons' },
 ];
+const OLD_KEYS = { shorts: 'videos', long: 'videos' };
 const cache = {};
 let site = null, shownTab = null;
 
@@ -39,7 +43,8 @@ export function waLink(context) {
 const setWa = ctx => { $('#waHead').href = $('#waFab').href = waLink(ctx); };
 
 async function route() {
-  const [k, sub] = location.hash.slice(1).split('/').map(decodeURIComponent);
+  const [k0, sub] = location.hash.slice(1).split('/').map(decodeURIComponent);
+  const k = OLD_KEYS[k0] || k0;   // keep old #shorts / #long links working
   const tab = TABS.find(t => t.key === k) || TABS[0];
   document.querySelectorAll('.tab').forEach(b => {
     const on = b.dataset.tab === tab.key;
@@ -62,8 +67,9 @@ async function route() {
     }
     closeViewer(true);
     if (tab.type === 'videos') {
-      const videos = (await getJson('videos')).filter(v => v.section === 'roblox' && (v.format === 'long') === (tab.format === 'long'));
-      renderVideoList(panel, videos, tab.empty);
+      renderVideoList(panel, (await getJson('videos')).filter(v => v.section === 'roblox'), tab.empty);
+    } else if (tab.type === 'clients') {
+      renderClients(panel, await getJson(tab.data));
     } else {
       renderAddons(panel, await getJson(tab.data), waLink);
     }
