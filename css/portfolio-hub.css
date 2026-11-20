@@ -131,3 +131,8 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 .lb-frame:fullscreen{max-width:none!important;width:100vw;height:100vh;aspect-ratio:auto!important;border-radius:0;border:0}
 .lb-frame:-webkit-full-screen{max-width:none!important;width:100vw;height:100vh;aspect-ratio:auto!important;border-radius:0;border:0}
 @media (prefers-reduced-motion:reduce){.cw-wm img{animation:none;left:42%;top:40%}}
+
+/* Tab bar: tabs plus a plain link to another page (roblox.html) */
+.tablist{display:flex;gap:.25rem;flex:none}
+.tab-link{display:inline-flex;align-items:center;flex:none;color:var(--accent);white-space:nowrap}
+.tab-link:hover{color:var(--text)}

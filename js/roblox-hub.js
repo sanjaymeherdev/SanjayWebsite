@@ -46,7 +46,7 @@ async function route() {
   const [k0, sub] = location.hash.slice(1).split('/').map(decodeURIComponent);
   const k = OLD_KEYS[k0] || k0;   // keep old #shorts / #long links working
   const tab = TABS.find(t => t.key === k) || TABS[0];
-  document.querySelectorAll('.tab').forEach(b => {
+  document.querySelectorAll('.tab[data-tab]').forEach(b => {
     const on = b.dataset.tab === tab.key;
     b.setAttribute('aria-selected', on);
     b.tabIndex = on ? 0 : -1;
@@ -79,7 +79,7 @@ async function route() {
   }
 }
 
-document.querySelectorAll('.tab').forEach(b => {
+document.querySelectorAll('.tab[data-tab]').forEach(b => {
   b.addEventListener('click', () => { location.hash = b.dataset.tab; });
   b.addEventListener('keydown', e => {
     const i = TABS.findIndex(t => t.key === b.dataset.tab), n = TABS.length;
